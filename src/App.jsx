@@ -1,10 +1,8 @@
-import Login from "./Pages/Auth/Login";
+import MainNavigation from "./Navigation/MailNavigation";
 
 function App() {
   return (
-    <div>
-      <Login />
-    </div>
+    <MainNavigation />
   );
 }
 

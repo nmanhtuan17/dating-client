@@ -2,11 +2,13 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import { persistStore, persistReducer} from "redux-persist"
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {AppSlice} from "./Slice/AppSlice";
+import {appSlice} from "./Slice/app.slice";
 import storage from 'redux-persist/lib/storage';
+import {authSlice} from "./Slice/auth.slice";
 
 export const reducers = combineReducers({
-  app: AppSlice.reducer
+  app: appSlice.reducer,
+  auth: authSlice.reducer
 })
 
 const persistConfig = {
