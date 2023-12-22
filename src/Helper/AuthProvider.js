@@ -1,9 +1,9 @@
-import {useEffect} from "react";
-import {bootApp} from "../../../Store/Action/app.action";
-import {useAppDispatch, useAppSelector} from "../../../Store/store";
+import {useAppDispatch, useAppSelector} from "../Store/store";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import {bootApp} from "../Store/Action/app.action";
 
-const SplashScreen = () => {
+const AuthProvider = () => {
   const {isSignIn} = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ const SplashScreen = () => {
       navigate('/sign-in')
     }
   }, []);
-  return (
-    <div></div>
-  )
+  return <></>
 }
+
+export default AuthProvider
