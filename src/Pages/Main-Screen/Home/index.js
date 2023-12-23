@@ -1,16 +1,19 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
+import React, {useState} from 'react';
+import {Space, Table, Tag} from 'antd';
 import List from 'rc-virtual-list'
+import {width, height} from '../../../Constant/Size'
 const columns = [
   {
     title: 'STT',
     dataIndex: 'stt',
-    key: 'stt'
+    key: 'stt',
+    width: 50
   },
   {
     title: 'Mã môn',
     dataIndex: 'mm',
     key: 'mm',
+    width: 70
   },
   {
     title: 'Tên môn',
@@ -25,22 +28,26 @@ const columns = [
   {
     title: 'Thứ',
     key: 'thu',
-    dataIndex: 'thu'
+    dataIndex: 'thu',
+    width: 50
   },
   {
     title: 'Ca học',
     key: 'ca',
-    dataIndex: 'ca'
+    dataIndex: 'ca',
+    width: 60
   },
   {
     title: 'Phòng học',
     key: 'room',
-    dataIndex: 'room'
+    dataIndex: 'room',
+    width: 100
   },
   {
     title: 'Tín chỉ',
     key: 'tc',
-    dataIndex: 'tc'
+    dataIndex: 'tc',
+    width: 60
   },
   {
     title: 'Giáo viên',
@@ -160,7 +167,7 @@ const data = [
     gv: "Đinh Thị Thúy(CTI050)"
   },
   {
-    stt: 10,
+    stt: 11,
     mm: "IS222",
     name: "Cơ sở dữ liệu",
     className: "CSODULIEU.5",
@@ -171,7 +178,7 @@ const data = [
     gv: "Đinh Thị Thúy(CTI050)"
   },
   {
-    stt: 10,
+    stt: 12,
     mm: "IS222",
     name: "Cơ sở dữ liệu",
     className: "CSODULIEU.5",
@@ -182,7 +189,7 @@ const data = [
     gv: "Đinh Thị Thúy(CTI050)"
   },
   {
-    stt: 10,
+    stt: 13,
     mm: "IS222",
     name: "Cơ sở dữ liệu",
     className: "CSODULIEU.5",
@@ -193,7 +200,7 @@ const data = [
     gv: "Đinh Thị Thúy(CTI050)"
   },
   {
-    stt: 10,
+    stt: 14,
     mm: "IS222",
     name: "Cơ sở dữ liệu",
     className: "CSODULIEU.5",
@@ -204,7 +211,7 @@ const data = [
     gv: "Đinh Thị Thúy(CTI050)"
   },
   {
-    stt: 10,
+    stt: 15,
     mm: "IS222",
     name: "Cơ sở dữ liệu",
     className: "CSODULIEU.5",
@@ -215,7 +222,7 @@ const data = [
     gv: "Đinh Thị Thúy(CTI050)"
   },
   {
-    stt: 10,
+    stt: 16,
     mm: "IS222",
     name: "Cơ sở dữ liệu",
     className: "CSODULIEU.5",
@@ -228,12 +235,18 @@ const data = [
 ]
 
 const Home = () => {
+  const [scrollHeight, setScrollHeight] = useState(height*0.75)
+  console.log(scrollHeight)
   return (
-    <div style={{flex: 1}}>
-      <Table columns={columns} dataSource={data} scroll={{
-        y: 240,
-      }}
-      size="small"
+    <div style={{flex: 1, height: '100%'}}>
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{
+          y: scrollHeight,
+        }}
+        size="small"
+        pagination={false}
       />
 
     </div>

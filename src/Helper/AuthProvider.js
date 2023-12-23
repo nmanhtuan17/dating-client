@@ -4,18 +4,19 @@ import {useEffect} from "react";
 import {bootApp} from "../Store/Action/app.action";
 
 const AuthProvider = () => {
-  const {isSignIn} = useAppSelector(state => state.auth)
+  const {isSignedIn} = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  console.log(isSignedIn)
   useEffect(() => {
-    if (isSignIn) {
+    if (isSignedIn) {
       dispatch(bootApp()).then((value) => {
         navigate('/home')
       });
     } else {
       navigate('/sign-in')
     }
-  }, []);
+  }, [isSignedIn]);
   return <></>
 }
 

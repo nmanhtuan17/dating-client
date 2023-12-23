@@ -8,13 +8,13 @@ export const bootApp = createAsyncThunk(
         await RequestService.initialize();
         // await thunkAPI.dispatch(loadAccount());
         return {
-          isSignIn: true,
+          isSignedIn: true,
         };
 
       } catch (_) {
         thunkAPI.dispatch(setLogoutAndClearData());
         return {
-          isSignIn: false,
+          isSignedIn: false,
         };
       }
     })
