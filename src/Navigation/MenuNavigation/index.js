@@ -4,19 +4,27 @@ import { Button, Drawer, Radio, Space } from 'antd';
 import {colors} from "../../Constant/Colors";
 import Sider from "antd/es/layout/Sider";
 import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBook, faHouse, faStar} from "@fortawesome/free-solid-svg-icons";
 
 const menuItems = [
   {
     key: 'tkb',
-    label: (<Link to='/home'>Home</Link>),
+    label: (<Link to='/home'>
+      <div>
+        <FontAwesomeIcon icon={faHouse} />
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Trang chủ</h4>
+      </div>
+    </Link>),
   },
   {
-    key: 'bangDiem',
-    label: (<Link to='/home'>Bảng điểm</Link>),
-  },
-  {
-    key: 'point',
-    label: (<Link to='/sign-in'>Sign In</Link>),
+    key: 'scores',
+    label: (<Link to='/scores'>
+      <div>
+        <FontAwesomeIcon icon={faStar} />
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Bảng điểm</h4>
+      </div>
+    </Link>),
   }
 ]
 const items2 = menuItems.map((item, index) => {
