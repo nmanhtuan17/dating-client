@@ -1,95 +1,51 @@
 import React from 'react';
-import {Button, Card, Checkbox, Divider, Form, Input, Space} from 'antd';
-import './styles.css'
-
-const Login = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBInput,
+  MDBIcon,
+  MDBCheckbox
+}
+  from 'mdb-react-ui-kit';
+import {useAppDispatch, useAppSelector} from "../../../Store/store";
+import {tempLogin} from "../../../Store/Slice/auth.slice";
+function Login() {
+  const dispatch = useAppDispatch();
+  const handleLogin = () => {
+    dispatch(tempLogin());
+  }
   return (
-    <div className='container'>
-      <Space direction="vertical" size={20} >
-        <Card
-          title="Login"
-          style={{
-            width: 600,
-          }}
-        >
-          <Form
-            name="basic"
-            labelCol={{
-              span: 4,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            style={{
-              maxWidth: 600,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your username!',
-                },
-              ]}
-            >
-              <Input/>
-            </Form.Item>
+    <MDBContainer fluid>
+      <MDBRow className='d-flex justify-content-center align-items-center vh-100'>
+        <MDBCol col='12'>
 
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your password!',
-                },
-              ]}
-            >
-              <Input.Password/>
-            </Form.Item>
+          <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
+            <MDBCardBody className='p-5 w-100 d-flex flex-column'>
 
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
-            >
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+              <h2 className="fw-bold mb-2 text-center">Đăng nhập</h2>
+              <p className="text-white-50 mb-3">Please enter your login and password!</p>
 
-            <Form.Item
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
-            >
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </Card>
+              <MDBInput wrapperClass='mb-4 w-100' label='Mã sinh viên' id='formControlLg' type='text' size="lg" required/>
+              <MDBInput wrapperClass='mb-4 w-100' label='Mật khẩu' id='formControlLg' type='password' size="lg" required/>
 
-      </Space>
-    </div>
-  )
+              <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
 
-};
+              <MDBBtn size='lg' onClick={handleLogin}>
+                Đăng nhập
+              </MDBBtn>
 
-export default Login
+            </MDBCardBody>
+          </MDBCard>
+
+        </MDBCol>
+      </MDBRow>
+
+    </MDBContainer>
+  );
+}
+
+export default Login;

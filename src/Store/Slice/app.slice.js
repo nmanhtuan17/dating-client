@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: 123
+
 }
 
-export const AppSlice = createSlice({
+export const appSlice = createSlice({
   name: 'app',
   initialState: initialState,
   reducers: {
