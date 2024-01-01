@@ -235,15 +235,13 @@ const data = [
 ]
 
 const Home = () => {
-  const [scrollHeight, setScrollHeight] = useState(height*0.75)
-  console.log(scrollHeight)
   return (
     <div style={{flex: 1, height: '100%'}}>
       <Table
         columns={columns}
         dataSource={data}
         scroll={{
-          y: scrollHeight,
+          y: height*.75,
         }}
         size="small"
         pagination={false}

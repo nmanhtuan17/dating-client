@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import { Space, Table, Tag } from 'antd';
+import {currencyFormat} from "../../../Utils/string.helper";
 
 const columns = [
     {
         title: 'STT',
         dataIndex: 'stt',
-        key: 'stt'
+        key: 'stt',
+        width: 50
     },
     {
         title: 'Thông tin hóa đơn',
@@ -72,15 +74,23 @@ const data = [
 
 ]
 const Tuition = () => {
-
+    // const [tuitions, setTuitions] = useState(data)
     const totalamount = data.reduce((acc, curr) => acc + curr.amount, 0);
+    console.log(totalamount)
 
-    const newData = [{ texttotal: "Tổng tiền các hóa đơn:", numbertotal: totalamount }];
-
+    const tuitions = useMemo(() => {
+        return (
+          data.map(item => {
+              return {amount: currencyFormat(item.amount), ...item}
+          })
+        )
+    }, [])
+    const newData = [{ texttotal: "Tổng tiền các hóa đơn:", numbertotal: currencyFormat(totalamount) }];
+    console.log(tuitions)
 
     return (
         <div style={{flex: 1}}>
-            <Table columns={columns} dataSource={data} scroll={{
+            <Table columns={columns} dataSource={tuitions} scroll={{
                 y: 240,
             }}
                    size="small"

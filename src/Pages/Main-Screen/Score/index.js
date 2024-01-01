@@ -1,16 +1,19 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
+import React, {useState} from 'react';
+import {Space, Table, Tag} from 'antd';
+import {height} from "../../../Constant/Size";
 
 const columns = [
   {
     title: 'STT',
     dataIndex: 'stt',
-    key: 'stt'
+    key: 'stt',
+    width: 50
   },
   {
     title: 'Mã môn',
     dataIndex: 'mm',
     key: 'mm',
+    width: 100
   },
   {
     title: 'Tên môn',
@@ -41,17 +44,7 @@ const columnscore = [
     title: '',
     dataIndex: 'numaveragetc',
     key: 'numaveragetc'
-  },
-  // {
-  //   title: 'Tổng số tín chỉ tích lũy',
-  //   dataIndex: 'sumtc',
-  //   key: 'sumtc'
-  // },
-  // {
-  //   title: 'Trung bình chung tích lũy:',
-  //   dataIndex: 'averagetc',
-  //   key: 'averagetc'
-  // },
+  }
 ]
 const data = [
   {
@@ -168,29 +161,33 @@ const data = [
   },
 ]
 const Score = () => {
-
   const totalCredits = data.reduce((acc, curr) => acc + curr.tc, 0);
   const totalScore = data.reduce((acc, curr) => acc + (curr.score * curr.tc), 0);
 
 
   const averageScore = (totalScore / totalCredits).toFixed(2);
-
-
-  const newData = [{ textsumtc: 'Tổng số tín chỉ tích lũy', numaveragetc: totalCredits },{ textsumtc: 'Trung bình chung tích lũy:', numaveragetc: averageScore }];
-
-
+  const newData = [
+    {
+      textsumtc: 'Tổng số tín chỉ tích lũy',
+      numaveragetc: totalCredits
+    },
+    {
+      textsumtc: 'Trung bình chung tích lũy:',
+      numaveragetc: averageScore
+    }
+  ];
   return (
-      <div style={{flex: 1}}>
-        <Table columns={columns} dataSource={data} scroll={{
-          y: 240,
-        }}
-               size="small"
-        />
-        <Table columns={columnscore} dataSource={newData}
-
-               size="small"
-        />
-      </div>
+    <div style={{flex: 1}}>
+      <Table columns={columns} dataSource={data} scroll={{
+        y: height * 0.70,
+      }}
+             size="small"
+      />
+      <Table columns={columnscore} dataSource={newData}
+             size="small"
+             pagination={false}
+      />
+    </div>
   )
 }
 
