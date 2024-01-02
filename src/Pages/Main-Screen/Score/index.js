@@ -178,14 +178,19 @@ const Score = () => {
   ];
   return (
     <div style={{flex: 1}}>
-      <Table columns={columns} dataSource={data} scroll={{
-        y: height * 0.70,
+      <Table
+        columns={columns}
+        dataSource={data} scroll={{
+        y: height * 0.6,
       }}
-             size="small"
+        size="small"
+        pagination={false}
       />
-      <Table columns={columnscore} dataSource={newData}
-             size="small"
-             pagination={false}
+      <Table
+        columns={columnscore}
+        dataSource={newData}
+        size="small"
+        pagination={false}
       />
     </div>
   )

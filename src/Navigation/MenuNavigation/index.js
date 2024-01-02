@@ -5,7 +5,7 @@ import {colors} from "../../Constant/Colors";
 import Sider from "antd/es/layout/Sider";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBook, faHouse, faStar} from "@fortawesome/free-solid-svg-icons";
+import {faBook, faHouse, faMoneyBill, faStar} from "@fortawesome/free-solid-svg-icons";
 
 const menuItems = [
   {
@@ -30,7 +30,7 @@ const menuItems = [
     key: 'tuition',
     label: (<Link to='/tuition'>
       <div>
-        <FontAwesomeIcon icon={faStar} />
+        <FontAwesomeIcon icon={faMoneyBill} />
         <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Học Phí</h4>
       </div>
     </Link>),
