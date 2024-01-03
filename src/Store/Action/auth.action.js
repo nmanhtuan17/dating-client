@@ -2,6 +2,16 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {clearAccount, logout} from "../Slice/auth.slice";
 import {AuthService} from "../../Services/auth.service";
 
+
+export const login = createAsyncThunk("auth/login", async (account, thunkAPI) => {
+  try {
+    const data = await AuthService.login(account)
+    return data
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+})
 export const loadAccount = createAsyncThunk("auth/load-account", async (_, thunkAPI) => {
 
 })

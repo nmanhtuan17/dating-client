@@ -31,7 +31,7 @@ export class RequestService {
     config = {method: "GET"}
   ) {
     const {tokens, serverMode} = store.getState()?.auth
-    const BASE_URL = '';
+    const BASE_URL = 'https://sm-rd7n.onrender.com/api';
     const requestHeaders = {};
     if (tokens) {
       requestHeaders.Authorization = `Bearer ${tokens?.accessToken}`;

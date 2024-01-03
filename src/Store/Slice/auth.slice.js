@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {login} from "../Action/auth.action";
 
 
 const initState = {
@@ -30,7 +31,18 @@ export const authSlice = createSlice({
     }
   },
   extraReducers: builder => {
-
+    builder
+      .addCase(login.pending, (state, action) => {
+        state.isSignedIn = false
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isSignedIn = true
+        state.tokens = action.payload.tokens
+        state.account = action.payload.data.user
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isSignedIn = false
+      })
   }
 })
 
