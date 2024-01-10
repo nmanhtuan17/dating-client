@@ -246,7 +246,6 @@ const Home = () => {
         size="small"
         pagination={false}
       />
-
     </div>
   );
 };

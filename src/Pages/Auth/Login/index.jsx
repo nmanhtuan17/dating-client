@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -7,21 +7,26 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
   MDBCheckbox
 }
   from 'mdb-react-ui-kit';
 import {useAppDispatch, useAppSelector} from "../../../Store/store";
-import {tempLogin} from "../../../Store/Slice/auth.slice";
 import {login} from "../../../Store/Action/auth.action";
-
+import {Formik} from "formik";
+import {authSchema} from "../../../Helper/FormSchema";
+import { Spin } from 'antd';
 function Login() {
   const dispatch = useAppDispatch();
   const [msv, setMsv] = useState();
   const [password, setPassword] = useState();
+  const {message, isLoading} = useAppSelector(state => state.auth)
+  const [messages, setMessages] = useState([]);
 
-  const handleLogin = () => {
-    dispatch(login({msv, password}));
+  useEffect(() => {
+    setMessages([message, ...messages])
+  }, [message]);
+  const handleLogin = (value) => {
+    dispatch(login(value));
   }
   return (
     <MDBContainer fluid>
@@ -29,25 +34,52 @@ function Login() {
         <MDBCol col='12'>
 
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-            <MDBCardBody className='p-5 w-100 d-flex flex-column'>
 
-              <h2 className="fw-bold mb-2 text-center">Đăng nhập</h2>
-              <p className="text-white-50 mb-3">Please enter your login and password!</p>
 
-              <MDBInput wrapperClass='mb-4 w-100' label='Mã sinh viên' id='formControlLg' type='text' size="lg" required
-                        onChange={(e) => setMsv(e.target.value)}
-              />
-              <MDBInput wrapperClass='mb-4 w-100' label='Mật khẩu' id='formControlLg' type='password' size="lg" required
-                        onChange={(e) => setPassword(e.target.value)}
-              />
+            <h2 className="fw-bold mb-2 text-center pt-5">Đăng nhập</h2>
 
-              <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password'/>
+            <Formik
+              initialValues={{msv: '', password: ''}}
+              validationSchema={authSchema}
+              onSubmit={(value) => handleLogin(value)}
+            >
+              {({values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldTouched}) => (
+                <MDBCardBody className='p-5 w-100 d-flex flex-column'>
+                  <MDBInput wrapperClass='mb-4 w-100' label='Mã sinh viên' id='msv' type='text' size="lg"
+                            onFocus={() => {
+                              setFieldTouched('msv')
+                            }}
+                            onBlur={() => setFieldTouched('msv', '')}
+                            value={values.msv}
+                            onChange={handleChange('msv')}
+                  />
+                  <MDBInput wrapperClass='mb-4 w-100' label='Mật khẩu' id='password' type='password' size="lg"
+                            onFocus={() => {
+                              setFieldTouched('password')
+                            }}
+                            onBlur={() => setFieldTouched('password', '')}
+                            value={values.password}
+                            onChange={handleChange('password')}
+                  />
+                  <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>
+                  <MDBBtn
+                    size='lg'
+                    onClick={isValid ? handleSubmit : () => {
+                      console.log("invalid")
+                    }}
+                    type={"submit"}
+                  >
+                    {!isLoading ? 'Đăng nhập' : <Spin />}
 
-              <MDBBtn size='lg' onClick={handleLogin}>
-                Đăng nhập
-              </MDBBtn>
 
-            </MDBCardBody>
+                  </MDBBtn>
+                </MDBCardBody>
+              )}
+
+
+            </Formik>
+
+
           </MDBCard>
 
         </MDBCol>

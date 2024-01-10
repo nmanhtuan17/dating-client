@@ -18,7 +18,7 @@ root.render(
         <ConfigProvider
           theme={{
             token: {
-              fontSize: 14
+              fontSize: 14,
             },
           }}
         >

@@ -8,7 +8,9 @@ const initState = {
     accessToken: "",
     refreshToken: ""
   },
-  account: null
+  account: null,
+  message: null,
+  isLoading: false
 }
 
 export const authSlice = createSlice({
@@ -34,16 +36,22 @@ export const authSlice = createSlice({
     builder
       .addCase(login.pending, (state, action) => {
         state.isSignedIn = false
+        state.isLoading = true
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isSignedIn = true
-        state.tokens = action.payload.tokens
-        state.account = action.payload.data.user
+        state.tokens = action.payload?.tokens
+        state.account = action.payload?.data.user
+        state.message = action.payload?.message
+        state.isLoading = false
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state, action ) => {
         state.isSignedIn = false
+        state.isLoading = false
+        state.message = action.payload.message
       })
   }
+
 })
 
 export const {logout, clearAccount, tempLogin} = authSlice.actions

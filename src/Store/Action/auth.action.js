@@ -8,8 +8,10 @@ export const login = createAsyncThunk("auth/login", async (account, thunkAPI) =>
     const data = await AuthService.login(account)
     return data
   } catch (e) {
-    console.log(e)
-    return null
+    if (!e.response.data) {
+      throw e
+    }
+    return thunkAPI.rejectWithValue(e.response.data)
   }
 })
 export const loadAccount = createAsyncThunk("auth/load-account", async (_, thunkAPI) => {
