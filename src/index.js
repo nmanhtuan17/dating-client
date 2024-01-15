@@ -19,6 +19,13 @@ root.render(
           theme={{
             token: {
               fontSize: 14,
+
+            },
+            components: {
+              Menu: {
+                itemSelectedBg: 'rgba(0, 0, 0, 0.06)',
+                itemSelectedColor: '#000'
+              },
             },
           }}
         >

@@ -9,7 +9,7 @@ import {faBook, faHouse, faMoneyBill, faStar} from "@fortawesome/free-solid-svg-
 
 const menuItems = [
   {
-    key: 'tkb',
+    key: 'home',
     label: (<Link to='/home'>
       <div>
         <FontAwesomeIcon icon={faHouse} />
@@ -48,7 +48,7 @@ const MenuNavigation = () => {
     <Sider style={{background: colors.background, paddingTop: '16px'}} width={250}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['tkb']}
+        defaultSelectedKeys={['home']}
         style={{
           height: '100%',
           fontWeight: 'bold'

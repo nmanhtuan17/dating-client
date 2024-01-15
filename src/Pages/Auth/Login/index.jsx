@@ -11,10 +11,11 @@ import {
 }
   from 'mdb-react-ui-kit';
 import {useAppDispatch, useAppSelector} from "../../../Store/store";
-import {login} from "../../../Store/Action/auth.action";
+import {login, refreshToken} from "../../../Store/Action/auth.action";
 import {Formik} from "formik";
 import {authSchema} from "../../../Helper/FormSchema";
-import { Spin } from 'antd';
+import {ConfigProvider, Spin} from 'antd';
+
 function Login() {
   const dispatch = useAppDispatch();
   const [msv, setMsv] = useState();
@@ -61,18 +62,26 @@ function Login() {
                             value={values.password}
                             onChange={handleChange('password')}
                   />
-                  <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>
-                  <MDBBtn
-                    size='lg'
-                    onClick={isValid ? handleSubmit : () => {
-                      console.log("invalid")
+                  {message && <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>}
+                  <ConfigProvider
+                    theme={{
+                      token: {
+                        fontSize: 14,
+                        colorPrimary: "#fff"
+                      },
                     }}
-                    type={"submit"}
                   >
-                    {!isLoading ? 'Đăng nhập' : <Spin />}
+                    <MDBBtn
+                      size='lg'
+                      onClick={isValid ? handleSubmit : () => {
+                      }}
+                      type={"submit"}
+                    >
+                      {!isLoading ? 'Đăng nhập' : <Spin/>}
 
 
-                  </MDBBtn>
+                    </MDBBtn>
+                  </ConfigProvider>
                 </MDBCardBody>
               )}
 

@@ -14,7 +14,7 @@ const AuthProvider = () => {
         navigate('/home')
       });
     } else {
-      navigate('/sign-in')
+      navigate('/sign-in');
     }
   }, [isSignedIn]);
   return <></>

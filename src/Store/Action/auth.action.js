@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {clearAccount, logout} from "../Slice/auth.slice";
 import {AuthService} from "../../Services/auth.service";
+import {store} from "../store";
 
 
 export const login = createAsyncThunk("auth/login", async (account, thunkAPI) => {
@@ -27,9 +28,11 @@ export const refreshToken = createAsyncThunk(
   "auth/refresh-token",
     async (_, thunkAPI) => {
       try {
-        const { tokens } = thunkAPI.getState().auth;
+        const {refreshToken} = store.getState().auth.tokens;
         console.log("refresh token ________________________________________-");
-        return await AuthService.refreshToken(tokens.refreshToken);
+        const data = await AuthService.refreshToken(refreshToken);
+        console.log(data)
+        return data
       } catch (err) {
         console.log("Error refresh token ");
         thunkAPI.dispatch(setLogoutAndClearData());

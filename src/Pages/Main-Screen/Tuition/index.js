@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {Space, Table, Tag} from 'antd';
 import {currencyFormat} from "../../../Utils/string.helper";
 import {height} from "../../../Constant/Size";
+import {useAppSelector} from "../../../Store/store";
 
 const columns = [
   {
@@ -75,9 +76,10 @@ const data = [
 
 ]
 const Tuition = () => {
+  const {account} = useAppSelector(state => state.auth);
+  console.log(account)
   // const [tuitions, setTuitions] = useState(data)
   const totalamount = data.reduce((acc, curr) => acc + curr.amount, 0);
-  console.log(totalamount)
 
   const tuitions = useMemo(() => {
     return (

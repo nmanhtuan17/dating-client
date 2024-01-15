@@ -12,4 +12,14 @@ export class AuthService extends RequestService {
     })
     return res.data
   }
+
+  static async refreshToken(refreshToken) {
+    const res = await this.callApi('auth/refresh', {
+      method: "POST",
+      data: {
+        refreshToken
+      }
+    })
+    return res.data
+  }
 }
