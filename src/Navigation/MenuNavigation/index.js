@@ -5,24 +5,15 @@ import {colors} from "../../Constant/Colors";
 import Sider from "antd/es/layout/Sider";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBook, faHouse, faStar} from "@fortawesome/free-solid-svg-icons";
+import {faBook, faHouse, faMoneyBill, faStar} from "@fortawesome/free-solid-svg-icons";
 
 const menuItems = [
   {
-    key: 'tkb',
+    key: 'home',
     label: (<Link to='/home'>
       <div>
         <FontAwesomeIcon icon={faHouse} />
         <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Trang chủ</h4>
-      </div>
-    </Link>),
-  },
-  {
-    key: 'insertSubject',
-    label: (<Link to='/insertSubject'>
-      <div>
-        <FontAwesomeIcon icon={faStar} />
-        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thêm môn học</h4>
       </div>
     </Link>),
   },
@@ -85,7 +76,7 @@ const MenuNavigation = () => {
     <Sider style={{background: colors.background, paddingTop: '16px'}} width={250}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['tkb']}
+        defaultSelectedKeys={['home']}
         style={{
           height: '100%',
           fontWeight: 'bold'

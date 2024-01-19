@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -7,49 +7,88 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
   MDBCheckbox
 }
   from 'mdb-react-ui-kit';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGauge} from "@fortawesome/free-solid-svg-icons";
+import {useAppDispatch, useAppSelector} from "../../../Store/store";
+import {login, refreshToken} from "../../../Store/Action/auth.action";
+import {Formik} from "formik";
+import {authSchema} from "../../../Helper/FormSchema";
+import {ConfigProvider, Spin} from 'antd';
 
 function Login() {
+  const dispatch = useAppDispatch();
+  const [msv, setMsv] = useState();
+  const [password, setPassword] = useState();
+  const {message, isLoading} = useAppSelector(state => state.auth)
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    setMessages([message, ...messages])
+  }, [message]);
+  const handleLogin = (value) => {
+    dispatch(login(value));
+  }
   return (
     <MDBContainer fluid>
-
-      <MDBRow className='d-flex justify-content-center align-items-center h-100'>
+      <MDBRow className='d-flex justify-content-center align-items-center vh-100'>
         <MDBCol col='12'>
 
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-            <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-
-              <h2 className="fw-bold mb-2 text-center">Sign in</h2>
-              <p className="text-white-50 mb-3">Please enter your login and password!</p>
-
-              <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg"/>
-
-              <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
-
-              <MDBBtn size='lg'>
-                Login
-              </MDBBtn>
-
-              <hr className="my-4" />
-
-              <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
-                Google
-              </MDBBtn>
 
 
+            <h2 className="fw-bold mb-2 text-center pt-5">Đăng nhập</h2>
+
+            <Formik
+              initialValues={{msv: '', password: ''}}
+              validationSchema={authSchema}
+              onSubmit={(value) => handleLogin(value)}
+            >
+              {({values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldTouched}) => (
+                <MDBCardBody className='p-5 w-100 d-flex flex-column'>
+                  <MDBInput wrapperClass='mb-4 w-100' label='Mã sinh viên' id='msv' type='text' size="lg"
+                            onFocus={() => {
+                              setFieldTouched('msv')
+                            }}
+                            onBlur={() => setFieldTouched('msv', '')}
+                            value={values.msv}
+                            onChange={handleChange('msv')}
+                  />
+                  <MDBInput wrapperClass='mb-4 w-100' label='Mật khẩu' id='password' type='password' size="lg"
+                            onFocus={() => {
+                              setFieldTouched('password')
+                            }}
+                            onBlur={() => setFieldTouched('password', '')}
+                            value={values.password}
+                            onChange={handleChange('password')}
+                  />
+                  {message && <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>}
+                  <ConfigProvider
+                    theme={{
+                      token: {
+                        fontSize: 14,
+                        colorPrimary: "#fff"
+                      },
+                    }}
+                  >
+                    <MDBBtn
+                      size='lg'
+                      onClick={isValid ? handleSubmit : () => {
+                      }}
+                      type={"submit"}
+                    >
+                      {!isLoading ? 'Đăng nhập' : <Spin/>}
 
 
-              <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
-                Microsoft
-              </MDBBtn>
+                    </MDBBtn>
+                  </ConfigProvider>
+                </MDBCardBody>
+              )}
 
-            </MDBCardBody>
+
+            </Formik>
+
+
           </MDBCard>
 
         </MDBCol>

@@ -1,23 +1,29 @@
+import React, {useEffect, useMemo, useState} from 'react';
+import {Space, Table, Tag} from 'antd';
+import {currencyFormat} from "../../../Utils/string.helper";
+import {height} from "../../../Constant/Size";
+import {useAppSelector} from "../../../Store/store";
 import React from 'react';
 import { Space, Table, Tag, Modal } from 'antd';
 import {Link} from "react-router-dom";
 
 const columns = [
-    {
-        title: 'STT',
-        dataIndex: 'stt',
-        key: 'stt'
-    },
-    {
-        title: 'Thông tin hóa đơn',
-        dataIndex: 'tthd',
-        key: 'tthd',
-    },
-    {
-        title: 'Số tiền học phí',
-        dataIndex: 'amount',
-        key: 'amount',
-    },
+  {
+    title: 'STT',
+    dataIndex: 'stt',
+    key: 'stt',
+    width: 50
+  },
+  {
+    title: 'Thông tin hóa đơn',
+    dataIndex: 'tthd',
+    key: 'tthd',
+  },
+  {
+    title: 'Số tiền học phí',
+    dataIndex: 'amount',
+    key: 'amount',
+  },
 
     {
         title: 'Tình trạng',
@@ -35,17 +41,17 @@ const columns = [
 
 ];
 
-const columnamount  = [
-    {
-        title: '',
-        dataIndex: 'texttotal',
-        key: 'texttotal'
-    },
-    {
-        title: '',
-        dataIndex: 'numbertotal',
-        key: 'numbertotal'
-    },
+const columnamount = [
+  {
+    title: '',
+    dataIndex: 'texttotal',
+    key: 'texttotal'
+  },
+  {
+    title: '',
+    dataIndex: 'numbertotal',
+    key: 'numbertotal'
+  },
 ]
 const data = [
     {
@@ -90,26 +96,40 @@ const data = [
 
 ]
 const Tuition = () => {
+  const {account} = useAppSelector(state => state.auth);
+  console.log(account)
+  // const [tuitions, setTuitions] = useState(data)
+  const totalamount = data.reduce((acc, curr) => acc + curr.amount, 0);
 
-
-    const totalamount = data.reduce((acc, curr) => acc + curr.amount, 0);
-
-    const newData = [{ texttotal: "Tổng tiền các hóa đơn:", numbertotal: totalamount }];
-
-
+  const tuitions = useMemo(() => {
     return (
-        <div style={{flex: 1}}>
-            <Table columns={columns} dataSource={data} scroll={{
-                y: 240,
-            }}
-                   size="small"
-            />
-            <Table columns={columnamount} dataSource={newData}
-
-                   size="small"
-            />
-        </div>
+      data.map(item => {
+        return {amount: currencyFormat(item.amount), ...item}
+      })
     )
+  }, [])
+  const newData = [{texttotal: "Tổng tiền các hóa đơn:", numbertotal: currencyFormat(totalamount)}];
+  console.log(tuitions)
+
+  return (
+    <div style={{flex: 1}}>
+      <Table
+        columns={columns}
+        dataSource={tuitions} scroll={{
+        y: height * 0.6,
+      }}
+        size="small"
+        pagination={false}
+      />
+      <Table
+        columns={columnamount}
+        dataSource={newData}
+
+        size="small"
+        pagination={false}
+      />
+    </div>
+  )
 }
 
 export default Tuition

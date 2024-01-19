@@ -5,10 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {appSlice} from "./Slice/app.slice";
 import storage from 'redux-persist/lib/storage';
 import {authSlice} from "./Slice/auth.slice";
+import {appMiddleware} from "./middleware/app.middleware";
+import {courseSlice} from "./Slice/course.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
-  auth: authSlice.reducer
+  auth: authSlice.reducer,
+  course: courseSlice.reducer
 })
 
 const persistConfig = {
@@ -27,7 +30,8 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
       immutableCheck: false,
-    })
+    }).prepend(appMiddleware.middleware),
+  whiteList: ['app', 'auth', 'course']
 })
 
 const persistor = persistStore(store)

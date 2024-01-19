@@ -3,8 +3,10 @@ import {Avatar, Col} from "antd";
 import React from "react";
 import {Content} from "antd/es/layout/layout";
 import {UserOutlined} from "@ant-design/icons";
+import {useAppSelector} from "../../Store/store";
 
 const UserInfo = () => {
+  const {account} = useAppSelector(state => state.auth)
   return (
     <Col
       xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
@@ -22,9 +24,8 @@ const UserInfo = () => {
             <Avatar size={64} icon={<UserOutlined/>}/>
           </div>
           <div style={{fontWeight: '600'}}>
-            <h4  style={{ fontSize: 16, marginBottom: '4px'}}>A41906 Nguyễn Mạnh Tuấn</h4>
-            <span style={{fontSize: 12}}>tuan@gmail.com</span>
-            <div style={{fontSize: 12}}>TT34h2</div>
+            <h4  style={{ fontSize: 16, marginBottom: '4px'}}>{account?.fullname}</h4>
+            <span style={{fontSize: 12}}>{account?.major}</span>
           </div>
         </div>
       </Content>
