@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Space, Table, Tag} from 'antd';
 import List from 'rc-virtual-list'
 import {width, height} from '../../../Constant/Size'
+import {useAppSelector} from "../../../Store/store";
 const columns = [
   {
     title: 'STT',
@@ -235,18 +236,19 @@ const data = [
 ]
 
 const Home = () => {
+  const {courses} = useAppSelector(state => state.course);
+  console.log("courses----", courses)
   return (
     <div style={{flex: 1, height: '100%'}}>
       <Table
         columns={columns}
         dataSource={data}
         scroll={{
-          y: height*.75,
+          y: height*.7,
         }}
         size="small"
         pagination={false}
       />
-
     </div>
   );
 };

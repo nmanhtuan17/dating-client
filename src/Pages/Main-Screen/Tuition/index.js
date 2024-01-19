@@ -2,6 +2,9 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {Space, Table, Tag} from 'antd';
 import {currencyFormat} from "../../../Utils/string.helper";
 import {height} from "../../../Constant/Size";
+import {useAppSelector} from "../../../Store/store";
+
+import {Link} from "react-router-dom";
 
 const columns = [
   {
@@ -21,11 +24,19 @@ const columns = [
     key: 'amount',
   },
 
-  {
-    title: 'Tình trạng',
-    key: 'status',
-    dataIndex: 'status'
-  },
+    {
+        title: 'Tình trạng',
+        key: 'status',
+        dataIndex: 'status'
+    },
+    {
+        title: 'Chi tiết',
+        key: 'detail',
+        dataIndex: 'detail',
+        render: (text, record) => (
+            <Link to={`/detailPage`}>{"Xem chi tiết khoản thu"}</Link>
+        ),
+    },
 
 ];
 
@@ -42,42 +53,52 @@ const columnamount = [
   },
 ]
 const data = [
-  {
-    stt: 1,
-    tthd: "Học phí kỳ 1 nhóm 2 năm học 2023-2024",
-    amount: 8976000,
-    status: "DA_THU",
-  },
-  {
-    stt: 2,
-    tthd: "Học phí kỳ 3 nhóm 3 năm học 2022-2023",
-    amount: 1344000,
-    status: "DA_THU",
-  },
-  {
-    stt: 3,
-    tthd: "Học phí kỳ 3 nhóm 2 năm học 2022-2023",
-    amount: 7308000,
-    status: "DA_THU",
-  },
-  {
-    stt: 4,
-    tthd: "Học phí kỳ 2 nhóm 3 năm học 2022-2023",
-    amount: 1260000,
-    status: "DA_THU",
-  },
-  {
-    stt: 5,
-    tthd: "Học phí kỳ 2 nhóm 2 năm học 2022-2023",
-    amount: 6535000,
-    status: "DA_THU",
-  },
+    {
+        stt: 1,
+        tthd: "Học phí kỳ 1 nhóm 2 năm học 2023-2024",
+        amount: 8976000,
+        status: "DA_THU",
+        detail: "Xem chi tiết khoản thu"
+    },
+    {
+        stt: 2,
+        tthd: "Học phí kỳ 3 nhóm 3 năm học 2022-2023",
+        amount: 1344000,
+        status: "DA_THU",
+        detail: "Xem chi tiết khoản thu"
+
+    },
+    {
+        stt: 3,
+        tthd: "Học phí kỳ 3 nhóm 2 năm học 2022-2023",
+        amount: 7308000,
+        status: "DA_THU",
+        detail: "Xem chi tiết khoản thu"
+
+    },
+    {
+        stt: 4,
+        tthd: "Học phí kỳ 2 nhóm 3 năm học 2022-2023",
+        amount: 1260000,
+        status: "DA_THU",
+        detail: "Xem chi tiết khoản thu"
+
+    },
+    {
+        stt: 5,
+        tthd: "Học phí kỳ 2 nhóm 2 năm học 2022-2023",
+        amount: 6535000,
+        status: "DA_THU",
+        detail: "Xem chi tiết khoản thu"
+
+    },
 
 ]
 const Tuition = () => {
+  const {account} = useAppSelector(state => state.auth);
+  console.log(account)
   // const [tuitions, setTuitions] = useState(data)
   const totalamount = data.reduce((acc, curr) => acc + curr.amount, 0);
-  console.log(totalamount)
 
   const tuitions = useMemo(() => {
     return (
@@ -90,11 +111,11 @@ const Tuition = () => {
   console.log(tuitions)
 
   return (
-    <div style={{flex: 1}}>
+    <div style={{flex: 1, height: '100%'}}>
       <Table
         columns={columns}
         dataSource={tuitions} scroll={{
-        y: height * 0.6,
+          y: height*.7,
       }}
         size="small"
         pagination={false}

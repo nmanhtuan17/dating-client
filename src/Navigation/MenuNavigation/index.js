@@ -9,7 +9,7 @@ import {faBook, faHouse, faMoneyBill, faStar} from "@fortawesome/free-solid-svg-
 
 const menuItems = [
   {
-    key: 'tkb',
+    key: 'home',
     label: (<Link to='/home'>
       <div>
         <FontAwesomeIcon icon={faHouse} />
@@ -30,11 +30,39 @@ const menuItems = [
     key: 'tuition',
     label: (<Link to='/tuition'>
       <div>
-        <FontAwesomeIcon icon={faMoneyBill} />
-        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Học Phí</h4>
+        <FontAwesomeIcon icon={faStar} />
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Học phí</h4>
       </div>
     </Link>),
-  }
+  },
+  {
+    key: 'insertStudents',
+    label: (<Link to='/insertStudents'>
+      <div>
+        <FontAwesomeIcon icon={faStar} />
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thêm sinh viên</h4>
+      </div>
+    </Link>),
+  },
+  {
+    key: 'studentList',
+    label: (<Link to='/studentList'>
+      <div>
+        <FontAwesomeIcon icon={faStar} />
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí sinh viên</h4>
+      </div>
+    </Link>),
+  },
+  // {
+  //   key: 'detailPage',
+  //   label: (<Link to='/detailPage'>
+  //     <div>
+  //       <FontAwesomeIcon icon={faStar} />
+  //       <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>hide</h4>
+  //     </div>
+  //   </Link>),
+  // },
+
 ]
 const items2 = menuItems.map((item, index) => {
   return {
@@ -48,7 +76,7 @@ const MenuNavigation = () => {
     <Sider style={{background: colors.background, paddingTop: '16px'}} width={250}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['tkb']}
+        defaultSelectedKeys={['home']}
         style={{
           height: '100%',
           fontWeight: 'bold'

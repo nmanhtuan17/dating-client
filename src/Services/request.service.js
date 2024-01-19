@@ -1,6 +1,6 @@
 import {store} from "../Store/store";
 import axios from "axios";
-import {setLogoutAndClearData} from "../Store/Action/auth.action";
+import {refreshToken} from "../Store/Action/auth.action";
 export class RequestService {
   static axiosInstance = axios.create({});
   static async initialize() {
@@ -9,14 +9,11 @@ export class RequestService {
     //     return response;
     //   },
     //   error => {
-    //     if (error.response?.data?.code == 401) {
-    //       const {tokens} = store.getState()?.auth
-    //       if (!tokens?.refreshToken) {
-    //         return store.dispatch(setLogoutAndClearData());
-    //       }
+    //     if (error.response?.data?.code == 403) {
     //       return store.dispatch(refreshToken()).then((res) => {
-    //         if (res.payload.data) {
-    //           error.config.headers.Authorization = `Bearer ${res.payload.data.accessToken}`;
+    //         if (res.payload.tokens) {
+    //           console.log(res.payload.data)
+    //           error.config.headers.Authorization = `Bearer ${res.payload.tokens.accessToken}`;
     //           return this.axiosInstance(error.config);
     //         }
     //       });
@@ -31,9 +28,9 @@ export class RequestService {
     config = {method: "GET"}
   ) {
     const {tokens, serverMode} = store.getState()?.auth
-    const BASE_URL = '';
+    const BASE_URL = 'https://sm-rd7n.onrender.com/api';
     const requestHeaders = {};
-    if (tokens) {
+    if (tokens && tokens?.accessToken.length > 0) {
       requestHeaders.Authorization = `Bearer ${tokens?.accessToken}`;
     }
     return this.axiosInstance({

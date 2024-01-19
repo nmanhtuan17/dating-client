@@ -44,7 +44,17 @@ const columnscore = [
     title: '',
     dataIndex: 'numaveragetc',
     key: 'numaveragetc'
-  }
+  },
+  // {
+  //   title: 'Tổng số tín chỉ tích lũy',
+  //   dataIndex: 'sumtc',
+  //   key: 'sumtc'
+  // },
+  // {
+  //   title: 'Trung bình chung tích lũy:',
+  //   dataIndex: 'averagetc',
+  //   key: 'averagetc'
+  // },
 ]
 const data = [
   {
