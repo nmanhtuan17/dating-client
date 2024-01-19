@@ -244,7 +244,7 @@ const Home = () => {
         columns={columns}
         dataSource={data}
         scroll={{
-          y: height*.75,
+          y: height*.7,
         }}
         size="small"
         pagination={false}

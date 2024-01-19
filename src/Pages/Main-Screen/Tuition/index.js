@@ -3,8 +3,7 @@ import {Space, Table, Tag} from 'antd';
 import {currencyFormat} from "../../../Utils/string.helper";
 import {height} from "../../../Constant/Size";
 import {useAppSelector} from "../../../Store/store";
-import React from 'react';
-import { Space, Table, Tag, Modal } from 'antd';
+
 import {Link} from "react-router-dom";
 
 const columns = [
@@ -112,11 +111,11 @@ const Tuition = () => {
   console.log(tuitions)
 
   return (
-    <div style={{flex: 1}}>
+    <div style={{flex: 1, height: '100%'}}>
       <Table
         columns={columns}
         dataSource={tuitions} scroll={{
-        y: height * 0.6,
+          y: height*.7,
       }}
         size="small"
         pagination={false}

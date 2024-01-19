@@ -183,6 +183,7 @@ const StudentList = () => {
                 y: 240,
             }}
                    size="small"
+                   pagination={false}
             />
 
         </div>
