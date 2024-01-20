@@ -237,7 +237,6 @@ const data = [
 
 const Home = () => {
   const {courses} = useAppSelector(state => state.course);
-  console.log("courses----", courses)
   return (
     <div style={{flex: 1, height: '100%'}}>
       <Table

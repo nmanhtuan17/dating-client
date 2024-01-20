@@ -7,7 +7,6 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBCheckbox
 }
   from 'mdb-react-ui-kit';
 import {useAppDispatch, useAppSelector} from "../../../Store/store";
@@ -22,13 +21,13 @@ function Login() {
   const [password, setPassword] = useState();
   const {message, isLoading} = useAppSelector(state => state.auth)
   const [messages, setMessages] = useState([]);
-
   useEffect(() => {
     setMessages([message, ...messages])
   }, [message]);
   const handleLogin = (value) => {
     dispatch(login(value));
   }
+
   return (
     <MDBContainer fluid>
       <MDBRow className='d-flex justify-content-center align-items-center vh-100'>
@@ -62,7 +61,7 @@ function Login() {
                             value={values.password}
                             onChange={handleChange('password')}
                   />
-                  {message && <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>}
+                  {/*{message && <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>}*/}
                   <ConfigProvider
                     theme={{
                       token: {
@@ -74,6 +73,7 @@ function Login() {
                     <MDBBtn
                       size='lg'
                       onClick={isValid ? handleSubmit : () => {
+                        console.log("invalid")
                       }}
                       type={"submit"}
                     >

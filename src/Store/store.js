@@ -31,7 +31,7 @@ const store = configureStore({
       },
       immutableCheck: false,
     }).prepend(appMiddleware.middleware),
-  whiteList: ['app', 'auth', 'course']
+  whiteList: ['app', 'auth', 'course'],
 })
 
 const persistor = persistStore(store)
