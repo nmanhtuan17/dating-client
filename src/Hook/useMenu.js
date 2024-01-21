@@ -33,7 +33,7 @@ const useMenu = () => {
         </div>
       </Link>),
     },
-    ...account?.isAdmin && ([{
+    account?.isAdmin && {
       key: 'insertStudents',
       label: (<Link to='/insertStudents'>
         <div>
@@ -42,7 +42,7 @@ const useMenu = () => {
         </div>
       </Link>),
     },
-    {
+    account?.isAdmin && {
       key: 'studentList',
       label: (<Link to='/studentList'>
         <div>
@@ -50,7 +50,7 @@ const useMenu = () => {
           <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí sinh viên</h4>
         </div>
       </Link>),
-    }])
+    }
   ]
 }
 
