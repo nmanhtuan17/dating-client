@@ -6,9 +6,6 @@ import {refreshToken} from "../../../Store/Action/auth.action";
 const InsertStudents = () => {
   const dispatch = useAppDispatch();
   const onFinish = (values) => {
-    dispatch(refreshToken()).then(res => {
-      console.log("res-----", res)
-    })
     console.log('Received values:', values);
   };
 
@@ -20,43 +17,40 @@ const InsertStudents = () => {
         layout="vertical"
       >
         <Row gutter={16}>
-          <Col span={12}>
+          <Col span={4}>
             <Form.Item
               label="Mã sinh viên"
               name="msv"
-              rules={[{required: true, message: 'Vui lòng nhập mã sinh viên!'}]}
+              rules={[{required: true, message: 'Nhập mã sinh viên!'}]}
             >
-              <Input placeholder="Nhập mã sinh viên"/>
+              <Input placeholder="Mã sinh viên"/>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               label="Họ tên"
-              name="name"
-              rules={[{required: true, message: 'Vui lòng nhập họ tên!'}]}
+              name="fullname"
+              rules={[{required: true, message: 'Vui lòng msv'}]}
             >
-              <Input placeholder="Nhập họ tên"/>
+              <Input placeholder="Họ tên"/>
             </Form.Item>
           </Col>
-        </Row>
-
-        <Row gutter={16}>
-          <Col span={12}>
+          <Col span={4}>
             <Form.Item
               label="Ngày sinh"
               name="birth"
-              rules={[{required: true, message: 'Vui lòng nhập ngày sinh!'}]}
+              // rules={[{required: true, message: 'Vui lòng nhập ngày sinh!'}]}
             >
-              <Input placeholder="Nhập số ngày sinh"/>
+              <Input placeholder="Ngày sinh"/>
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={4}>
             <Form.Item
               label="Lớp"
               name="class"
-              rules={[{required: true, message: 'Vui lòng nhập số lớp!'}]}
+              // rules={[{required: true, message: 'Vui lòng nhập số lớp!'}]}
             >
-              <Input placeholder="Nhập lớp"/>
+              <Input placeholder="Lớp"/>
             </Form.Item>
           </Col>
         </Row>
@@ -64,18 +58,36 @@ const InsertStudents = () => {
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
-              label="Giáo Viên Chủ Nhiệm"
-              name="gvcn"
-              rules={[{required: true, message: 'Vui lòng nhập giáo Viên Chủ Nhiệm!'}]}
+              label="Khóa"
+              name="year"
+              rules={[{required: true, message: 'Nhập khóa học'}]}
             >
-              <Input placeholder="Nhập giáo Viên Chủ Nhiệm"/>
+              <Input placeholder="K34"/>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Ngành học"
+              name="major"
+              rules={[{required: true, message: 'Nhập ngành học'}]}
+            >
+              <Input placeholder="Công nghệ thông tin"/>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Email"
+              name="email"
+            >
+              <Input placeholder="Email"/>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
               label="Số điện thoại"
               name="phone"
-              rules={[{required: true, message: 'Vui lòng nhập số điện thoại!'}]}
             >
               <Input placeholder="Nhập số điện thoại"/>
             </Form.Item>
@@ -83,13 +95,13 @@ const InsertStudents = () => {
         </Row>
 
         <Row gutter={16}>
-          <Col span={12}>
+          <Col span={4}>
             <Form.Item
-              label="Email SV"
-              name="email"
-              rules={[{required: true, message: 'Vui lòng nhập Email SV!'}]}
+              label="Cố vấn"
+              name="gvcn"
+              rules={[{required: true, message: 'Vui lòng nhập mã Cố vấn!'}]}
             >
-              <Input placeholder="Nhập Email SV"/>
+              <Input placeholder="Mã cố vấn"/>
             </Form.Item>
           </Col>
         </Row>

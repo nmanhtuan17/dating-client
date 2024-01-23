@@ -9,12 +9,15 @@ import {PersistGate} from "redux-persist/integration/react";
 import {BrowserRouter} from "react-router-dom";
 import AuthProvider from "./Helper/AuthProvider";
 import {ConfigProvider} from "antd";
+import {LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ConfigProvider
           theme={{
             token: {
@@ -29,11 +32,10 @@ root.render(
             },
           }}
         >
-
           <AuthProvider />
           <App/>
         </ConfigProvider>
-
+        </LocalizationProvider>
       </PersistGate>
     </Provider>
   </BrowserRouter>

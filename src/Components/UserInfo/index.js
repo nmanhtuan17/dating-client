@@ -4,12 +4,13 @@ import React from "react";
 import {Content} from "antd/es/layout/layout";
 import {UserOutlined} from "@ant-design/icons";
 import {useAppSelector} from "../../Store/store";
+import Schedule from "../Layout/Schedule";
 
 const UserInfo = () => {
   const {account} = useAppSelector(state => state.auth)
   return (
-    <Col
-      xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
+    <div
+      // xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
     >
       <Content style={{
         display: 'flex',
@@ -29,7 +30,7 @@ const UserInfo = () => {
           </div>
         </div>
       </Content>
-    </Col>
+    </div>
   )
 }
 

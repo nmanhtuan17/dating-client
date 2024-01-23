@@ -7,25 +7,33 @@ import MenuNavigation from "../../Navigation/MenuNavigation";
 import UserInfo from "../../Components/UserInfo";
 import {Content, Header} from "antd/es/layout/layout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {useAppDispatch} from "../../Store/store";
 import {logout} from "../../Store/Slice/auth.slice";
+import Schedule from "../../Components/Layout/Schedule";
 
 const items = [
   {
-    label: <a href="/sign-in">
-      <FontAwesomeIcon icon={faUser} />
+    label: <a href="#">
+      <FontAwesomeIcon icon={faUser}/>
       <span style={{margin: '4px 6px'}}>Thông tin cá nhân</span>
     </a>,
     key: '1',
+  },
+  {
+    label: <a href="#">
+      <FontAwesomeIcon icon={faUser}/>
+      <span style={{margin: '4px 6px'}}>Đổi mật khẩu</span>
+    </a>,
+    key: 'changePassword',
   },
   {
     type: 'divider',
   },
   {
     label: <a>
-      <FontAwesomeIcon icon={faArrowRightFromBracket} />
+      <FontAwesomeIcon icon={faArrowRightFromBracket}/>
       <span style={{margin: '4px 6px'}}>Logout</span>
     </a>,
     key: 'logout',
@@ -35,7 +43,7 @@ const RootLayout = () => {
   const dispatch = useAppDispatch()
   const handleLogout = (e) => {
     if (e.key === 'logout')
-    dispatch(logout())
+      dispatch(logout())
   }
   return (
     <Layout style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
@@ -73,7 +81,13 @@ const RootLayout = () => {
                 <Outlet/>
               </Content>
             </Col>
-            <UserInfo/>
+            <Col
+              xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
+            >
+              <UserInfo/>
+              {/*<Schedule/>*/}
+            </Col>
+
           </Row>
         </Layout>
 
