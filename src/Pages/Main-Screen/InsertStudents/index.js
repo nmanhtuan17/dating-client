@@ -2,11 +2,14 @@ import React from 'react';
 import {Input, Button, Form, Row, Col} from 'antd';
 import {useAppDispatch} from "../../../Store/store";
 import {refreshToken} from "../../../Store/Action/auth.action";
+import {ApiService} from "../../../Services/api.service";
+import {createUser} from "../../../Store/Action/app.action";
+import {toast} from "react-toastify";
 
 const InsertStudents = () => {
   const dispatch = useAppDispatch();
   const onFinish = (values) => {
-    console.log('Received values:', values);
+    dispatch(createUser(values))
   };
 
   return (

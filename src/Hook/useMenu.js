@@ -15,7 +15,7 @@ const useMenu = () => {
       </div>
     </Link>),
   },
-    {
+    !account?.isAdmin && {
       key: 'scores',
       label: (<Link to='/scores'>
         <div>
@@ -24,7 +24,7 @@ const useMenu = () => {
         </div>
       </Link>),
     },
-    {
+    !account?.isAdmin && {
       key: 'tuition',
       label: (<Link to='/tuition'>
         <div>
