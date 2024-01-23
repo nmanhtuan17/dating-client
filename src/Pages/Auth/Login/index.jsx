@@ -61,7 +61,7 @@ function Login() {
                             value={values.password}
                             onChange={handleChange('password')}
                   />
-                  {message && <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>}
+                  {/*{message && <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>}*/}
                   <ConfigProvider
                     theme={{
                       token: {

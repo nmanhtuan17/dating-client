@@ -6,6 +6,7 @@ export class ApiService extends RequestService {
       method: 'POST',
       data: payload
     })
+    console.log(data)
     return data
   }
 }
