@@ -45,7 +45,7 @@ function Login() {
             >
               {({values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldTouched}) => (
                 <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-                  <MDBInput wrapperClass='mb-4 w-100' label='Mã sinh viên' id='msv' type='text' size="lg"
+                  <MDBInput wrapperClass='mb-4 w-100' label='Tài khoản' id='msv' type='text' size="lg"
                             onFocus={() => {
                               setFieldTouched('msv')
                             }}
@@ -78,19 +78,12 @@ function Login() {
                       type={"submit"}
                     >
                       {!isLoading ? 'Đăng nhập' : <Spin/>}
-
-
                     </MDBBtn>
                   </ConfigProvider>
                 </MDBCardBody>
               )}
-
-
             </Formik>
-
-
           </MDBCard>
-
         </MDBCol>
       </MDBRow>
 
