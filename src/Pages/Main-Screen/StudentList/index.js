@@ -1,5 +1,6 @@
 import React from 'react';
 import { Space, Table, Tag } from 'antd';
+import {height} from "../../../Constant/Size";
 
 const columns = [
     {
@@ -42,6 +43,11 @@ const columns = [
         dataIndex: 'email',
         key: 'email'
     },
+    {
+        title: 'Mật Khẩu',
+        dataIndex: 'password',
+        key: 'password'
+    },
 ];
 
 const data = [
@@ -54,6 +60,7 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
     },
     {
         stt: 2,
@@ -64,6 +71,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 3,
@@ -74,6 +83,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 4,
@@ -84,6 +95,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 5,
@@ -94,6 +107,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 6,
@@ -104,6 +119,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 7,
@@ -114,6 +131,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 8,
@@ -124,6 +143,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 9,
@@ -134,6 +155,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 10,
@@ -144,6 +167,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 10,
@@ -154,6 +179,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 10,
@@ -164,6 +191,8 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
     {
         stt: 10,
@@ -174,14 +203,18 @@ const data = [
         gvcn: "Đinh Thu Khánh",
         phone: "0358550285",
         email: "theanh8703@gmail.com",
+        password: "A41957"
+
     },
 ]
 const StudentList = () => {
     return (
-        <div style={{flex: 1}}>
-            <Table columns={columns} dataSource={data} scroll={{
-                y: 240,
-            }}
+        <div style={{flex: 1, height: '100%'}}>
+            <Table columns={columns}
+                   dataSource={data}
+                   scroll={{
+                       y: height * 0.5,
+                   }}
                    size="small"
                    pagination={false}
             />

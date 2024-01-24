@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import {Space, Table, Tag} from 'antd';
+import { Input, Space, Table, Tag } from 'antd';
 import List from 'rc-virtual-list'
 import {width, height} from '../../../Constant/Size'
 import {useAppSelector} from "../../../Store/store";
+
+const { Search } = Input;
 const columns = [
   {
     title: 'STT',
@@ -236,20 +238,36 @@ const data = [
 ]
 
 const Home = () => {
-  const {courses} = useAppSelector(state => state.course);
-  console.log("courses----", courses)
+  const { courses } = useAppSelector((state) => state.course);
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
+
+  const filteredData = data.filter(
+      (item) =>
+          item.mm.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.className.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.gv.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
-    <div style={{flex: 1, height: '100%'}}>
-      <Table
-        columns={columns}
-        dataSource={data}
-        scroll={{
-          y: height*.7,
-        }}
-        size="small"
-        pagination={false}
-      />
-    </div>
+      <div style={{ flex: 1, height: '100%' }}>
+        <Space style={{ marginBottom: 16 }}>
+          <Search placeholder="Tìm kiếm môn học" onSearch={handleSearch} enterButton />
+        </Space>
+        <Table
+            columns={columns}
+            dataSource={filteredData}
+            scroll={{
+              y: height * 0.7,
+            }}
+            size="small"
+            pagination={false}
+        />
+      </div>
   );
 };
 

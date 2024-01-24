@@ -8,6 +8,7 @@ import InsertStudents from "../../Pages/Main-Screen/InsertStudents";
 import StudentList from "../../Pages/Main-Screen/StudentList";
 import InsertSubject from "../../Pages/Main-Screen/InsertSubject";
 import DetailPage from "../../Pages/Main-Screen/DetailPage";
+import RegisterSubject from "../../Pages/Main-Screen/RegisterSubject";
 
 
 function MainNavigation() {
@@ -21,6 +22,8 @@ function MainNavigation() {
         <Route path='/studentList' element={<StudentList />} />
         <Route path='/insertSubject' element={<InsertSubject />} />
         <Route path='/detailPage' element={<DetailPage />} />
+        <Route path='/registerSubject' element={<RegisterSubject />} />
+
         {/*<Route path="/detailPage/:id" component={DetailPage} />*/}
 
       </Route>

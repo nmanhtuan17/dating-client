@@ -1,10 +1,192 @@
-import React from 'react';
-import { Input, Button, Form, Row, Col } from 'antd';
+import React, { useState } from 'react';
+import { Input, Button, Form, Row, Col, Modal } from 'antd';
+
+
+
+
+const data = [
+    {
+        stt: 1,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+    },
+    {
+        stt: 2,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 3,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 4,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 5,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 6,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 7,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 8,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 9,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 10,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 10,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 10,
+        msv: "A41957",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+    {
+        stt: 10,
+        msv: "A41954",
+        name: "Nguyễn Thế Anh",
+        birth: "09/12/2003",
+        class: "TT34h2",
+        gvcn: "Đinh Thu Khánh",
+        phone: "0358550285",
+        email: "theanh8703@gmail.com",
+        password: "A41957"
+
+    },
+]
 
 const InsertStudents = () => {
+    const [currentStudent, setCurrentStudent] = useState(null);
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const onFinish = (values) => {
         // Xử lý logic khi người dùng submit form
         console.log('Received values:', values);
+    };
+
+    const findStudentByMSV = (msv) => {
+        const student = data.find((item) => item.msv === msv);
+        setCurrentStudent(student);
+    };
+
+    const handleDelete = () => {
+        // Xử lý logic xóa sinh viên ở đây
+        console.log('Deleting student:', currentStudent);
+        setDeleteModalVisible(false);
+    };
+
+    const showDeleteModal = () => {
+        setDeleteModalVisible(true);
+    };
+
+    const hideDeleteModal = () => {
+        setDeleteModalVisible(false);
     };
 
     return (
@@ -87,14 +269,61 @@ const InsertStudents = () => {
                             <Input placeholder="Nhập Email SV"/>
                         </Form.Item>
                     </Col>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Mật khẩu"
+                            name="password"
+                            rules={[{required: true, message: 'Vui lòng cấp mật khẩu cho sinh viên!'}]}
+                        >
+                            <Input placeholder="Cấp mật khẩu cho sinh viên"/>
+                        </Form.Item>
+                    </Col>
                 </Row>
+
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" style={{ background: 'red', borderColor: 'red' }}>
                         Thêm sinh viên
                     </Button>
                 </Form.Item>
+
+
             </Form>
+            <Form>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Mã sinh viên để xóa"
+                            name="deleteMsv"
+                        >
+                            <Input placeholder="Nhập mã sinh viên" onBlur={(e) => findStudentByMSV(e.target.value)} />
+                        </Form.Item>
+                    </Col>
+
+                </Row>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" style={{ background: 'red', borderColor: 'red' }} onClick={showDeleteModal}>
+                        Xóa sinh viên
+                    </Button>
+                </Form.Item>
+            </Form>
+            <Modal
+                title="Xác nhận xóa"
+                visible={deleteModalVisible}
+                onOk={handleDelete}
+                onCancel={hideDeleteModal}
+            >
+                <p>Bạn có chắc chắn muốn xóa sinh viên?</p>
+                {currentStudent && (
+                    <p>
+                        Mã sinh viên: {currentStudent.msv},
+                        Họ tên: {currentStudent.name},
+                        Ngày sinh: {currentStudent.birth},
+                        Lớp: {currentStudent.class},
+                        Giá viên chủ nghiệm: {currentStudent.gvcn}
+                    </p>
+                )}
+            </Modal>
         </div>
     )
 }

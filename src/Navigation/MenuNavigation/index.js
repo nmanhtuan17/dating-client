@@ -18,6 +18,15 @@ const menuItems = [
     </Link>),
   },
   {
+    key: 'insertSubject',
+    label: (<Link to='/insertSubject'>
+      <div>
+        <FontAwesomeIcon icon={faStar} />
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí môn học</h4>
+      </div>
+    </Link>),
+  },
+  {
     key: 'scores',
     label: (<Link to='/scores'>
       <div>
@@ -40,7 +49,7 @@ const menuItems = [
     label: (<Link to='/insertStudents'>
       <div>
         <FontAwesomeIcon icon={faStar} />
-        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thêm sinh viên</h4>
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thêm, Xóa sinh viên</h4>
       </div>
     </Link>),
   },
@@ -53,15 +62,15 @@ const menuItems = [
       </div>
     </Link>),
   },
-  // {
-  //   key: 'detailPage',
-  //   label: (<Link to='/detailPage'>
-  //     <div>
-  //       <FontAwesomeIcon icon={faStar} />
-  //       <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>hide</h4>
-  //     </div>
-  //   </Link>),
-  // },
+  {
+    key: 'registerSubject',
+    label: (<Link to='/registerSubject'>
+      <div>
+        <FontAwesomeIcon icon={faStar} />
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Đăng kí học</h4>
+      </div>
+    </Link>),
+  },
 
 ]
 const items2 = menuItems.map((item, index) => {
