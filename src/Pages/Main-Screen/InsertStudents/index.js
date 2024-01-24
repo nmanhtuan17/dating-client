@@ -1,6 +1,6 @@
 import React from 'react';
 import {Input, Button, Form, Row, Col} from 'antd';
-import {useAppDispatch} from "../../../Store/store";
+import {useAppDispatch, useAppSelector} from "../../../Store/store";
 import {refreshToken} from "../../../Store/Action/auth.action";
 import {ApiService} from "../../../Services/api.service";
 import {createUser} from "../../../Store/Action/app.action";
@@ -8,8 +8,16 @@ import {toast} from "react-toastify";
 
 const InsertStudents = () => {
   const dispatch = useAppDispatch();
+  const {message} = useAppSelector(state => state.app)
   const onFinish = (values) => {
-    dispatch(createUser(values))
+    dispatch(createUser(values)).then(res => {
+      if (res?.error?.message === "Rejected") {
+        toast.error(res.payload.message)
+      }else {
+        toast.success("Create success")
+      }
+    })
+
   };
 
   return (
