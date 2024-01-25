@@ -17,13 +17,14 @@ export const CreateUserModel = ({open, show, hide}) => {
           toast.error(res.payload.message)
         } else {
           toast.success("Create success")
+          form.resetFields(['msv', 'fullname', 'birth', 'class', 'year', 'major', 'email', 'phone', 'gvcn']);
+          hide()
         }
       })
   };
 
   const onSubmit = () => {
     form.submit();
-    hide()
   }
   return (
     <Modal
