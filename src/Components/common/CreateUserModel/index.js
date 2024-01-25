@@ -9,10 +9,10 @@ import Overlay from "../../Layout/Overlay";
 export const CreateUserModel = ({open, show, hide}) => {
   const dispatch = useAppDispatch();
   const {message, isLoading} = useAppSelector(state => state.app)
-  const [birth, setBirth] = useState();
+  const [birthday, setBirth] = useState();
   const [form] = useForm()
   const onFinish = async (values) => {
-    await dispatch(createUser({...values, birth}))
+    await dispatch(createUser({...values, birthday}))
       .then(res => {
         if (res?.error?.message === "Rejected") {
           toast.error(res.payload.message)
