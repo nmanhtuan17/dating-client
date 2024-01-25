@@ -85,7 +85,6 @@ const RootLayout = () => {
               xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
             >
               <UserInfo/>
-              {/*<Schedule/>*/}
             </Col>
 
           </Row>

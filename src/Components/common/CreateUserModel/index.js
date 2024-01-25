@@ -1,26 +1,47 @@
-import React from 'react';
-import {Input, Button, Form, Row, Col} from 'antd';
+import {Button, Col, Form, Input, Modal, Row} from "antd";
+import React from "react";
 import {useAppDispatch, useAppSelector} from "../../../Store/store";
 import {createUser} from "../../../Store/Action/app.action";
 import {toast} from "react-toastify";
+import {useForm} from "antd/es/form/Form";
+import Overlay from "../../Layout/Overlay";
 
-const InsertStudents = () => {
+export const CreateUserModel = ({open, show, hide}) => {
   const dispatch = useAppDispatch();
-  const {message} = useAppSelector(state => state.app)
-  const onFinish = (values) => {
-    dispatch(createUser(values)).then(res => {
-      if (res?.error?.message === "Rejected") {
-        toast.error(res.payload.message)
-      }else {
-        toast.success("Create success")
-      }
-    })
-
+  const {message, isLoading} = useAppSelector(state => state.app)
+  const [form] = useForm()
+  const onFinish = async (values) => {
+    await dispatch(createUser(values))
+      .then(res => {
+        if (res?.error?.message === "Rejected") {
+          toast.error(res.payload.message)
+        } else {
+          toast.success("Create success")
+        }
+      })
   };
 
+  const onSubmit = () => {
+    form.submit();
+    hide()
+  }
   return (
-    <div>
+    <Modal
+      title="Thêm sinh viên"
+      centered
+      open={open}
+      onOk={onSubmit}
+      onCancel={hide}
+      width={1000}
+      footer={(_, {OkBtn, CancelBtn}) => !isLoading ? (
+        <>
+          <CancelBtn/>
+          <OkBtn/>
+        </>
+      ) : (<div></div>)}
+    >
       <Form
+        form={form}
         name="insertStudentForm"
         onFinish={onFinish}
         layout="vertical"
@@ -114,15 +135,8 @@ const InsertStudents = () => {
             </Form.Item>
           </Col>
         </Row>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" style={{background: 'red', borderColor: 'red'}}>
-            Thêm sinh viên
-          </Button>
-        </Form.Item>
       </Form>
-    </div>
+      {isLoading && <Overlay/>}
+    </Modal>
   )
 }
-
-export default InsertStudents;

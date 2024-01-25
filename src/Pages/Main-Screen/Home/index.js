@@ -241,6 +241,7 @@ const Home = () => {
   return (
     <div style={{flex: 1, height: '100%'}}>
       <Table
+        rowKey={(item) => item.stt}
         columns={columns}
         dataSource={data}
         scroll={{

@@ -15,5 +15,14 @@ export const createUser = createAsyncThunk
     return thunkAPI.rejectWithValue(e.response.data)
   }
 })
-export const showLoading = createAction("app/show_loading");
-export const hideLoading = createAction("app/hide_loading");
+
+
+export const getAllStudents = createAsyncThunk
+("app/getAll-students", async (_, thunkAPI) => {
+  try {
+    const students = await ApiService.getAllStudents();
+    return students
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})

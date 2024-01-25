@@ -189,6 +189,7 @@ const Score = () => {
   return (
     <div style={{flex: 1}}>
       <Table
+        rowKey={(item) => item.mm}
         columns={columns}
         dataSource={data} scroll={{
         y: height * 0.6,
@@ -197,6 +198,7 @@ const Score = () => {
         pagination={false}
       />
       <Table
+        rowKey={item => item.key}
         columns={columnscore}
         dataSource={newData}
         size="small"

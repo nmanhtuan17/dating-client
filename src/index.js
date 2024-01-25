@@ -10,29 +10,16 @@ import {PersistGate} from "redux-persist/integration/react";
 import {BrowserRouter} from "react-router-dom";
 import AuthProvider from "./Helper/AuthProvider";
 import {ConfigProvider} from "antd";
-import {LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {ToastContainer} from "react-toastify";
+import {antdConfigTheme} from "./config/antdConfigTheme";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ConfigProvider
-          theme={{
-            token: {
-              fontSize: 14,
-
-            },
-            components: {
-              Menu: {
-                itemSelectedBg: 'rgba(0, 0, 0, 0.06)',
-                itemSelectedColor: '#000'
-              },
-            },
-          }}
+          theme={antdConfigTheme}
         >
           <AuthProvider />
           <App/>
@@ -50,7 +37,6 @@ root.render(
           />
           <ToastContainer />
         </ConfigProvider>
-        </LocalizationProvider>
       </PersistGate>
     </Provider>
   </BrowserRouter>
