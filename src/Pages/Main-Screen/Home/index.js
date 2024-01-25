@@ -3,7 +3,6 @@ import {Space, Table, Tag} from 'antd';
 import List from 'rc-virtual-list'
 import {width, height} from '../../../Constant/Size'
 import {useAppSelector} from "../../../Store/store";
-import Schedule from "../../../Components/Layout/Schedule";
 const columns = [
   {
     title: 'STT',
@@ -241,6 +240,7 @@ const Home = () => {
   return (
     <div style={{flex: 1, height: '100%'}}>
       <Table
+        rowKey={(item) => item.stt}
         columns={columns}
         dataSource={data}
         scroll={{

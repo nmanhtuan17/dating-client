@@ -1,6 +1,7 @@
 import {createListenerMiddleware} from "@reduxjs/toolkit";
 import {store} from "../store";
 import {loadCourses} from "../Action/course.action";
+import {getAllStudents} from "../Action/app.action";
 
 
 export const appMiddleware = createListenerMiddleware();
@@ -13,6 +14,7 @@ appMiddleware.startListening({
     switch (action.type) {
       case 'auth/login/fulfilled':
         listenerApi.dispatch(loadCourses());
+        listenerApi.dispatch(getAllStudents());
     }
   }
 })

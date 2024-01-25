@@ -1,26 +1,49 @@
-import React from 'react';
-import {Input, Button, Form, Row, Col} from 'antd';
+import {Button, Col, DatePicker, Form, Input, Modal, Row} from "antd";
+import React, {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../Store/store";
 import {createUser} from "../../../Store/Action/app.action";
 import {toast} from "react-toastify";
+import {useForm} from "antd/es/form/Form";
+import Overlay from "../../Layout/Overlay";
 
-const InsertStudents = () => {
+export const CreateUserModel = ({open, show, hide}) => {
   const dispatch = useAppDispatch();
-  const {message} = useAppSelector(state => state.app)
-  const onFinish = (values) => {
-    dispatch(createUser(values)).then(res => {
-      if (res?.error?.message === "Rejected") {
-        toast.error(res.payload.message)
-      }else {
-        toast.success("Create success")
-      }
-    })
-
+  const {message, isLoading} = useAppSelector(state => state.app)
+  const [birth, setBirth] = useState();
+  const [form] = useForm()
+  const onFinish = async (values) => {
+    await dispatch(createUser({...values, birth}))
+      .then(res => {
+        if (res?.error?.message === "Rejected") {
+          toast.error(res.payload.message)
+        } else {
+          toast.success("Create success")
+          form.resetFields(['msv', 'fullname', 'class', 'year', 'major', 'email', 'phone', 'gvcn']);
+          hide()
+        }
+      })
   };
 
+  const onSubmit = () => {
+    form.submit();
+  }
   return (
-    <div>
+    <Modal
+      title="Thêm sinh viên"
+      centered
+      open={open}
+      onOk={onSubmit}
+      onCancel={hide}
+      width={1000}
+      footer={(_, {OkBtn, CancelBtn}) => !isLoading ? (
+        <>
+          <CancelBtn/>
+          <OkBtn/>
+        </>
+      ) : (<div></div>)}
+    >
       <Form
+        form={form}
         name="insertStudentForm"
         onFinish={onFinish}
         layout="vertical"
@@ -39,7 +62,7 @@ const InsertStudents = () => {
             <Form.Item
               label="Họ tên"
               name="fullname"
-              rules={[{required: true, message: 'Vui lòng msv'}]}
+              rules={[{required: true, message: 'Nhập họ tên'}]}
             >
               <Input placeholder="Họ tên"/>
             </Form.Item>
@@ -47,17 +70,14 @@ const InsertStudents = () => {
           <Col span={4}>
             <Form.Item
               label="Ngày sinh"
-              name="birth"
-              // rules={[{required: true, message: 'Vui lòng nhập ngày sinh!'}]}
             >
-              <Input placeholder="Ngày sinh"/>
+              <DatePicker onChange={(_, date) => setBirth(date)} />
             </Form.Item>
           </Col>
           <Col span={4}>
             <Form.Item
               label="Lớp"
               name="class"
-              // rules={[{required: true, message: 'Vui lòng nhập số lớp!'}]}
             >
               <Input placeholder="Lớp"/>
             </Form.Item>
@@ -108,21 +128,14 @@ const InsertStudents = () => {
             <Form.Item
               label="Cố vấn"
               name="gvcn"
-              rules={[{required: true, message: 'Vui lòng nhập mã Cố vấn!'}]}
+              rules={[{required: true, message: 'Nhập mã Cố vấn!'}]}
             >
               <Input placeholder="Mã cố vấn"/>
             </Form.Item>
           </Col>
         </Row>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" style={{background: 'red', borderColor: 'red'}}>
-            Thêm sinh viên
-          </Button>
-        </Form.Item>
       </Form>
-    </div>
+      {isLoading && <Overlay/>}
+    </Modal>
   )
 }
-
-export default InsertStudents;

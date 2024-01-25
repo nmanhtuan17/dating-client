@@ -4,7 +4,6 @@ import React from "react";
 import {Content} from "antd/es/layout/layout";
 import {UserOutlined} from "@ant-design/icons";
 import {useAppSelector} from "../../Store/store";
-import Schedule from "../Layout/Schedule";
 
 const UserInfo = () => {
   const {account} = useAppSelector(state => state.auth)

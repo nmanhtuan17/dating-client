@@ -34,15 +34,6 @@ const useMenu = () => {
       </Link>),
     },
     account?.isAdmin && {
-      key: 'insertStudents',
-      label: (<Link to='/insertStudents'>
-        <div>
-          <FontAwesomeIcon icon={faStar}/>
-          <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thêm sinh viên</h4>
-        </div>
-      </Link>),
-    },
-    account?.isAdmin && {
       key: 'studentList',
       label: (<Link to='/studentList'>
         <div>

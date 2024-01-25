@@ -11,7 +11,6 @@ import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {useAppDispatch} from "../../Store/store";
 import {logout} from "../../Store/Slice/auth.slice";
-import Schedule from "../../Components/Layout/Schedule";
 
 const items = [
   {
@@ -85,7 +84,6 @@ const RootLayout = () => {
               xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
             >
               <UserInfo/>
-              {/*<Schedule/>*/}
             </Col>
 
           </Row>
