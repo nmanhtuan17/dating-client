@@ -1,5 +1,5 @@
-import {Button, Col, Form, Input, Modal, Row} from "antd";
-import React from "react";
+import {Button, Col, DatePicker, Form, Input, Modal, Row} from "antd";
+import React, {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../Store/store";
 import {createUser} from "../../../Store/Action/app.action";
 import {toast} from "react-toastify";
@@ -9,15 +9,16 @@ import Overlay from "../../Layout/Overlay";
 export const CreateUserModel = ({open, show, hide}) => {
   const dispatch = useAppDispatch();
   const {message, isLoading} = useAppSelector(state => state.app)
+  const [birth, setBirth] = useState();
   const [form] = useForm()
   const onFinish = async (values) => {
-    await dispatch(createUser(values))
+    await dispatch(createUser({...values, birth}))
       .then(res => {
         if (res?.error?.message === "Rejected") {
           toast.error(res.payload.message)
         } else {
           toast.success("Create success")
-          form.resetFields(['msv', 'fullname', 'birth', 'class', 'year', 'major', 'email', 'phone', 'gvcn']);
+          form.resetFields(['msv', 'fullname', 'class', 'year', 'major', 'email', 'phone', 'gvcn']);
           hide()
         }
       })
@@ -61,7 +62,7 @@ export const CreateUserModel = ({open, show, hide}) => {
             <Form.Item
               label="Họ tên"
               name="fullname"
-              rules={[{required: true, message: 'Vui lòng msv'}]}
+              rules={[{required: true, message: 'Nhập họ tên'}]}
             >
               <Input placeholder="Họ tên"/>
             </Form.Item>
@@ -69,17 +70,14 @@ export const CreateUserModel = ({open, show, hide}) => {
           <Col span={4}>
             <Form.Item
               label="Ngày sinh"
-              name="birth"
-              // rules={[{required: true, message: 'Vui lòng nhập ngày sinh!'}]}
             >
-              <Input placeholder="Ngày sinh"/>
+              <DatePicker onChange={(_, date) => setBirth(date)} />
             </Form.Item>
           </Col>
           <Col span={4}>
             <Form.Item
               label="Lớp"
               name="class"
-              // rules={[{required: true, message: 'Vui lòng nhập số lớp!'}]}
             >
               <Input placeholder="Lớp"/>
             </Form.Item>
@@ -130,7 +128,7 @@ export const CreateUserModel = ({open, show, hide}) => {
             <Form.Item
               label="Cố vấn"
               name="gvcn"
-              rules={[{required: true, message: 'Vui lòng nhập mã Cố vấn!'}]}
+              rules={[{required: true, message: 'Nhập mã Cố vấn!'}]}
             >
               <Input placeholder="Mã cố vấn"/>
             </Form.Item>

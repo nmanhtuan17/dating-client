@@ -3,7 +3,6 @@ import {Space, Table, Tag} from 'antd';
 import List from 'rc-virtual-list'
 import {width, height} from '../../../Constant/Size'
 import {useAppSelector} from "../../../Store/store";
-import Schedule from "../../../Components/Layout/Schedule";
 const columns = [
   {
     title: 'STT',
