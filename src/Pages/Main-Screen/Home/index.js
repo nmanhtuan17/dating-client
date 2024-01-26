@@ -76,6 +76,7 @@ const data = [
 ]
 
 const Home = () => {
+  const {account} = useAppSelector(state => state.auth)
   const {courses} = useAppSelector((state) => state.course);
   const [searchText, setSearchText] = useState('');
   const [open, setOpen] = useState(false);
@@ -126,7 +127,7 @@ const Home = () => {
         }}
         size="small"
         pagination={false}
-        footer={renderFooter}
+        footer={account?.isAdmin ? renderFooter: () => <div></div>}
       />
       <CreateCourseModel
         title='Thêm môn học'

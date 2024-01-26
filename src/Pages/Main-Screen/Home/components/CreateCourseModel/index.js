@@ -5,21 +5,25 @@ import {useForm} from "antd/es/form/Form";
 import {useAppDispatch, useAppSelector} from "../../../../../Store/store";
 import {createUser} from "../../../../../Store/Action/app.action";
 import Overlay from "../../../../../Components/Layout/Overlay"
+import {createCourse} from "../../../../../Store/Action/course.action";
+
 export const CreateCourseModel = ({open, show, hide, title}) => {
   const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false)
   const {message, isLoading} = useAppSelector(state => state.app)
-  const [birthday, setBirth] = useState();
   const [form] = useForm()
   const onFinish = async (values) => {
-    await dispatch(createUser({...values, birthday}))
+    setLoading(true)
+    await dispatch(createCourse(values))
       .then(res => {
         if (res?.error?.message === "Rejected") {
           toast.error(res.payload.message)
         } else {
           toast.success("Create success")
-          form.resetFields(['msv', 'fullname', 'class', 'year', 'major', 'email', 'phone', 'gvcn']);
+          form.resetFields(['code', 'name', 'className', 'tc', 'shift', 'jd', 'room', 'teacher']);
           hide()
         }
+        setLoading(false)
       })
   };
 
@@ -34,7 +38,7 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
       onOk={onSubmit}
       onCancel={hide}
       width={1000}
-      footer={(_, {OkBtn, CancelBtn}) => !isLoading ? (
+      footer={(_, {OkBtn, CancelBtn}) => !loading ? (
         <>
           <CancelBtn/>
           <OkBtn/>
@@ -80,7 +84,7 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
             <Form.Item
               label="Tín chỉ"
               name="tc"
-              rules={[{required: true}]}
+              rules={[{required: true, type: "number"}]}
             >
               <Input placeholder="Tín chỉ"/>
             </Form.Item>
@@ -94,15 +98,14 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
               name="shift"
               rules={[{required: true}]}
             >
-              <TimePicker.RangePicker onChange={(data) => {
-                console.log(data)}} />
+              <Input placeholder="Start - End"/>
             </Form.Item>
           </Col>
           <Col span={8}>
             <Form.Item
               label="Thứ"
               name="jd"
-              rules={[{required: true}]}
+              rules={[{required: true, type: "number"}]}
             >
               <Input placeholder="Thứ"/>
             </Form.Item>
@@ -129,7 +132,7 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
           </Col>
         </Row>
       </Form>
-      {isLoading && <Overlay/>}
+      {loading && <Overlay/>}
     </Modal>
   )
 }

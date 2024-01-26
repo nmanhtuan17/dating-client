@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {loadCourses} from "../Action/course.action";
+import {createCourse, loadCourses} from "../Action/course.action";
 
 const initialState = {
+  loading: false,
   courses: []
 }
 
@@ -21,6 +22,16 @@ export const courseSlice = createSlice({
       })
       .addCase(loadCourses.rejected, (state, action) => {
 
+      })
+      .addCase(createCourse.pending, (state, action) => {
+        state.laoding = true;
+      })
+      .addCase(createCourse.fulfilled, (state, action) => {
+        state.loading = false;
+        state.courses = state.courses.concat(action.payload.data.course)
+      })
+      .addCase(createCourse.rejected, (state, action) => {
+        state.loading = false;
       })
   }
 })

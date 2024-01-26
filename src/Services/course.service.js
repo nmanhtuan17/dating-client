@@ -8,4 +8,12 @@ export class CourseService extends RequestService {
     })
     return res.data
   }
+
+  static async createCourse(course) {
+    const res = await this.callApi('course/add-course', {
+      method: "POST",
+      data: course
+    })
+    return res.data
+  }
 }

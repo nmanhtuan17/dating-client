@@ -9,3 +9,12 @@ export const loadCourses = createAsyncThunk("course/get-courses", async (_, thun
     return thunkAPI.rejectWithValue(e.response.data)
   }
 })
+
+
+export const createCourse = createAsyncThunk("course/craete-course", async (course, thunkAPI) => {
+  try {
+    return await CourseService.createCourse(course)
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
