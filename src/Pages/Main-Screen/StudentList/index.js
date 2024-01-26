@@ -187,6 +187,7 @@ const StudentList = () => {
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
 
+  console.log(students)
   const showModel = () => {
     setOpen(true)
   }

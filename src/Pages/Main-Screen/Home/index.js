@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Button, Input, Space, Table, Tag} from 'antd';
 import List from 'rc-virtual-list'
 import {width, height} from '../../../Constant/Size'
@@ -6,19 +6,14 @@ import {useAppSelector} from "../../../Store/store";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {CreateUserModel} from "../../../Components/common/CreateUserModel";
+import {CreateCourseModel} from "./components/CreateCourseModel";
 
 const {Search} = Input;
 const columns = [
   {
-    title: 'STT',
-    dataIndex: 'stt',
-    key: 'stt',
-    width: 50
-  },
-  {
     title: 'Mã môn',
-    dataIndex: 'mm',
-    key: 'mm',
+    dataIndex: 'code',
+    key: 'code',
     width: 70
   },
   {
@@ -35,13 +30,19 @@ const columns = [
     title: 'Thứ',
     key: 'thu',
     dataIndex: 'thu',
-    width: 50
+    width: 50,
+    render: (text, record) => {
+      return <div>{record.time.jd}</div>
+    }
   },
   {
     title: 'Ca học',
     key: 'ca',
     dataIndex: 'ca',
-    width: 60
+    width: 60,
+    render: (text, record) => {
+      return <div>{record.time.shift}</div>
+    }
   },
   {
     title: 'Phòng học',
@@ -57,13 +58,12 @@ const columns = [
   },
   {
     title: 'Giáo viên',
-    key: 'gv',
-    dataIndex: 'gv'
+    key: 'teacher',
+    dataIndex: 'teacher'
   },
 ];
 const data = [
   {
-    stt: 1,
     mm: "VC204",
     name: "Các dân tộc Việt Nam",
     className: "DANTOCVN.1",
@@ -72,171 +72,6 @@ const data = [
     room: "B403",
     tc: 3,
     gv: "Nguyễn Anh Cường(MXV036)"
-  },
-  {
-    stt: 2,
-    mm: "VC204",
-    name: "Các dân tộc Việt Nam",
-    className: "DANTOCVN.1",
-    thu: 5,
-    ca: "6-7",
-    room: "B307",
-    tc: 3,
-    gv: "Nguyễn Anh Cường(MXV036)"
-  },
-  {
-    stt: 3,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.7",
-    thu: 3,
-    ca: "1-2",
-    room: "A709",
-    tc: 3,
-    gv: "Nguyễn Công Nhân(CTI048)"
-  },
-  {
-    stt: 4,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.8",
-    thu: 3,
-    ca: "3-5",
-    room: "A709",
-    tc: 3,
-    gv: "Nguyễn Công Nhân(CTI048)"
-  },
-  {
-    stt: 5,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.8",
-    thu: 3,
-    ca: "6-7",
-    room: "A708",
-    tc: 3,
-    gv: "Nguyễn Công Nhân(CTI048)"
-  },
-  {
-    stt: 6,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.7",
-    thu: 3,
-    ca: "8-10",
-    room: "A708",
-    tc: 3,
-    gv: "Nguyễn Công Nhân(CTI048)"
-  },
-  {
-    stt: 7,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 3,
-    ca: "8-10",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
-  },
-  {
-    stt: 8,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.9",
-    thu: 4,
-    ca: "6-8",
-    room: "A708",
-    tc: 3,
-    gv: "Nguyễn Công Nhân(CTI048)"
-  },
-  {
-    stt: 9,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.9",
-    thu: 5,
-    ca: "4-5",
-    room: "A709",
-    tc: 3,
-    gv: "Nguyễn Công Nhân(CTI048)"
-  },
-  {
-    stt: 10,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 5,
-    ca: "6-7",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
-  },
-  {
-    stt: 11,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 5,
-    ca: "6-7",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
-  },
-  {
-    stt: 12,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 5,
-    ca: "6-7",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
-  },
-  {
-    stt: 13,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 5,
-    ca: "6-7",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
-  },
-  {
-    stt: 14,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 5,
-    ca: "6-7",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
-  },
-  {
-    stt: 15,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 5,
-    ca: "6-7",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
-  },
-  {
-    stt: 16,
-    mm: "IS222",
-    name: "Cơ sở dữ liệu",
-    className: "CSODULIEU.5",
-    thu: 5,
-    ca: "6-7",
-    room: "A709",
-    tc: 3,
-    gv: "Đinh Thị Thúy(CTI050)"
   }
 ]
 
@@ -244,8 +79,6 @@ const Home = () => {
   const {courses} = useAppSelector((state) => state.course);
   const [searchText, setSearchText] = useState('');
   const [open, setOpen] = useState(false);
-
-
   const showModel = () => {
     setOpen(true)
   }
@@ -256,12 +89,12 @@ const Home = () => {
     setSearchText(value);
   };
 
-  const filteredData = data.filter(
+  const filteredData = courses.filter(
     (item) =>
-      item.mm.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.code.toLowerCase().includes(searchText.toLowerCase()) ||
       item.name.toLowerCase().includes(searchText.toLowerCase()) ||
       item.className.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.gv.toLowerCase().includes(searchText.toLowerCase())
+      item.teacher.toLowerCase().includes(searchText.toLowerCase())
   );
 
 
@@ -285,7 +118,7 @@ const Home = () => {
       </Space>
       <Table
         className='flex-fill'
-        rowKey={(item) => item.stt}
+        rowKey={(item) => item._id}
         columns={columns}
         dataSource={filteredData}
         scroll={{
@@ -295,7 +128,7 @@ const Home = () => {
         pagination={false}
         footer={renderFooter}
       />
-      <CreateUserModel
+      <CreateCourseModel
         title='Thêm môn học'
         open={open}
         show={showModel}
