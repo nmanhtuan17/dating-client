@@ -73,10 +73,11 @@ const RootLayout = () => {
         <Layout style={{margin: '24px'}}>
           <Row gutter={[24, 24]} style={{flex: 1}}>
             <Col
+              className='bg-white'
               xs={{span: 24, order: 2}} lg={{span: 18, order: 1}}
-              style={{height: '100%'}}
+              style={{ borderRadius: 12}}
             >
-              <Content style={{minHeight: 280, background: colors.background, borderRadius: 12, padding: 24}}>
+              <Content className='bg-white flex-fill' style={{minHeight: 280, padding: 24}}>
                 <Outlet/>
               </Content>
             </Col>

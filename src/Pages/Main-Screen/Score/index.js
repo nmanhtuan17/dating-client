@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {Space, Table, Tag} from 'antd';
+import {Button, Space, Table, Tag} from 'antd';
 import {height} from "../../../Constant/Size";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
 
 const columns = [
   {
@@ -176,16 +178,12 @@ const Score = () => {
 
 
   const averageScore = (totalScore / totalCredits).toFixed(2);
-  const newData = [
-    {
-      textsumtc: 'Tổng số tín chỉ tích lũy',
-      numaveragetc: totalCredits
-    },
-    {
-      textsumtc: 'Trung bình chung tích lũy:',
-      numaveragetc: averageScore
-    }
-  ];
+
+  const renderFooter = () =>
+    <div className='d-flex flex-column pt-4'>
+      <div className='flex-fill '><strong>Tổng số tín chỉ tích lũy:</strong> {totalCredits}</div>
+      <div className='flex-fill'><strong>Trung bình chung tích lũy:</strong> {averageScore}</div>
+    </div>
   return (
     <div style={{flex: 1}}>
       <Table
@@ -196,13 +194,7 @@ const Score = () => {
       }}
         size="small"
         pagination={false}
-      />
-      <Table
-        rowKey={item => item.key}
-        columns={columnscore}
-        dataSource={newData}
-        size="small"
-        pagination={false}
+        footer={renderFooter}
       />
     </div>
   )
