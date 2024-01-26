@@ -76,6 +76,7 @@ const data = [
 ]
 
 const Home = () => {
+  const {account} = useAppSelector(state => state.auth)
   const {courses} = useAppSelector((state) => state.course);
   const [searchText, setSearchText] = useState('');
   const [open, setOpen] = useState(false);
@@ -106,7 +107,7 @@ const Home = () => {
           className='flex-fill text-white'
           onClick={showModel}
         >
-          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus} size={14}/></Button>
+          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>
       </div>
     )
   }
@@ -126,7 +127,7 @@ const Home = () => {
         }}
         size="small"
         pagination={false}
-        footer={renderFooter}
+        footer={account?.isAdmin ? renderFooter: () => <div></div>}
       />
       <CreateCourseModel
         title='Thêm môn học'
