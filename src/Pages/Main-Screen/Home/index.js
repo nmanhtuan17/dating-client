@@ -107,7 +107,7 @@ const Home = () => {
           className='flex-fill text-white'
           onClick={showModel}
         >
-          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus} size={14}/></Button>
+          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>
       </div>
     )
   }

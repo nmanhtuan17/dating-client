@@ -202,7 +202,7 @@ const StudentList = () => {
           className='flex-fill text-white'
           onClick={showModel}
         >
-          Create user <FontAwesomeIcon className='ps-2' icon={faPlus} size={14}/></Button>
+          Thêm sinh viên <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>
       </div>
     )
   }
