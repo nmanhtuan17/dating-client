@@ -5,6 +5,7 @@ import {useAppSelector} from "../../../Store/store";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {CreateUserModel} from "../../../Components/common/CreateUserModel";
+import Search from "antd/es/input/Search";
 
 const columns = [
   {
@@ -184,8 +185,9 @@ const data = [
 const StudentList = () => {
   const {students} = useAppSelector(state => state.app);
   const [open, setOpen] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
-
+  console.log(students)
   const showModel = () => {
     setOpen(true)
   }
@@ -204,20 +206,36 @@ const StudentList = () => {
       </div>
     )
   }
+
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
+
+  // const filteredData = data.filter(
+  //   (item) =>
+  //     item.mm.toLowerCase().includes(searchText.toLowerCase()) ||
+  //     item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+  //     item.className.toLowerCase().includes(searchText.toLowerCase()) ||
+  //     item.gv.toLowerCase().includes(searchText.toLowerCase())
+  // );
   return (
     <div style={{flex: 1}}>
+      <Space className='d-flex justify-content-end' style={{marginBottom: 16}}>
+        <Search placeholder="Tìm kiếm sinh viên" onSearch={handleSearch} enterButton/>
+      </Space>
       <Table
         rowKey={(item) => item.stt}
         columns={columns}
         dataSource={data}
         scroll={{
-          y: height * .7,
+          y: height * .65,
         }}
         size="small"
         pagination={false}
         footer={renderFooter}
       />
       <CreateUserModel
+        title="Thêm sinh viên"
         open={open}
         show={showModel}
         hide={hideModel}

@@ -1,12 +1,11 @@
-import {Button, Col, DatePicker, Form, Input, Modal, Row} from "antd";
+import {Button, Col, DatePicker, Form, Input, Modal, Row, TimePicker} from "antd";
 import React, {useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../../Store/store";
-import {createUser} from "../../../Store/Action/app.action";
 import {toast} from "react-toastify";
 import {useForm} from "antd/es/form/Form";
-import Overlay from "../../Layout/Overlay";
-
-export const CreateUserModel = ({open, show, hide, title}) => {
+import {useAppDispatch, useAppSelector} from "../../../../../Store/store";
+import {createUser} from "../../../../../Store/Action/app.action";
+import Overlay from "../../../../../Components/Layout/Overlay"
+export const CreateCourseModel = ({open, show, hide, title}) => {
   const dispatch = useAppDispatch();
   const {message, isLoading} = useAppSelector(state => state.app)
   const [birthday, setBirth] = useState();
@@ -47,90 +46,85 @@ export const CreateUserModel = ({open, show, hide, title}) => {
         name="insertStudentForm"
         onFinish={onFinish}
         layout="vertical"
+        className='pt-4'
       >
         <Row gutter={16}>
           <Col span={4}>
             <Form.Item
-              label="Mã sinh viên"
-              name="msv"
-              rules={[{required: true, message: 'Nhập mã sinh viên!'}]}
+              label="Mã môn"
+              name="code"
+              rules={[{required: true, message: 'Nhập mã môn!!'}]}
             >
-              <Input placeholder="Mã sinh viên"/>
+              <Input placeholder="Mã môn"/>
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              label="Họ tên"
-              name="fullname"
-              rules={[{required: true, message: 'Nhập họ tên'}]}
+              label="Tên môn"
+              name="name"
+              rules={[{required: true, message: 'Nhập tên môn'}]}
             >
-              <Input placeholder="Họ tên"/>
+              <Input placeholder="Tên môn"/>
             </Form.Item>
           </Col>
           <Col span={4}>
             <Form.Item
-              label="Ngày sinh"
+              label="Tên lớp"
+              name='className'
+              rules={[{required: true}]}
             >
-              <DatePicker onChange={(_, date) => setBirth(date)} />
+              <Input placeholder="Tên lớp"/>
             </Form.Item>
           </Col>
           <Col span={4}>
             <Form.Item
-              label="Lớp"
-              name="class"
+              label="Tín chỉ"
+              name="tc"
+              rules={[{required: true}]}
             >
-              <Input placeholder="Lớp"/>
+              <Input placeholder="Tín chỉ"/>
             </Form.Item>
           </Col>
         </Row>
 
         <Row gutter={16}>
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item
-              label="Khóa"
-              name="year"
-              rules={[{required: true, message: 'Nhập khóa học'}]}
+              label="Ca học"
+              name="shift"
+              rules={[{required: true}]}
             >
-              <Input placeholder="K34"/>
+              <TimePicker.RangePicker onChange={(data) => {
+                console.log(data)}} />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={8}>
             <Form.Item
-              label="Ngành học"
-              name="major"
-              rules={[{required: true, message: 'Nhập ngành học'}]}
+              label="Thứ"
+              name="jd"
+              rules={[{required: true}]}
             >
-              <Input placeholder="Công nghệ thông tin"/>
+              <Input placeholder="Thứ"/>
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item
+              label="Phòng học"
+              name="room"
+              rules={[{required: true}]}
+            >
+              <Input placeholder="Phòng học"/>
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
-              label="Email"
-              name="email"
+              label="Giáo viên"
+              name="teacher"
+              rules={[{required: true}]}
             >
-              <Input placeholder="Email"/>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              label="Số điện thoại"
-              name="phone"
-            >
-              <Input placeholder="Nhập số điện thoại"/>
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={16}>
-          <Col span={4}>
-            <Form.Item
-              label="Cố vấn"
-              name="gvcn"
-              rules={[{required: true, message: 'Nhập mã Cố vấn!'}]}
-            >
-              <Input placeholder="Mã cố vấn"/>
+              <Input placeholder="Giáo viên"/>
             </Form.Item>
           </Col>
         </Row>
