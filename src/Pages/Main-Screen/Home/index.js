@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
-import { Input, Space, Table, Tag } from 'antd';
+import {Button, Input, Space, Table, Tag} from 'antd';
 import List from 'rc-virtual-list'
 import {width, height} from '../../../Constant/Size'
 import {useAppSelector} from "../../../Store/store";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {CreateUserModel} from "../../../Components/common/CreateUserModel";
 
-const { Search } = Input;
+const {Search} = Input;
 const columns = [
   {
     title: 'STT',
@@ -238,38 +241,67 @@ const data = [
 ]
 
 const Home = () => {
-
-  const { courses } = useAppSelector((state) => state.course);
+  const {courses} = useAppSelector((state) => state.course);
   const [searchText, setSearchText] = useState('');
+  const [open, setOpen] = useState(false);
 
+
+  const showModel = () => {
+    setOpen(true)
+  }
+  const hideModel = () => {
+    setOpen(false)
+  }
   const handleSearch = (value) => {
     setSearchText(value);
   };
 
   const filteredData = data.filter(
-      (item) =>
-          item.mm.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.className.toLowerCase().includes(searchText.toLowerCase()) ||
-          item.gv.toLowerCase().includes(searchText.toLowerCase())
+    (item) =>
+      item.mm.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.className.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.gv.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  return (
-      <div style={{ flex: 1, height: '100%' }}>
-        <Space style={{ marginBottom: 16 }}>
-          <Search placeholder="Tìm kiếm môn học" onSearch={handleSearch} enterButton />
-        </Space>
-        <Table
-            rowKey={(item) => item.stt}
-            columns={columns}
-            dataSource={filteredData}
-            scroll={{
-              y: height * 0.7,
-            }}
-            size="small"
-            pagination={false}
-        />
+
+  const renderFooter = () => {
+    return (
+      <div className='d-flex pt-4'>
+        <Button
+          type={"primary"}
+          className='flex-fill text-white'
+          onClick={showModel}
+        >
+          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus} size={14}/></Button>
       </div>
+    )
+  }
+
+  return (
+    <div className='d-flex flex-column justify-content-between'>
+      <Space className='d-flex justify-content-end' style={{marginBottom: 16}}>
+        <Search placeholder="Tìm kiếm môn học" onSearch={handleSearch} enterButton/>
+      </Space>
+      <Table
+        className='flex-fill'
+        rowKey={(item) => item.stt}
+        columns={columns}
+        dataSource={filteredData}
+        scroll={{
+          y: height * 0.65,
+        }}
+        size="small"
+        pagination={false}
+        footer={renderFooter}
+      />
+      <CreateUserModel
+        title='Thêm môn học'
+        open={open}
+        show={showModel}
+        hide={hideModel}
+      />
+    </div>
   );
 };
 

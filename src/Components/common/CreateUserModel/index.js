@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {useForm} from "antd/es/form/Form";
 import Overlay from "../../Layout/Overlay";
 
-export const CreateUserModel = ({open, show, hide}) => {
+export const CreateUserModel = ({open, show, hide, title}) => {
   const dispatch = useAppDispatch();
   const {message, isLoading} = useAppSelector(state => state.app)
   const [birthday, setBirth] = useState();
@@ -29,7 +29,7 @@ export const CreateUserModel = ({open, show, hide}) => {
   }
   return (
     <Modal
-      title="Thêm sinh viên"
+      title={title}
       centered
       open={open}
       onOk={onSubmit}
