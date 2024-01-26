@@ -1,8 +1,8 @@
-import MainNavigation from "./Navigation/MailNavigation";
+import MainNavigation from "./Navigation/MainNavigation";
 
 function App() {
   return (
-    <MainNavigation />
+    <MainNavigation/>
   );
 }
 

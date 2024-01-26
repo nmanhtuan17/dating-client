@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import type, {DrawerProps, Menu, RadioChangeEvent} from 'antd';
-import { Button, Drawer, Radio, Space } from 'antd';
+import { Menu} from 'antd';
 import {colors} from "../../Constant/Colors";
 import Sider from "antd/es/layout/Sider";
+import useMenu from "../../Hook/useMenu";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBook, faHouse, faMoneyBill, faStar} from "@fortawesome/free-solid-svg-icons";
+import {faHouse, faStar} from "@fortawesome/free-solid-svg-icons";
+
 
 const menuItems = [
   {
@@ -14,15 +15,6 @@ const menuItems = [
       <div>
         <FontAwesomeIcon icon={faHouse} />
         <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Trang chủ</h4>
-      </div>
-    </Link>),
-  },
-  {
-    key: 'insertSubject',
-    label: (<Link to='/insertSubject'>
-      <div>
-        <FontAwesomeIcon icon={faStar} />
-        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí môn học</h4>
       </div>
     </Link>),
   },
@@ -49,7 +41,7 @@ const menuItems = [
     label: (<Link to='/insertStudents'>
       <div>
         <FontAwesomeIcon icon={faStar} />
-        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thêm, Xóa sinh viên</h4>
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thêm sinh viên</h4>
       </div>
     </Link>),
   },
@@ -62,15 +54,15 @@ const menuItems = [
       </div>
     </Link>),
   },
-  {
-    key: 'registerSubject',
-    label: (<Link to='/registerSubject'>
-      <div>
-        <FontAwesomeIcon icon={faStar} />
-        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Đăng kí học</h4>
-      </div>
-    </Link>),
-  },
+  // {
+  //   key: 'detailPage',
+  //   label: (<Link to='/detailPage'>
+  //     <div>
+  //       <FontAwesomeIcon icon={faStar} />
+  //       <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>hide</h4>
+  //     </div>
+  //   </Link>),
+  // },
 
 ]
 const items2 = menuItems.map((item, index) => {
@@ -80,7 +72,7 @@ const items2 = menuItems.map((item, index) => {
   };
 });
 const MenuNavigation = () => {
-  const [currentKey, setCurrentKey] = useState('tkb')
+  const data = useMenu();
   return (
     <Sider style={{background: colors.background, paddingTop: '16px'}} width={250}>
       <Menu
@@ -90,7 +82,7 @@ const MenuNavigation = () => {
           height: '100%',
           fontWeight: 'bold'
         }}
-        items={items2}
+        items={data}
       />
     </Sider>
   );

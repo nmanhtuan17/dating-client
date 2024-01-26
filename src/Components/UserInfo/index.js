@@ -8,8 +8,8 @@ import {useAppSelector} from "../../Store/store";
 const UserInfo = () => {
   const {account} = useAppSelector(state => state.auth)
   return (
-    <Col
-      xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
+    <div
+      // xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
     >
       <Content style={{
         display: 'flex',
@@ -29,7 +29,7 @@ const UserInfo = () => {
           </div>
         </div>
       </Content>
-    </Col>
+    </div>
   )
 }
 

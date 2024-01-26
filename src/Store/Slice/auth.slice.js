@@ -9,7 +9,7 @@ const initState = {
     refreshToken: ""
   },
   account: null,
-  message: null,
+  message: '',
   isLoading: false
 }
 
@@ -24,7 +24,7 @@ export const authSlice = createSlice({
         refreshToken: ""
       };
       state.account = null;
-      state.message = null
+      state.message = ''
     },
     clearAccount: () => {
       return initState;
@@ -48,11 +48,11 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action ) => {
         state.isSignedIn = false
         state.isLoading = false
-        state.message = action.payload.message
+        state.message = action.payload?.message
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
         state.tokens = action.payload?.tokens
-        state.isSignedIn = true
+        // state.isSignedIn = true
       })
       .addCase(refreshToken.rejected, (state, action) => {
         state.tokens.accessToken = ''

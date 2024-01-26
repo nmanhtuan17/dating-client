@@ -97,7 +97,6 @@ const data = [
 const Tuition = () => {
   const {account} = useAppSelector(state => state.auth);
   console.log(account)
-  // const [tuitions, setTuitions] = useState(data)
   const totalamount = data.reduce((acc, curr) => acc + curr.amount, 0);
 
   const tuitions = useMemo(() => {
@@ -107,25 +106,22 @@ const Tuition = () => {
       })
     )
   }, [])
-  const newData = [{texttotal: "Tổng tiền các hóa đơn:", numbertotal: currencyFormat(totalamount)}];
   console.log(tuitions)
 
+  const renderFooter = () => <div className='d-flex mt-4 p3'>
+    <div className='flex-fill '><strong>Tổng tiền các hóa đơn: </strong>{currencyFormat(totalamount)}</div>
+  </div>
   return (
-    <div style={{flex: 1, height: '100%'}}>
+    <div className='bg-white flex-fill' style={{flex: 1, height: '100%'}}>
       <Table
+        rowKey={item => item.stt}
         columns={columns}
         dataSource={tuitions} scroll={{
           y: height*.7,
       }}
         size="small"
         pagination={false}
-      />
-      <Table
-        columns={columnamount}
-        dataSource={newData}
-
-        size="small"
-        pagination={false}
+        footer={renderFooter}
       />
     </div>
   )

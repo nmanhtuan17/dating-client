@@ -1,23 +1,28 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import {loadAccount, setLogoutAndClearData} from "./auth.action";
 import {RequestService} from "../../Services/request.service";
-export const bootApp = createAsyncThunk(
-  "app/boot",
-    async (_, thunkAPI) => {
-      try {
-        await RequestService.initialize();
-        return {
-          isSignedIn: true,
-        };
+import {ApiService} from "../../Services/api.service";
 
-      } catch (_) {
-        thunkAPI.dispatch(setLogoutAndClearData());
-        return {
-          isSignedIn: false,
-        };
-      }
-    })
-;
+export const createUser = createAsyncThunk
+("app/create-user", async (user, thunkAPI) => {
+  try {
+    const res = await ApiService.createUser(user);
+    return res
+  } catch (e) {
+    if (!e.response.data) {
+      throw e
+    }
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
 
-export const showLoading = createAction("app/show_loading");
-export const hideLoading = createAction("app/hide_loading");
+
+export const getAllStudents = createAsyncThunk
+("app/getAll-students", async (_, thunkAPI) => {
+  try {
+    const students = await ApiService.getAllStudents();
+    return students
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})

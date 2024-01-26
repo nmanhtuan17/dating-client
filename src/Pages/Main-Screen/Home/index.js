@@ -238,6 +238,7 @@ const data = [
 ]
 
 const Home = () => {
+
   const { courses } = useAppSelector((state) => state.course);
   const [searchText, setSearchText] = useState('');
 
@@ -259,6 +260,7 @@ const Home = () => {
           <Search placeholder="Tìm kiếm môn học" onSearch={handleSearch} enterButton />
         </Space>
         <Table
+            rowKey={(item) => item.stt}
             columns={columns}
             dataSource={filteredData}
             scroll={{

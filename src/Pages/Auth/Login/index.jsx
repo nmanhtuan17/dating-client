@@ -7,7 +7,6 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBCheckbox
 }
   from 'mdb-react-ui-kit';
 import {useAppDispatch, useAppSelector} from "../../../Store/store";
@@ -22,13 +21,13 @@ function Login() {
   const [password, setPassword] = useState();
   const {message, isLoading} = useAppSelector(state => state.auth)
   const [messages, setMessages] = useState([]);
-
   useEffect(() => {
     setMessages([message, ...messages])
   }, [message]);
   const handleLogin = (value) => {
     dispatch(login(value));
   }
+
   return (
     <MDBContainer fluid>
       <MDBRow className='d-flex justify-content-center align-items-center vh-100'>
@@ -46,7 +45,7 @@ function Login() {
             >
               {({values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldTouched}) => (
                 <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-                  <MDBInput wrapperClass='mb-4 w-100' label='Mã sinh viên' id='msv' type='text' size="lg"
+                  <MDBInput wrapperClass='mb-4 w-100' label='Tài khoản' id='msv' type='text' size="lg"
                             onFocus={() => {
                               setFieldTouched('msv')
                             }}
@@ -74,23 +73,17 @@ function Login() {
                     <MDBBtn
                       size='lg'
                       onClick={isValid ? handleSubmit : () => {
+                        console.log("invalid")
                       }}
                       type={"submit"}
                     >
                       {!isLoading ? 'Đăng nhập' : <Spin/>}
-
-
                     </MDBBtn>
                   </ConfigProvider>
                 </MDBCardBody>
               )}
-
-
             </Formik>
-
-
           </MDBCard>
-
         </MDBCol>
       </MDBRow>
 

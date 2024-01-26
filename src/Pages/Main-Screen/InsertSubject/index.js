@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Input, Button, Form, Row, Col, Modal} from 'antd';
+import React, {useState} from 'react';
+import {Space, Table, Tag, Input, Button, Form, Row, Col, Modal} from 'antd';
 
 
 const data = [
@@ -236,68 +236,68 @@ const InsertSubject = () => {
                     </Col>
                 </Row>
 
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Tên Lớp"
-                            name="className"
-                            rules={[{ required: true, message: 'Vui lòng nhập tên lớp!' }]}
-                        >
-                            <Input placeholder="Nhập tên lớp" />
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Thứ"
-                            name="thu"
-                            rules={[{ required: true, message: 'Vui lòng nhập thứ!' }]}
-                        >
-                            <Input placeholder="Nhập thứ" />
-                        </Form.Item>
-                    </Col>
-                </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Tên Lớp"
+              name="className"
+              rules={[{required: true, message: 'Vui lòng nhập tên lớp!'}]}
+            >
+              <Input placeholder="Nhập tên lớp"/>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Thứ"
+              name="thu"
+              rules={[{required: true, message: 'Vui lòng nhập thứ!'}]}
+            >
+              <Input placeholder="Nhập thứ"/>
+            </Form.Item>
+          </Col>
+        </Row>
 
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Ca học"
-                            name="ca"
-                            rules={[{ required: true, message: 'Vui lòng nhập ca học!' }]}
-                        >
-                            <Input placeholder="Nhập ca học" />
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Phòng học"
-                            name="room"
-                            rules={[{ required: true, message: 'Vui lòng nhập phòng học!' }]}
-                        >
-                            <Input placeholder="Nhập phòng học" />
-                        </Form.Item>
-                    </Col>
-                </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Ca học"
+              name="ca"
+              rules={[{required: true, message: 'Vui lòng nhập ca học!'}]}
+            >
+              <Input placeholder="Nhập ca học"/>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Phòng học"
+              name="room"
+              rules={[{required: true, message: 'Vui lòng nhập phòng học!'}]}
+            >
+              <Input placeholder="Nhập phòng học"/>
+            </Form.Item>
+          </Col>
+        </Row>
 
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Tín chỉ"
-                            name="tc"
-                            rules={[{ required: true, message: 'Vui lòng nhập tín chỉ!' }]}
-                        >
-                            <Input placeholder="Nhập số tín chỉ" />
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Giáo Viên"
-                            name="gv"
-                            rules={[{ required: true, message: 'Vui lòng nhập tên giáo viên!' }]}
-                        >
-                            <Input placeholder="Nhập tên giáo viên" />
-                        </Form.Item>
-                    </Col>
-                </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Tín chỉ"
+              name="tc"
+              rules={[{required: true, message: 'Vui lòng nhập tín chỉ!'}]}
+            >
+              <Input placeholder="Nhập số tín chỉ"/>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Giáo Viên"
+              name="gv"
+              rules={[{required: true, message: 'Vui lòng nhập tên giáo viên!'}]}
+            >
+              <Input placeholder="Nhập tên giáo viên"/>
+            </Form.Item>
+          </Col>
+        </Row>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit" style={{ background: 'red', borderColor: 'red' }}>
