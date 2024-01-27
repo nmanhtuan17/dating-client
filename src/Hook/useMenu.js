@@ -10,7 +10,7 @@ const useMenu = () => {
     key: 'home',
     label: (<Link to='/home'>
       <div>
-        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Môn học</h4>
+        <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thời khóa biểu toàn trường</h4>
       </div>
     </Link>),
   },

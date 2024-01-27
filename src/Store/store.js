@@ -7,11 +7,13 @@ import storage from 'redux-persist/lib/storage';
 import {authSlice} from "./Slice/auth.slice";
 import {appMiddleware} from "./middleware/app.middleware";
 import {courseSlice} from "./Slice/course.slice";
+import {studentSlice} from "./Slice/student.slice";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
   auth: authSlice.reducer,
-  course: courseSlice.reducer
+  course: courseSlice.reducer,
+  student: studentSlice.reducer
 })
 
 const persistConfig = {
@@ -31,7 +33,7 @@ const store = configureStore({
       },
       immutableCheck: false,
     }).prepend(appMiddleware.middleware),
-  whiteList: ['app', 'auth', 'course'],
+  whiteList: ['app', 'auth', 'course', 'student'],
 })
 
 const persistor = persistStore(store)

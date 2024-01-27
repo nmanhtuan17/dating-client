@@ -8,6 +8,7 @@ import StudentList from "../../Pages/Main-Screen/StudentList";
 import InsertSubject from "../../Pages/Main-Screen/InsertSubject";
 import DetailPage from "../../Pages/Main-Screen/DetailPage";
 import RegisterSubject from "../../Pages/Main-Screen/RegisterSubject";
+import StudentDetails from "../../Pages/common/StudentDetails";
 
 
 function MainNavigation() {
@@ -21,7 +22,7 @@ function MainNavigation() {
         <Route path='/insertSubject' element={<InsertSubject />} />
         <Route path='/detailPage' element={<DetailPage />} />
         <Route path='/registerSubject' element={<RegisterSubject />} />
-
+        <Route path='/student/details/:studentId' element={<StudentDetails />} />
         {/*<Route path="/detailPage/:id" component={DetailPage} />*/}
 
       </Route>
