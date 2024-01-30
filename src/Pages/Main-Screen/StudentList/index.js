@@ -9,64 +9,65 @@ import Search from "antd/es/input/Search";
 import useStudentListTable from "../../../Hook/useStudentListTable";
 
 
-const data = [
-  {
-    stt: 1,
-    msv: "A41957",
-    name: "Nguyễn Thế Anh",
-    birth: "09/12/2003",
-    class: "TT34h2",
-    gvcn: "Đinh Thu Khánh",
-    phone: "0358550285",
-    email: "theanh8703@gmail.com",
-  },
-  {
-    stt: 2,
-    msv: "A41957",
-    name: "Nguyễn Thế Anh",
-    birth: "09/12/2003",
-    class: "TT34h2",
-    gvcn: "Đinh Thu Khánh",
-    phone: "0358550285",
-    email: "theanh8703@gmail.com",
-  },
-  {
-    stt: 3,
-    msv: "A41957",
-    name: "Nguyễn Thế Anh",
-    birth: "09/12/2003",
-    class: "TT34h2",
-    gvcn: "Đinh Thu Khánh",
-    phone: "0358550285",
-    email: "theanh8703@gmail.com",
-  },
-  {
-    stt: 4,
-    msv: "A41957",
-    name: "Nguyễn Thế Anh",
-    birth: "09/12/2003",
-    class: "TT34h2",
-    gvcn: "Đinh Thu Khánh",
-    phone: "0358550285",
-    email: "theanh8703@gmail.com",
-  },
-  {
-    stt: 5,
-    msv: "A41957",
-    name: "Nguyễn Thế Anh",
-    birth: "09/12/2003",
-    class: "TT34h2",
-    gvcn: "Đinh Thu Khánh",
-    phone: "0358550285",
-    email: "theanh8703@gmail.com",
-  }
-]
+// const data = [
+//   {
+//     stt: 1,
+//     msv: "A41957",
+//     name: "Nguyễn Thế Anh",
+//     birth: "09/12/2003",
+//     class: "TT34h2",
+//     gvcn: "Đinh Thu Khánh",
+//     phone: "0358550285",
+//     email: "theanh8703@gmail.com",
+//   },
+//   {
+//     stt: 2,
+//     msv: "A41957",
+//     name: "Nguyễn Thế Anh",
+//     birth: "09/12/2003",
+//     class: "TT34h2",
+//     gvcn: "Đinh Thu Khánh",
+//     phone: "0358550285",
+//     email: "theanh8703@gmail.com",
+//   },
+//   {
+//     stt: 3,
+//     msv: "A41957",
+//     name: "Nguyễn Thế Anh",
+//     birth: "09/12/2003",
+//     class: "TT34h2",
+//     gvcn: "Đinh Thu Khánh",
+//     phone: "0358550285",
+//     email: "theanh8703@gmail.com",
+//   },
+//   {
+//     stt: 4,
+//     msv: "A41957",
+//     name: "Nguyễn Thế Anh",
+//     birth: "09/12/2003",
+//     class: "TT34h2",
+//     gvcn: "Đinh Thu Khánh",
+//     phone: "0358550285",
+//     email: "theanh8703@gmail.com",
+//   },
+//   {
+//     stt: 5,
+//     msv: "A41957",
+//     name: "Nguyễn Thế Anh",
+//     birth: "09/12/2003",
+//     class: "TT34h2",
+//     gvcn: "Đinh Thu Khánh",
+//     phone: "0358550285",
+//     email: "theanh8703@gmail.com",
+//   }
+// ]
 const StudentList = () => {
   const columns = useStudentListTable();
   const {students} = useAppSelector(state => state.app);
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   console.log(students)
+
   const showModel = () => {
     setOpen(true)
   }
