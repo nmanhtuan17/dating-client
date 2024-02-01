@@ -74,6 +74,7 @@ const StudentList = () => {
             Cancel
           </Button>,
           <Button
+            key='delete'
             danger
             loading={isLoading}
             onClick={handleDelete}
