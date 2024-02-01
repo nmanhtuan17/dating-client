@@ -25,7 +25,13 @@ function Login() {
     setMessages([message, ...messages])
   }, [message]);
   const handleLogin = (value) => {
-    dispatch(login(value));
+    if (value.msv.startsWith("a") || value.msv.startsWith("A")) {
+      console.log("a")
+      dispatch(login(value));
+    } else {
+      dispatch(login({mgv: value.msv, password: value.password}));
+      console.log({mgv: value.msv, password: value.password})
+    }
   }
 
   return (
@@ -61,7 +67,7 @@ function Login() {
                             value={values.password}
                             onChange={handleChange('password')}
                   />
-                  {message && <div className={'pb-2 text-red-600 text-sm'}> *{message} </div>}
+                  {message && <div className='pb-2 text-sm' style={{color: 'red'}}> *{message} </div>}
                   <ConfigProvider
                     theme={{
                       token: {

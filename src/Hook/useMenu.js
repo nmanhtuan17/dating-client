@@ -6,6 +6,16 @@ import {useAppSelector} from "../Store/store";
 
 const useMenu = () => {
   const {account} = useAppSelector(state => state.auth)
+  if (account?.isGV) {
+    return [{
+      key: 'class',
+      label: (<Link to='/class'>
+        <div>
+          <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí lớp học</h4>
+        </div>
+      </Link>),
+    }]
+  }
   return [{
     key: 'home',
     label: (<Link to='/home'>

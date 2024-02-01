@@ -8,37 +8,39 @@ import {Content, Header} from "antd/es/layout/layout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightFromBracket, faArrowsRotate} from "@fortawesome/free-solid-svg-icons";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
-import {store, useAppDispatch} from "../../Store/store";
+import {store, useAppDispatch, useAppSelector} from "../../Store/store";
 import {logout} from "../../Store/Slice/auth.slice";
 
-const items = [
-  {
-    label: <a href="#">
-      <FontAwesomeIcon icon={faUser}/>
-      <span style={{margin: '4px 6px'}}>{store.getState().auth?.account?.fullname}</span>
-    </a>,
-    key: '1',
-  },
-  {
-    label: <a href="#">
-      <FontAwesomeIcon icon={faArrowsRotate}/>
-      <span style={{margin: '4px 6px'}}>Đổi mật khẩu</span>
-    </a>,
-    key: 'changePassword',
-  },
-  {
-    type: 'divider',
-  },
-  {
-    label: <a>
-      <FontAwesomeIcon icon={faArrowRightFromBracket}/>
-      <span style={{margin: '4px 6px'}}>Logout</span>
-    </a>,
-    key: 'logout',
-  },
-];
+
 const RootLayout = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const {account} = useAppSelector(state => state.auth)
+  const items = [
+    {
+      label: <a href="#">
+        <FontAwesomeIcon icon={faUser}/>
+        <span style={{margin: '4px 6px'}}>{account?.fullname}</span>
+      </a>,
+      key: '1',
+    },
+    {
+      label: <a href="#">
+        <FontAwesomeIcon icon={faArrowsRotate}/>
+        <span style={{margin: '4px 6px'}}>Đổi mật khẩu</span>
+      </a>,
+      key: 'changePassword',
+    },
+    {
+      type: 'divider',
+    },
+    {
+      label: <a>
+        <FontAwesomeIcon icon={faArrowRightFromBracket}/>
+        <span style={{margin: '4px 6px'}}>Logout</span>
+      </a>,
+      key: 'logout',
+    },
+  ];
   const handleLogout = (e) => {
     if (e.key === 'logout')
       dispatch(logout())

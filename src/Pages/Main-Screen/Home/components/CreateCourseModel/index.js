@@ -84,7 +84,7 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
             <Form.Item
               label="Tín chỉ"
               name="tc"
-              rules={[{required: true, type: "number"}]}
+              rules={[{required: true}]}
             >
               <Input placeholder="Tín chỉ"/>
             </Form.Item>
@@ -105,7 +105,7 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
             <Form.Item
               label="Thứ"
               name="jd"
-              rules={[{required: true, type: "number"}]}
+              rules={[{required: true}]}
             >
               <Input placeholder="Thứ"/>
             </Form.Item>
