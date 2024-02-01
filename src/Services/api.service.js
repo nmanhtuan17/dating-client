@@ -15,4 +15,11 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async getAllTeacher () {
+    const {data} = await this.callApi("teacher/get-all", {
+      method: "GET"
+    })
+    return data
+  }
 }

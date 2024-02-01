@@ -99,23 +99,16 @@ const Home = () => {
   );
 
 
-  const renderFooter = () => {
-    return (
-      <div className='d-flex pt-4'>
-        <Button
-          type={"primary"}
-          className='flex-fill text-white'
-          onClick={showModel}
-        >
-          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>
-      </div>
-    )
-  }
-
   return (
     <div className='d-flex flex-column justify-content-between'>
       <Space className='d-flex justify-content-end' style={{marginBottom: 16}}>
         <Search placeholder="Tìm kiếm môn học" onSearch={handleSearch} enterButton/>
+        {account?.isAdmin && <Button
+          type={"primary"}
+          className='flex-fill text-white'
+          onClick={showModel}
+        >
+          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>}
       </Space>
       <Table
         className='flex-fill'
@@ -127,7 +120,6 @@ const Home = () => {
         }}
         size="small"
         pagination={false}
-        footer={account?.isAdmin ? renderFooter: () => <div></div>}
       />
       <CreateCourseModel
         title='Thêm môn học'
