@@ -36,3 +36,12 @@ export const getAllTeacher = createAsyncThunk
     return thunkAPI.rejectWithValue(e.response.data)
   }
 })
+
+export const deleteStudent = createAsyncThunk
+("app/delete-student", async (id, thunkAPI) => {
+  try {
+    return await ApiService.deleteStudent(id);
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
