@@ -22,4 +22,11 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async deleteStudent (id) {
+    const {data} = await this.callApi(`user/delete/${id}`, {
+      method: "POST"
+    })
+    return data
+  }
 }

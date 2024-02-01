@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Space, Table, Tag} from 'antd';
+import {Button, Modal, Space, Table, Tag} from 'antd';
 import {height} from "../../../Constant/Size";
 import {useAppSelector} from "../../../Store/store";
 import {faPlus, faTrash, faTrashCan} from "@fortawesome/free-solid-svg-icons";
@@ -9,11 +9,11 @@ import Search from "antd/es/input/Search";
 import useStudentListTable from "../../../Hook/useStudentListTable";
 
 const StudentList = () => {
-  const columns = useStudentListTable();
-  const {students} = useAppSelector(state => state.app);
+  const {columns, handleDelete, handleCancel, visible} = useStudentListTable();
+  const {students, isLoading} = useAppSelector(state => state.app);
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
-  console.log(students)
+
 
   const showModel = () => {
     setOpen(true)
@@ -65,6 +65,25 @@ const StudentList = () => {
         show={showModel}
         hide={hideModel}
       />
+      <Modal
+        title="Delete"
+        open={visible}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button
+            danger
+            loading={isLoading}
+            onClick={handleDelete}
+          >
+            Delete
+          </Button>,
+        ]}
+      >
+        <p>Delete student</p>
+      </Modal>
     </div>
   )
 }

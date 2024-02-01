@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createUser, getAllStudents, getAllTeacher} from "../Action/app.action";
+import {createUser, deleteStudent, getAllStudents, getAllTeacher} from "../Action/app.action";
 
 const initialState = {
   isLoading: false,
@@ -22,7 +22,7 @@ export const appSlice = createSlice({
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.message = action.payload.message
+        state.message = action.payload?.message
       })
       .addCase(getAllStudents.pending, (state) => {
         state.isLoading = true;
@@ -42,6 +42,15 @@ export const appSlice = createSlice({
         state.teacher = action.payload?.data
       })
       .addCase(getAllTeacher.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteStudent.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteStudent.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteStudent.rejected, (state, action) => {
         state.isLoading = false;
       })
 })
