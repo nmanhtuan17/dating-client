@@ -8,59 +8,6 @@ import {CreateUserModel} from "../../../Components/common/CreateUserModel";
 import Search from "antd/es/input/Search";
 import useStudentListTable from "../../../Hook/useStudentListTable";
 
-
-// const data = [
-//   {
-//     stt: 1,
-//     msv: "A41957",
-//     name: "Nguyễn Thế Anh",
-//     birth: "09/12/2003",
-//     class: "TT34h2",
-//     gvcn: "Đinh Thu Khánh",
-//     phone: "0358550285",
-//     email: "theanh8703@gmail.com",
-//   },
-//   {
-//     stt: 2,
-//     msv: "A41957",
-//     name: "Nguyễn Thế Anh",
-//     birth: "09/12/2003",
-//     class: "TT34h2",
-//     gvcn: "Đinh Thu Khánh",
-//     phone: "0358550285",
-//     email: "theanh8703@gmail.com",
-//   },
-//   {
-//     stt: 3,
-//     msv: "A41957",
-//     name: "Nguyễn Thế Anh",
-//     birth: "09/12/2003",
-//     class: "TT34h2",
-//     gvcn: "Đinh Thu Khánh",
-//     phone: "0358550285",
-//     email: "theanh8703@gmail.com",
-//   },
-//   {
-//     stt: 4,
-//     msv: "A41957",
-//     name: "Nguyễn Thế Anh",
-//     birth: "09/12/2003",
-//     class: "TT34h2",
-//     gvcn: "Đinh Thu Khánh",
-//     phone: "0358550285",
-//     email: "theanh8703@gmail.com",
-//   },
-//   {
-//     stt: 5,
-//     msv: "A41957",
-//     name: "Nguyễn Thế Anh",
-//     birth: "09/12/2003",
-//     class: "TT34h2",
-//     gvcn: "Đinh Thu Khánh",
-//     phone: "0358550285",
-//     email: "theanh8703@gmail.com",
-//   }
-// ]
 const StudentList = () => {
   const columns = useStudentListTable();
   const {students} = useAppSelector(state => state.app);
@@ -95,6 +42,12 @@ const StudentList = () => {
     <div style={{flex: 1}}>
       <Space className='d-flex justify-content-end' style={{marginBottom: 16}}>
         <Search placeholder="Tìm kiếm sinh viên" onSearch={handleSearch} enterButton/>
+        <Button
+          type={"primary"}
+          className='flex-fill text-white'
+          onClick={showModel}
+        >
+          Thêm sinh viên <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>
       </Space>
       <Table
         rowKey={(item) => item._id}
@@ -105,7 +58,6 @@ const StudentList = () => {
         }}
         size="small"
         pagination={false}
-        footer={renderFooter}
       />
       <CreateUserModel
         title="Thêm sinh viên"

@@ -5,6 +5,7 @@ import {createUser} from "../../../Store/Action/app.action";
 import {toast} from "react-toastify";
 import {useForm} from "antd/es/form/Form";
 import Overlay from "../../Layout/Overlay";
+import {validateEmail} from "../../../Utils";
 
 export const CreateUserModel = ({open, show, hide, title}) => {
   const dispatch = useAppDispatch();
@@ -12,6 +13,15 @@ export const CreateUserModel = ({open, show, hide, title}) => {
   const [birthday, setBirth] = useState();
   const [form] = useForm()
   const onFinish = async (values) => {
+    console.log( )
+    if(!isFinite(values.phone)) {
+      toast.error("Phone must be a number")
+      return;
+    }
+    if(!validateEmail(values.email)) {
+      toast.error("Email invalid!!!")
+      return;
+    }
     await dispatch(createUser({...values, birthday}))
       .then(res => {
         if (res?.error?.message === "Rejected") {
@@ -34,7 +44,7 @@ export const CreateUserModel = ({open, show, hide, title}) => {
       open={open}
       onOk={onSubmit}
       onCancel={hide}
-      width={1000}
+      width={1200}
       footer={(_, {OkBtn, CancelBtn}) => !isLoading ? (
         <>
           <CancelBtn/>
@@ -49,7 +59,7 @@ export const CreateUserModel = ({open, show, hide, title}) => {
         layout="vertical"
       >
         <Row gutter={16}>
-          <Col span={4}>
+          <Col span={6}>
             <Form.Item
               label="Mã sinh viên"
               name="msv"
@@ -58,7 +68,7 @@ export const CreateUserModel = ({open, show, hide, title}) => {
               <Input placeholder="Mã sinh viên"/>
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={6}>
             <Form.Item
               label="Họ tên"
               name="fullname"
@@ -67,17 +77,18 @@ export const CreateUserModel = ({open, show, hide, title}) => {
               <Input placeholder="Họ tên"/>
             </Form.Item>
           </Col>
-          <Col span={4}>
+          <Col span={6}>
             <Form.Item
               label="Ngày sinh"
             >
               <DatePicker onChange={(_, date) => setBirth(date)} />
             </Form.Item>
           </Col>
-          <Col span={4}>
+          <Col span={6}>
             <Form.Item
               label="Lớp"
               name="class"
+              rules={[{required: true}]}
             >
               <Input placeholder="Lớp"/>
             </Form.Item>
@@ -109,6 +120,7 @@ export const CreateUserModel = ({open, show, hide, title}) => {
             <Form.Item
               label="Email"
               name="email"
+              rules={[{required: true, message: 'Nhập email'}]}
             >
               <Input placeholder="Email"/>
             </Form.Item>
@@ -117,6 +129,7 @@ export const CreateUserModel = ({open, show, hide, title}) => {
             <Form.Item
               label="Số điện thoại"
               name="phone"
+              rules={[{required: true}]}
             >
               <Input placeholder="Nhập số điện thoại"/>
             </Form.Item>
@@ -124,7 +137,7 @@ export const CreateUserModel = ({open, show, hide, title}) => {
         </Row>
 
         <Row gutter={16}>
-          <Col span={4}>
+          <Col span={12}>
             <Form.Item
               label="Cố vấn"
               name="gvcn"

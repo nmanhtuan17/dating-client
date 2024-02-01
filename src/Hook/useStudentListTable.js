@@ -35,18 +35,13 @@ const useStudentListTable = () => {
     },
     {
       title: 'Ngày sinh',
-      dataIndex: 'birth',
-      key: 'birth'
+      dataIndex: 'birthday',
+      key: 'birthday'
     },
     {
       title: 'Lớp',
       dataIndex: 'class',
       key: 'class'
-    },
-    {
-      title: 'Giáo Viên Chủ Nhiệm',
-      dataIndex: 'gvcn',
-      key: 'gvcn'
     },
     {
       title: 'Điện Thoại',

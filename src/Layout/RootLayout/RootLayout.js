@@ -1,28 +1,27 @@
-import React, {useEffect} from "react";
-import {Outlet, useNavigate} from "react-router-dom";
-import {Avatar, Breadcrumb, Col, Dropdown, Image, Layout, Menu, Row, Space} from "antd";
+import React from "react";
+import {Outlet, } from "react-router-dom";
+import {Avatar,  Dropdown, Layout, Space} from "antd";
 import {UserOutlined} from '@ant-design/icons';
 import {colors} from "../../Constant/Colors";
 import MenuNavigation from "../../Navigation/MenuNavigation";
-import UserInfo from "../../Components/UserInfo";
 import {Content, Header} from "antd/es/layout/layout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightFromBracket, faArrowsRotate} from "@fortawesome/free-solid-svg-icons";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
-import {useAppDispatch} from "../../Store/store";
+import {store, useAppDispatch} from "../../Store/store";
 import {logout} from "../../Store/Slice/auth.slice";
 
 const items = [
   {
     label: <a href="#">
       <FontAwesomeIcon icon={faUser}/>
-      <span style={{margin: '4px 6px'}}>Thông tin cá nhân</span>
+      <span style={{margin: '4px 6px'}}>{store.getState().auth?.account?.fullname}</span>
     </a>,
     key: '1',
   },
   {
     label: <a href="#">
-      <FontAwesomeIcon icon={faUser}/>
+      <FontAwesomeIcon icon={faArrowsRotate}/>
       <span style={{margin: '4px 6px'}}>Đổi mật khẩu</span>
     </a>,
     key: 'changePassword',
@@ -59,7 +58,11 @@ const RootLayout = () => {
             src='//elearning.thanglong.edu.vn/pluginfile.php/1/theme_monocolor/customloginlogo/1703178122/logo_tlu.svg'
             width={100}/>
         </div>
-        <Dropdown menu={{items, onClick: handleLogout}} placement="bottomRight" trigger={['click']}>
+        <Dropdown
+          menu={{items, onClick: handleLogout}}
+          placement="bottomRight"
+          trigger={['click']}
+        >
           <a onClick={(e) => e.preventDefault()}>
             <Space>
               <Avatar size={32} icon={<UserOutlined/>}/>
@@ -70,24 +73,10 @@ const RootLayout = () => {
       </Header>
       <Layout style={{flex: 1}}>
         <MenuNavigation/>
-        <Layout style={{margin: '24px'}}>
-          <Row gutter={[24, 24]} style={{flex: 1}}>
-            <Col
-              className='bg-white'
-              xs={{span: 24, order: 2}} lg={{span: 18, order: 1}}
-              style={{ borderRadius: 12}}
-            >
-              <Content className='bg-white flex-fill' style={{minHeight: 280, padding: 24}}>
-                <Outlet/>
-              </Content>
-            </Col>
-            <Col
-              xs={{span: 24, order: 1}} lg={{span: 6, order: 2}}
-            >
-              <UserInfo/>
-            </Col>
-
-          </Row>
+        <Layout className='bg-white' style={{margin: '24px', borderRadius: 24}}>
+          <Content className='bg-white flex-fill' style={{ padding: 24}}>
+            <Outlet/>
+          </Content>
         </Layout>
 
       </Layout>
@@ -96,3 +85,4 @@ const RootLayout = () => {
 }
 
 export default RootLayout
+

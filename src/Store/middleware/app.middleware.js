@@ -1,7 +1,7 @@
 import {createListenerMiddleware} from "@reduxjs/toolkit";
 import {store} from "../store";
 import {loadCourses} from "../Action/course.action";
-import {getAllStudents} from "../Action/app.action";
+import {getAllStudents, getAllTeacher} from "../Action/app.action";
 
 
 export const appMiddleware = createListenerMiddleware();
@@ -13,8 +13,12 @@ appMiddleware.startListening({
   effect: async (action, listenerApi) => {
     switch (action.type) {
       case 'auth/login/fulfilled':
+        const {account} = store.getState().auth;
         listenerApi.dispatch(loadCourses());
-        listenerApi.dispatch(getAllStudents());
+        if (account && account.isAdmin) {
+          listenerApi.dispatch(getAllStudents());
+          listenerApi.dispatch(getAllTeacher());
+        }
     }
   }
 })

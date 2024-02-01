@@ -127,7 +127,7 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
               name="teacher"
               rules={[{required: true}]}
             >
-              <Input placeholder="Giáo viên"/>
+              <Input placeholder="Mã giáo viên"/>
             </Form.Item>
           </Col>
         </Row>

@@ -1,10 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createUser, getAllStudents} from "../Action/app.action";
+import {createUser, getAllStudents, getAllTeacher} from "../Action/app.action";
 
 const initialState = {
   isLoading: false,
   message: '',
-  students: []
+  students: [],
+  teacher: []
 }
 
 export const appSlice = createSlice({
@@ -31,6 +32,16 @@ export const appSlice = createSlice({
         state.students = action.payload?.data
       })
       .addCase(getAllStudents.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(getAllTeacher.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllTeacher.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.teacher = action.payload?.data
+      })
+      .addCase(getAllTeacher.rejected, (state, action) => {
         state.isLoading = false;
       })
 })

@@ -14,38 +14,44 @@ const useMenu = () => {
       </div>
     </Link>),
   },
-    !account?.isAdmin && {
+    ...((!account?.isAdmin) ? [{
       key: 'register',
       label: (<Link to='/registerSubject'>
         <div>
           <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Đăng kí học</h4>
         </div>
       </Link>),
-    },
-    !account?.isAdmin && {
+    }, {
       key: 'scores',
       label: (<Link to='/scores'>
         <div>
           <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Bảng điểm</h4>
         </div>
       </Link>),
-    },
-    !account?.isAdmin && {
+    }, {
       key: 'tuition',
       label: (<Link to='/tuition'>
         <div>
           <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Học phí</h4>
         </div>
       </Link>),
-    },
-    account?.isAdmin && {
+    }] : []),
+    ...((account?.isAdmin) ? [{
       key: 'studentList',
       label: (<Link to='/studentList'>
         <div>
           <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí sinh viên</h4>
         </div>
       </Link>),
-    }
+    }, {
+        key: 'teacher',
+        label: (<Link to='/teacher'>
+          <div>
+            <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí giáo viên</h4>
+          </div>
+        </Link>),
+      }
+    ] : [])
   ]
 }
 

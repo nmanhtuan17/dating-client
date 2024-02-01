@@ -26,3 +26,13 @@ export const getAllStudents = createAsyncThunk
     return thunkAPI.rejectWithValue(e.response.data)
   }
 })
+
+
+export const getAllTeacher = createAsyncThunk
+("app/getAll-teacher", async (_, thunkAPI) => {
+  try {
+    return await ApiService.getAllTeacher();
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
