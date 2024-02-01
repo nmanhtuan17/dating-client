@@ -5,10 +5,7 @@ export class AuthService extends RequestService {
   static async login(data) {
     const res = await this.callApi('auth/login', {
       method: "POST",
-      data: {
-        msv: data.msv,
-        password: data.password
-      }
+      data: data
     })
     return res.data
   }

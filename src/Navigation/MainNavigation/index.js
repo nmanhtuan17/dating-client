@@ -10,6 +10,7 @@ import DetailPage from "../../Pages/Main-Screen/DetailPage";
 import RegisterSubject from "../../Pages/Main-Screen/RegisterSubject";
 import StudentDetails from "../../Pages/common/StudentDetails";
 import Teacher from "../../Pages/Main-Screen/Teacher";
+import RoleTeacher from "../../Pages/Teacher";
 
 
 function MainNavigation() {
@@ -27,6 +28,7 @@ function MainNavigation() {
         <Route path='/student/details/:studentId' element={<StudentDetails />} />
         <Route path='/teacher' element={<Teacher />} />
         <Route path="/detailPage/:id" component={DetailPage} />
+        <Route path="/class" element={<RoleTeacher />} />
 
       </Route>
       <Route path='/sign-in' element={<Login />}/>

@@ -1,12 +1,11 @@
 import React, {useMemo, useState} from 'react';
 import {Button, Input, Space, Table, Tag} from 'antd';
-import {width, height} from '../../../Constant/Size'
-import {useAppSelector} from "../../../Store/store";
+import List from 'rc-virtual-list'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import {CreateUserModel} from "../../../Components/common/CreateUserModel";
-import {CreateCourseModel} from "./components/CreateCourseModel";
-
+import {useAppSelector} from "../../Store/store";
+import {CreateCourseModel} from "../Main-Screen/Home/components/CreateCourseModel";
+import {width, height} from '../../Constant/Size'
 const {Search} = Input;
 const columns = [
   {
@@ -74,60 +73,26 @@ const data = [
   }
 ]
 
-const Home = () => {
+const RoleTeacher = () => {
   const {account} = useAppSelector(state => state.auth)
-  const {courses} = useAppSelector((state) => state.course);
-  const [searchText, setSearchText] = useState('');
-  const [open, setOpen] = useState(false);
-  const showModel = () => {
-    setOpen(true)
-  }
-  const hideModel = () => {
-    setOpen(false)
-  }
-  const handleSearch = (value) => {
-    setSearchText(value);
-  };
-
-  const filteredData = courses.filter(
-    (item) =>
-      item.code.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.className.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.teacher.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-
+  console.log(account)
+  const allClass = account?.class.map(item => item.course);
+  console.log(allClass)
   return (
     <div className='d-flex flex-column justify-content-between'>
-      <Space className='d-flex justify-content-end' style={{marginBottom: 16}}>
-        <Search placeholder="Tìm kiếm môn học" onSearch={handleSearch} enterButton/>
-        {account?.isAdmin && <Button
-          type={"primary"}
-          className='flex-fill text-white'
-          onClick={showModel}
-        >
-          Thêm môn học <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>}
-      </Space>
       <Table
         className='flex-fill'
         rowKey={(item) => item._id}
         columns={columns}
-        dataSource={filteredData}
+        dataSource={allClass}
         scroll={{
           y: height * 0.65,
         }}
         size="small"
         pagination={false}
       />
-      <CreateCourseModel
-        title='Thêm môn học'
-        open={open}
-        show={showModel}
-        hide={hideModel}
-      />
     </div>
   );
 };
 
-export default Home;
+export default RoleTeacher;
