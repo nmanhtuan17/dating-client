@@ -57,7 +57,7 @@ const useMenu = () => {
         key: 'teacher',
         label: (<Link to='/teacher'>
           <div>
-            <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Quản lí giáo viên</h4>
+            <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Danh sách giáo viên</h4>
           </div>
         </Link>),
       }
