@@ -31,6 +31,7 @@ export class RequestService {
   ) {
     const {tokens} = store.getState()?.auth
     const BASE_URL = 'https://sm-rd7n.onrender.com/api';
+    const LOCAL_URL = 'http://localhost:8080/api';
     const requestHeaders = {};
     if (tokens && tokens?.accessToken.length > 0) {
       requestHeaders["Authorization"] = `Bearer ${tokens?.accessToken}`;
@@ -42,7 +43,7 @@ export class RequestService {
         ...config.headers
       },
       method: config.method || "GET",
-      url: `${BASE_URL}/${endpoint}`
+      url: `${LOCAL_URL}/${endpoint}`
     });
   }
 }

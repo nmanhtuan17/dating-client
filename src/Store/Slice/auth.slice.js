@@ -29,8 +29,8 @@ export const authSlice = createSlice({
     clearAccount: () => {
       return initState;
     },
-    tempLogin: (state, action) => {
-      state.isSignedIn = true
+    setProfile: (state, action) => {
+      state.account = action.payload
     }
   },
   extraReducers: builder => {
@@ -62,4 +62,4 @@ export const authSlice = createSlice({
 
 })
 
-export const {logout, clearAccount, tempLogin} = authSlice.actions
+export const {logout, clearAccount, setProfile} = authSlice.actions

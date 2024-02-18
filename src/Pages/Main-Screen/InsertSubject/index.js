@@ -317,30 +317,7 @@ const InsertSubject = () => {
                     </Col>
 
                 </Row>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" style={{ background: 'red', borderColor: 'red' }} onClick={showDeleteModal}>
-                        Xóa lớp học
-                    </Button>
-                </Form.Item>
             </Form>
-            <Modal
-                title="Xác nhận xóa"
-                visible={deleteModalVisible}
-                onOk={handleDelete}
-                onCancel={hideDeleteModal}
-            >
-                <p>Bạn có chắc chắn muốn xóa sinh viên?</p>
-                {currentSubject && (
-                    <p>
-                        Mã môn: {currentSubject.mm},
-                        Tên môn: {currentSubject.name},
-                        Tên lớp: {currentSubject.className},
-                        Thứ: {currentSubject.thu},
-                        Ca: {currentSubject.ca},
-                        Phòng học: {currentSubject.room}
-                    </p>
-                )}
-            </Modal>
         </div>
     );
 }

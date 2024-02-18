@@ -13,7 +13,6 @@ export const CreateUserModel = ({open, show, hide, title}) => {
   const [birthday, setBirth] = useState();
   const [form] = useForm()
   const onFinish = async (values) => {
-    console.log( )
     if(!isFinite(values.phone)) {
       toast.error("Phone must be a number")
       return;

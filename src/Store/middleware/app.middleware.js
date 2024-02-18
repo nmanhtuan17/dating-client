@@ -8,7 +8,7 @@ export const appMiddleware = createListenerMiddleware();
 
 appMiddleware.startListening({
   predicate: (action) => {
-    return action.type?.startsWith("auth/login") || action.type?.startsWith("app/delete-student")
+    return action.type?.startsWith("auth/login") || action.type?.startsWith("app/delete-student") || action.type?.startsWith("app/create-user")
   },
   effect: async (action, listenerApi) => {
     switch (action.type) {
@@ -21,6 +21,12 @@ appMiddleware.startListening({
         }
         break;
       case 'app/delete-student/fulfilled':
+        listenerApi.dispatch(getAllStudents());
+        break;
+      case 'app/create-user/fulfilled':
+        listenerApi.dispatch(getAllStudents());
+        break;
+      case 'app/update-profile/fulfilled':
         listenerApi.dispatch(getAllStudents());
         break;
     }
