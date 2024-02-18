@@ -43,7 +43,7 @@ export class RequestService {
         ...config.headers
       },
       method: config.method || "GET",
-      url: `${LOCAL_URL}/${endpoint}`
+      url: `${BASE_URL}/${endpoint}`
     });
   }
 }
