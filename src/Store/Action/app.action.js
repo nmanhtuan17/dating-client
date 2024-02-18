@@ -2,6 +2,8 @@ import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import {loadAccount, setLogoutAndClearData} from "./auth.action";
 import {RequestService} from "../../Services/request.service";
 import {ApiService} from "../../Services/api.service";
+import {store} from "../store";
+import {setProfile} from "../Slice/auth.slice";
 
 export const createUser = createAsyncThunk
 ("app/create-user", async (user, thunkAPI) => {
@@ -42,6 +44,20 @@ export const deleteStudent = createAsyncThunk
   try {
     return await ApiService.deleteStudent(id);
   } catch (e) {
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
+
+export const updateProfile = createAsyncThunk
+("app/update-profile", async ({data, id}, thunkAPI) => {
+  try {
+    const res = await ApiService.updateProfile(data, id);
+    if (!store.getState().auth.account.isAdmin){
+      store.dispatch(setProfile(res.data))
+    }
+    return res
+  } catch (e) {
+    console.log(e)
     return thunkAPI.rejectWithValue(e.response.data)
   }
 })

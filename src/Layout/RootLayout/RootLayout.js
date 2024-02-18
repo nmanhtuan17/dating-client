@@ -68,6 +68,7 @@ const RootLayout = () => {
           <a onClick={(e) => e.preventDefault()}>
             <Space>
               <Avatar size={32} icon={<UserOutlined/>}/>
+              <span className='fw-bold text-black'>{account?.fullname}</span>
             </Space>
           </a>
         </Dropdown>

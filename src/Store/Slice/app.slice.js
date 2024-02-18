@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {createUser, deleteStudent, getAllStudents, getAllTeacher} from "../Action/app.action";
+import {createUser, deleteStudent, getAllStudents, getAllTeacher, updateProfile} from "../Action/app.action";
 
 const initialState = {
   isLoading: false,
@@ -51,6 +51,15 @@ export const appSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deleteStudent.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(updateProfile.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
         state.isLoading = false;
       })
 })

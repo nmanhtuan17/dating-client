@@ -29,4 +29,12 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async updateProfile (_data, id) {
+    const {data} = await this.callApi(`user/update-profile/${id}`, {
+      method: "POST",
+      data: _data
+    })
+    return data
+  }
 }

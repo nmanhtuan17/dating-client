@@ -45,12 +45,13 @@ const useStudentListTable = () => {
           <span onClick={() => clickEdit(record)}><FontAwesomeIcon icon={faPenToSquare}
                                                                    style={{cursor: 'pointer'}}/></span>
           <span onClick={() => clickDeleteStudent(record)}><FontAwesomeIcon className='text-danger' icon={faTrash}
-                                                               style={{cursor: 'pointer'}}/></span>
+                                                                            style={{cursor: 'pointer'}}/></span>
         </div>
       </Space>
     )
   }
-  return {visible,
+  return {
+    visible,
     handleDelete, handleCancel,
     columns:
       [
@@ -71,9 +72,9 @@ const useStudentListTable = () => {
         {
           title: 'Ngày sinh',
           dataIndex:
-            'birthday',
+            'dob',
           key:
-            'birthday'
+            'dob'
         }
         ,
         {

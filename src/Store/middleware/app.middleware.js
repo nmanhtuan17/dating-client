@@ -26,6 +26,9 @@ appMiddleware.startListening({
       case 'app/create-user/fulfilled':
         listenerApi.dispatch(getAllStudents());
         break;
+      case 'app/update-profile/fulfilled':
+        listenerApi.dispatch(getAllStudents());
+        break;
     }
   }
 })

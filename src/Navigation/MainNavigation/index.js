@@ -27,7 +27,6 @@ function MainNavigation() {
         <Route path='/detailPage' element={<DetailPage />} />
         <Route path='/registerSubject' element={<RegisterSubject />} />
         <Route path='/student/details/:studentId' element={<StudentDetails />} />
-        <Route path='/student/details/:studentId' element={<StudentDetails />} />
         <Route path='/teacher' element={<Teacher />} />
         <Route path="/detailPage/:id" component={DetailPage} />
         <Route path="/class" element={<RoleTeacher />} />
