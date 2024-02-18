@@ -45,7 +45,14 @@ const useMenu = () => {
           <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Học phí</h4>
         </div>
       </Link>),
-    }] : []),
+    }, {
+        key: 'studentImformation',
+        label: (<Link to='/studentImformation'>
+          <div>
+            <h4 style={{display: 'inline', fontSize: 14, margin: '1px 8px'}}>Thông tin sinh viên</h4>
+          </div>
+        </Link>),
+      }] : []),
     ...((account?.isAdmin) ? [{
       key: 'studentList',
       label: (<Link to='/studentList'>
