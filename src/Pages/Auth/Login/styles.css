@@ -1,3 +1,11 @@
 body {
   background-color: #508bfc;
 }
+.forgot-password-link {
+  display: block;
+  text-align: center; /* Căn giữa nội dung */
+  font-size: 14px;
+  color: #007bff; /* Màu của liên kết, bạn có thể thay đổi nếu cần */
+  text-decoration: none;
+  margin-top: 8px;
+}

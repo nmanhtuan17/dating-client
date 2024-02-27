@@ -1,5 +1,5 @@
 import React from "react";
-import {Outlet, } from "react-router-dom";
+import {Outlet, Link} from "react-router-dom";
 import {Avatar,  Dropdown, Layout, Space} from "antd";
 import {UserOutlined} from '@ant-design/icons';
 import {colors} from "../../Constant/Colors";
@@ -24,10 +24,10 @@ const RootLayout = () => {
       key: '1',
     },
     {
-      label: <a href="#">
+      label: <Link to="/changePassword">
         <FontAwesomeIcon icon={faArrowsRotate}/>
         <span style={{margin: '4px 6px'}}>Đổi mật khẩu</span>
-      </a>,
+      </Link>,
       key: 'changePassword',
     },
     {
@@ -45,6 +45,8 @@ const RootLayout = () => {
     if (e.key === 'logout')
       dispatch(logout())
   }
+
+
   return (
     <Layout style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
       <Header style={{
