@@ -19,4 +19,24 @@ export class AuthService extends RequestService {
     })
     return res.data
   }
+
+  static async changePassword (password, newPass) {
+    const data = await this.callApi('auth/change-password', {
+      method: "POST",
+      data: {
+        password, newPass
+      }
+    })
+    return data;
+  }
+
+  static async resetPassword (msv) {
+    const data = await this.callApi('auth/reset-password', {
+      method: "POST",
+      data: {
+        msv
+      }
+    })
+    return data;
+  }
 }
