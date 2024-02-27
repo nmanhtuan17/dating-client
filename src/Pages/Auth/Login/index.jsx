@@ -14,6 +14,7 @@ import {login, refreshToken} from "../../../Store/Action/auth.action";
 import {Formik} from "formik";
 import {authSchema} from "../../../Helper/FormSchema";
 import {ConfigProvider, Spin} from 'antd';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const dispatch = useAppDispatch();
@@ -40,7 +41,6 @@ function Login() {
         <MDBCol col='12'>
 
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-
 
             <h2 className="fw-bold mb-2 text-center pt-5">Đăng nhập</h2>
 
@@ -69,19 +69,20 @@ function Login() {
                   />
                   {message && <div className='pb-2 text-sm' style={{color: 'red'}}> *{message} </div>}
                   <ConfigProvider
-                    theme={{
-                      token: {
-                        fontSize: 14,
-                        colorPrimary: "#fff"
-                      },
-                    }}
-                  >
-                    <MDBBtn
-                      size='lg'
-                      onClick={isValid ? handleSubmit : () => {
-                        console.log("invalid")
+                      theme={{
+                        token: {
+                          fontSize: 14,
+                          colorPrimary: "#fff"
+                        },
                       }}
-                      type={"submit"}
+                  >
+                    <Link to="/quen-mat-khau" className="forgot-password-link mb-2">Quên mật khẩu?</Link>
+                    <MDBBtn
+                        size='lg'
+                        onClick={isValid ? handleSubmit : () => {
+                          console.log("invalid")
+                        }}
+                        type={"submit"}
                     >
                       {!isLoading ? 'Đăng nhập' : <Spin/>}
                     </MDBBtn>

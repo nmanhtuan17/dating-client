@@ -12,12 +12,15 @@ import StudentDetails from "../../Pages/common/StudentDetails";
 import Teacher from "../../Pages/Main-Screen/Teacher";
 import RoleTeacher from "../../Pages/Teacher";
 import StudentImformation from "../../Pages/Main-Screen/StudentImformation";
+import ForgotPassword from "../../Pages/Auth/Forgot";
+import ChangePass from "../../Pages/Auth/ChangePass";
 
 
 function MainNavigation() {
   return (
     <Routes>
       <Route path='/' element={<RootLayout />}>
+
         <Route path='/home' element={<Home />}/>
         <Route path='/scores' element={<Score />} />
         <Route path='/tuition' element={<Tuition />} />
@@ -32,6 +35,10 @@ function MainNavigation() {
         <Route path="/class" element={<RoleTeacher />} />
       </Route>
       <Route path='/sign-in' element={<Login />}/>
+      <Route path="/quen-mat-khau" element={<ForgotPassword />}/>
+      <Route path="/changePassword" element={<ChangePass />}/>
+
+
     </Routes>
   );
 }
