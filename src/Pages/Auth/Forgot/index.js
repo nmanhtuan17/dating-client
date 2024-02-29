@@ -54,13 +54,14 @@ function ForgotPassword() {
               {({values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldTouched}) => (
                 <MDBCardBody className='p-5 w-100 d-flex flex-column'>
                   <div className='mb-4'>
-                    <MDBInput wrapperClass='mb-1 w-100' label='Tài khoản' id='msv' type='text' size="lg"
-                              onFocus={() => {
-                                setFieldTouched('msv')
-                              }}
-                              onBlur={() => setFieldTouched('msv', '')}
-                              value={values.msv}
-                              onChange={handleChange('msv')}
+                    <MDBInput
+                      wrapperClass='mb-1 w-100' label='Tài khoản' id='msv' type='text' size="lg"
+                      onFocus={() => {
+                        setFieldTouched('msv')
+                      }}
+                      onBlur={() => setFieldTouched('msv', '')}
+                      value={values.msv}
+                      onChange={handleChange('msv')}
                     />
                     {errors.msv && <div className='text-danger' style={{fontSize: 12}}>
                       *{errors.msv}
