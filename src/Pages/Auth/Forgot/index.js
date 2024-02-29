@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -9,8 +9,6 @@ import {
   MDBInput,
 }
   from 'mdb-react-ui-kit';
-import {useAppDispatch, useAppSelector} from "../../../Store/store";
-import {login, refreshToken} from "../../../Store/Action/auth.action";
 import {Formik} from "formik";
 import {authSchema, fogotPasswordSchema} from "../../../Helper/FormSchema";
 import {ConfigProvider, Spin} from 'antd';
@@ -20,20 +18,15 @@ import {AuthService} from "../../../Services/auth.service";
 import {toast} from "react-toastify";
 
 function ForgotPassword() {
-  const dispatch = useAppDispatch();
-  const {message} = useAppSelector(state => state.auth)
-  const [messages, setMessages] = useState([]);
   const {isLoading, show, hide} = useLoading();
   const [err, setErr] = useState(null);
   const handleRetrieval = async (value) => {
-    console.log(value)
     show();
     try {
       const {data} = await AuthService.resetPassword(value.msv);
       toast.success(data?.message);
       hide();
     } catch (e) {
-      console.log(e)
       setErr(e?.response?.data?.message)
       hide();
     }
