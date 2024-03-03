@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Button, Modal, Space, Table, Tag} from 'antd';
 import {height} from "../../../Constant/Size";
 import {useAppSelector} from "../../../Store/store";
@@ -21,18 +21,10 @@ const StudentList = () => {
   const hideModel = () => {
     setOpen(false)
   }
-  const renderFooter = () => {
-    return (
-      <div className='d-flex pt-4'>
-        <Button
-          type={"primary"}
-          className='flex-fill text-white'
-          onClick={showModel}
-        >
-          Thêm sinh viên <FontAwesomeIcon className='ps-2' icon={faPlus}/></Button>
-      </div>
-    )
-  }
+
+  const _students = useMemo(() => {
+    return students.filter((item) => item.fullname.toUpperCase().includes(searchText.toUpperCase()))
+  }, [searchText])
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -52,7 +44,7 @@ const StudentList = () => {
       <Table
         rowKey={(item) => item._id}
         columns={columns}
-        dataSource={students}
+        dataSource={_students}
         scroll={{
           y: height * .65,
         }}
