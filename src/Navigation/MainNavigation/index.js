@@ -20,7 +20,6 @@ function MainNavigation() {
   return (
     <Routes>
       <Route path='/' element={<RootLayout />}>
-
         <Route path='/home' element={<Home />}/>
         <Route path='/scores' element={<Score />} />
         <Route path='/tuition' element={<Tuition />} />

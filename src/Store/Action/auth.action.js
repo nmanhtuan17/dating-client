@@ -26,17 +26,24 @@ export const setLogoutAndClearData = createAsyncThunk("auth/log_out", async (_, 
 
 export const refreshToken = createAsyncThunk(
   "auth/refresh-token",
-    async (_, thunkAPI) => {
-      try {
-        const {refreshToken} = store.getState().auth.tokens;
-        console.log("refresh token ________________________________________-");
+  async (_, thunkAPI) => {
+    try {
+      const {refreshToken} = store.getState().auth.tokens;
+      console.log("refresh token ________________________________________-");
+      if (refreshToken.length > 0) {
         const data = await AuthService.refreshToken(refreshToken);
         console.log(data)
         return data
-      } catch (err) {
-        console.log("Error refresh token ");
-        thunkAPI.dispatch(setLogoutAndClearData());
-        return null;
       }
+      else {
+        console.log('refresh token failer')
+        return thunkAPI.dispatch(logout);
+      }
+    } catch (err) {
+      console.log("Error refresh token ");
+      thunkAPI.dispatch(logout);
+      thunkAPI.dispatch(setLogoutAndClearData());
+      return null;
     }
+  }
 );

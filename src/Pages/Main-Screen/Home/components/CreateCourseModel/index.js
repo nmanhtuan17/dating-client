@@ -16,11 +16,12 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
     setLoading(true)
     await dispatch(createCourse(values))
       .then(res => {
-        if (res?.error?.message === "Rejected") {
-          toast.error(res.payload.message)
-        } else {
+        if (res?.type === 'course/create-course/fulfilled') {
           toast.success("Create success")
           form.resetFields(['code', 'name', 'className', 'tc', 'shift', 'jd', 'room', 'teacher']);
+          hide()
+        } else if(res?.type === 'course/create-course/rejected') {
+          toast.error("Network error")
           hide()
         }
         setLoading(false)

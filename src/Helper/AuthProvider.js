@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {loadCourses} from "../Store/Action/course.action";
 import {getAllStudents, getAllTeacher} from "../Store/Action/app.action";
+import {refreshToken} from "../Store/Action/auth.action";
 
 const AuthProvider = () => {
   const {isSignedIn, account} = useAppSelector(state => state.auth)
