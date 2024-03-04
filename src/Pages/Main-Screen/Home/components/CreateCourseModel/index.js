@@ -83,11 +83,26 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
           </Col>
           <Col span={4}>
             <Form.Item
-              label="Tín chỉ"
-              name="tc"
-              rules={[{required: true}]}
+                label="Tín chỉ"
+                name="tc"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập số tín chỉ.'
+                  },
+                  ({getFieldValue}) => ({
+                    validator(_, value) {
+                      const intValue = parseInt(value);
+                      if (isNaN(intValue) || intValue <= 0 || intValue % 1 !== 0) {
+                        return Promise.reject('Vui lòng nhập một số nguyên dương.');
+                      } else {
+                        return Promise.resolve();
+                      }
+                    },
+                  }),
+                ]}
             >
-              <Input placeholder="Tín chỉ"/>
+              <Input placeholder="Tín chỉ" />
             </Form.Item>
           </Col>
         </Row>
@@ -95,20 +110,50 @@ export const CreateCourseModel = ({open, show, hide, title}) => {
         <Row gutter={16}>
           <Col span={8}>
             <Form.Item
-              label="Ca học"
-              name="shift"
-              rules={[{required: true}]}
+                label="Ca học"
+                name="shift"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập thời gian ca học.'
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      const [start, end] = value.split('-').map(val => val.trim()); // Tách giá trị "Start" và "End"
+                      if (start && end && start >= end) { // Kiểm tra nếu "Start" không lớn hơn "End"
+                        return Promise.reject('Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc.');
+                      } else {
+                        return Promise.resolve();
+                      }
+                    },
+                  }),
+                ]}
             >
-              <Input placeholder="Start - End"/>
+              <Input placeholder="Start - End" />
             </Form.Item>
           </Col>
           <Col span={8}>
             <Form.Item
-              label="Thứ"
-              name="jd"
-              rules={[{required: true}]}
+                label="Thứ"
+                name="value"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập giá trị.'
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      const intValue = parseInt(value);
+                      if (isNaN(intValue) || intValue < 2 || intValue > 7) { // Kiểm tra giá trị nằm trong khoảng từ 2 đến 7
+                        return Promise.reject('Vui lòng nhập giá trị từ 2 đến 7.');
+                      } else {
+                        return Promise.resolve();
+                      }
+                    },
+                  }),
+                ]}
             >
-              <Input placeholder="Thứ"/>
+              <Input placeholder="Nhập giá trị từ 2 đến 7" />
             </Form.Item>
           </Col>
           <Col span={8}>
