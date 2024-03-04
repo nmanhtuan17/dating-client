@@ -36,6 +36,8 @@ export const CreateUserModel = ({open, show, hide, title}) => {
   const onSubmit = () => {
     form.submit();
   }
+
+
   return (
     <Modal
       title={title}

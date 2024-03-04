@@ -17,6 +17,7 @@ const {Option} = Select;
 
 const dateFormat = 'MM/DD/YYYY';
 const StudentImformation = ({data}) => {
+
   const [currentSubject, setCurrentSubject] = useState(null);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [form] = Form.useForm(); // Sử dụng hook useForm để tạo form
@@ -73,6 +74,17 @@ const StudentImformation = ({data}) => {
   const onSubmit = () => {
     form.submit();
   }
+
+  const calculateAge = (birthdate) => {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
   return (
     <div>
       <Row justify={"space-between"} className='mb-2'>
@@ -147,19 +159,37 @@ const StudentImformation = ({data}) => {
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Date Of birth"
-              name="dob"
-              rules={[{required: true, message: 'Please enter Date Of birth!'}]}
+                label="Date Of Birth"
+                name="dob"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please enter Date Of Birth!'
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      const age = calculateAge(value);
+                      if (!value || age < 18) { // Kiểm tra nếu tuổi dưới 18
+                        return Promise.reject('Tuổi phải lớn hơn 18.');
+                      } else {
+                        return Promise.resolve();
+                      }
+                    },
+                  }),
+                ]}
             >
               {
-                disabled ? <Input suffix={<FontAwesomeIcon icon={faCalendar}/>} defaultValue={profile?.dob}
-                                  placeholder="Select Date Of birth"/>
-                  :
-                  <DatePicker
-                    format={'DD/MM/YYYY'}
-                    placeholder="Select Date Of birth"
-                    style={{width: '100%'}}
-                  />
+                disabled ?
+                    <Input
+                        suffix={<FontAwesomeIcon icon={faCalendar}/>}
+                        defaultValue={profile?.dob}
+                        placeholder="Select Date Of Birth"
+                    /> :
+                    <DatePicker
+                        format={'DD/MM/YYYY'}
+                        placeholder="Select Date Of Birth"
+                        style={{ width: '100%' }}
+                    />
               }
             </Form.Item>
           </Col>
@@ -185,31 +215,6 @@ const StudentImformation = ({data}) => {
             </Form.Item>
           </Col>
         </Row>
-
-        {/*<Row gutter={16}>*/}
-        {/*  <Col span={6}>*/}
-        {/*    <Form.Item*/}
-        {/*      label="Upload Student Photo"*/}
-        {/*      name="photo"*/}
-        {/*      // rules={[{required: true, message: 'Please choose a file!'}]}*/}
-        {/*      valuePropName="fileList"*/}
-        {/*      getValueFromEvent={(e) => {*/}
-        {/*        if (Array.isArray(e)) {*/}
-        {/*          return e;*/}
-        {/*        }*/}
-        {/*        return e && e.fileList;*/}
-        {/*      }}*/}
-        {/*    >*/}
-        {/*      <Upload*/}
-        {/*        beforeUpload={() => false}*/}
-        {/*        maxCount={1}*/}
-        {/*        accept=".jpg,.png,.jpeg"*/}
-        {/*      >*/}
-        {/*        <Button icon={<UploadOutlined/>}>Choose File</Button>*/}
-        {/*      </Upload>*/}
-        {/*    </Form.Item>*/}
-        {/*  </Col>*/}
-        {/*</Row>*/}
 
         <Title level={4}>Parents Information</Title>
 
