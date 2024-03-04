@@ -84,7 +84,6 @@ export const useCourseTable = () => {
         dataIndex: 'teacher'
       },
       {
-        title: 'Action',
         key: 'action',
         render: (_, record) => {
           return (

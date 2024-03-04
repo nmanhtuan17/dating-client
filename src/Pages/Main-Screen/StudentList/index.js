@@ -23,7 +23,10 @@ const StudentList = () => {
   }
 
   const _students = useMemo(() => {
-    return students.filter((item) => item.fullname.toUpperCase().includes(searchText.toUpperCase()))
+    return students.filter((item) => (
+      item.fullname.toUpperCase().includes(searchText.toUpperCase()) ||
+      item.msv.toUpperCase().includes(searchText.toUpperCase())
+    ))
   }, [searchText])
 
   const handleSearch = (value) => {

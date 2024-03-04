@@ -77,7 +77,7 @@ const Home = () => {
             onClick={handleDelete}
           >
             Delete
-          </Button>,
+          </Button>
         ]}
       >
         <p>Delete course</p>
