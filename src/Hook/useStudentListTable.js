@@ -18,7 +18,6 @@ const useStudentListTable = () => {
   };
   const handleDelete = () => {
     dispatch(deleteStudent(studentId)).then(res => {
-      console.log(res)
       if (res.type === "app/delete-student/fulfilled") {
         toast.success(res.payload.message)
       } else {

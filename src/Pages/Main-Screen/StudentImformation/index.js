@@ -9,7 +9,8 @@ import {toast} from "react-toastify";
 import {validateEmail} from "../../../Utils";
 import {updateProfile} from "../../../Store/Action/app.action";
 import {StudentService} from "../../../Services/student.service";
-
+import {colors} from '../../../Constant/Colors'
+import {faXmark} from "@fortawesome/free-solid-svg-icons";
 
 const {Title} = Typography;
 const {Option} = Select;
@@ -25,7 +26,10 @@ const StudentImformation = ({data}) => {
   const [disabled, setDisabled] = useState(true);
   const dispatch = useAppDispatch();
   const [_student, setStudent] = useState(data)
-  // const profile = account?.isAdmin ? _student : account;
+  const [mgvs, setMgvs] = useState([]);
+  const [mgv, setMgv] = useState('');
+  const [editGV, setEditGV] = useState(true);
+  const [error, setError] = useState('')
   const profile = useMemo(() => {
     return account?.isAdmin ? _student : account;
   }, [_student])
@@ -77,6 +81,9 @@ const StudentImformation = ({data}) => {
 
   const calculateAge = (birthdate) => {
     const today = new Date();
+    if (birthdate) {
+      return;
+    }
     const birthDate = new Date(birthdate);
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -85,6 +92,35 @@ const StudentImformation = ({data}) => {
     }
     return age;
   };
+
+
+  const handleOnPressEnter = () => {
+    if (mgvs.indexOf(mgv) !== -1) {
+      setError('mã giáo viên đã tồn tại')
+      return;
+    }
+    if (mgv.length > 0) {
+      setMgvs([...mgvs, mgv]);
+    }
+    setError('')
+    setMgv('')
+  }
+
+  const renderPrefix = () => {
+    return <div className='row gap-1 p-1'>
+      {mgvs.map((item, index) =>
+        <div key={index.toString() + item} className='d-flex align-items-center gap-1 col rounded' style={{background: colors.gray}}>
+          <span>{item}</span>
+          <span onClick={() => handleDelete(item)} style={{cursor: 'pointer'}}>
+            <FontAwesomeIcon icon={faXmark} size={'xs'}/>
+          </span>
+        </div>
+      )}
+    </div>
+  }
+  const handleDelete = (item) => {
+    setMgvs(prev => prev.filter(e => e !== item))
+  }
   return (
     <div>
       <Row justify={"space-between"} className='mb-2'>
@@ -107,7 +143,7 @@ const StudentImformation = ({data}) => {
             <Form.Item
               label="Họ tên"
               name="fullname"
-              rules={[{required: true, message: 'Nhập họ tên'}]}
+              rules={[{required: !account?.isAdmin, message: 'Nhập họ tên'}]}
               initialValue={profile?.fullname}
             >
               <Input placeholder="Họ tên"/>
@@ -117,7 +153,7 @@ const StudentImformation = ({data}) => {
             <Form.Item
               label="Điện thoại"
               name="phone"
-              rules={[{required: true, message: 'Nhập số điện thoại'}]}
+              rules={[{required: !account?.isAdmin, message: 'Nhập số điện thoại'}]}
               initialValue={profile?.phone}
             >
               <Input placeholder="Điện thoại"/>
@@ -129,7 +165,7 @@ const StudentImformation = ({data}) => {
               name="class"
               initialValue={profile?.class}
             >
-              <Input disabled={!account?.isAdmin || disabled} placeholder="Enter Class Name"/>
+              <Input disabled={!account?.isAdmin || disabled} placeholder="Lớp"/>
             </Form.Item>
           </Col>
           <Col span={6}>
@@ -138,7 +174,7 @@ const StudentImformation = ({data}) => {
               name="major"
               initialValue={profile?.major}
             >
-              <Input disabled={!account?.isAdmin || disabled} placeholder="Enter Section"/>
+              <Input disabled={!account?.isAdmin || disabled} placeholder="Ngành"/>
             </Form.Item>
           </Col>
         </Row>
@@ -146,61 +182,61 @@ const StudentImformation = ({data}) => {
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
-              label="Gender"
+              label="Giới tính"
               name="gender"
-              rules={[{required: true, message: 'Please select Gender!'}]}
+              rules={[{required: !account?.isAdmin, message: 'require'}]}
               initialValue={profile?.gender}
             >
-              <Select placeholder="Select Gender">
-                <Option value="male">Male</Option>
-                <Option value="female">Female</Option>
+              <Select placeholder="Giới tính">
+                <Option value="male">Nam</Option>
+                <Option value="female">Nữ</Option>
               </Select>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-                label="Date Of Birth"
-                name="dob"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please enter Date Of Birth!'
+              label="Ngày sinh"
+              name="dob"
+              rules={[
+                // {
+                //   required: !account?.isAdmin,
+                //   message: 'Please enter Date Of Birth!'
+                // },
+                ({getFieldValue}) => ({
+                  validator(_, value) {
+                    const age = calculateAge(value);
+                    if (!value || age < 18) { // Kiểm tra nếu tuổi dưới 18
+                      return Promise.reject('Tuổi phải lớn hơn 18.');
+                    } else {
+                      return Promise.resolve();
+                    }
                   },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      const age = calculateAge(value);
-                      if (!value || age < 18) { // Kiểm tra nếu tuổi dưới 18
-                        return Promise.reject('Tuổi phải lớn hơn 18.');
-                      } else {
-                        return Promise.resolve();
-                      }
-                    },
-                  }),
-                ]}
+                }),
+              ]}
             >
               {
                 disabled ?
-                    <Input
-                        suffix={<FontAwesomeIcon icon={faCalendar}/>}
-                        defaultValue={profile?.dob}
-                        placeholder="Select Date Of Birth"
-                    /> :
-                    <DatePicker
-                        format={'DD/MM/YYYY'}
-                        placeholder="Select Date Of Birth"
-                        style={{ width: '100%' }}
-                    />
+                  <Input
+                    suffix={<FontAwesomeIcon icon={faCalendar}/>}
+                    defaultValue={profile?.dob}
+                    placeholder="DD/MM/YYYY"
+                  /> :
+                  <DatePicker
+                    format={'DD/MM/YYYY'}
+                    placeholder="DD/MM/YYYY"
+                    style={{width: '100%'}}
+                  />
               }
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Address"
+              label="Địa chỉ"
               name="address"
-              rules={[{required: true, message: 'Please enter Address!'}]}
+              rules={[{required: !account?.isAdmin, message: 'Please enter Address!'}]}
               initialValue={profile?.address}
             >
-              <Input placeholder="Enter Address"/>
+              <Input placeholder="Nhập địa chỉ"/>
             </Form.Item>
           </Col>
 
@@ -208,55 +244,55 @@ const StudentImformation = ({data}) => {
             <Form.Item
               label="E-mail"
               name="email"
-              rules={[{required: true, message: 'Please enter E-mail!'}]}
+              rules={[{required: !account?.isAdmin, message: 'Please enter E-mail!'}]}
               initialValue={profile?.email}
             >
-              <Input placeholder="Enter E-mail"/>
+              <Input placeholder="Nhập Email"/>
             </Form.Item>
           </Col>
         </Row>
 
-        <Title level={4}>Parents Information</Title>
+        <Title level={4}>Thông tin phụ huynh</Title>
 
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
-              label="Father Name"
+              label="Họ tên bố"
               name="fatherName"
-              rules={[{required: true, message: 'Please enter Father Name!'}]}
+              rules={[{required: !account?.isAdmin, message: 'Please enter Father Name!'}]}
               initialValue={profile?.parent?.fatherName}
             >
-              <Input placeholder="Enter Father Name"/>
+              <Input placeholder="Họ tên bố"/>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Mother Name"
+              label="Họ tên mẹ"
               name="motherName"
-              rules={[{required: true, message: 'Please enter Mother Name!'}]}
+              rules={[{required: !account?.isAdmin, message: 'Please enter Mother Name!'}]}
               initialValue={profile?.parent?.motherName}
             >
-              <Input placeholder="Enter Mother Name"/>
+              <Input placeholder="Họ tên mẹ"/>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Father Occupation"
+              label="Nghề nghiệp của bố"
               name="fatherJob"
-              rules={[{required: true, message: 'Please enter Father Occupation!'}]}
+              rules={[{required: !account?.isAdmin, message: 'require'}]}
               initialValue={profile?.parent?.fatherJob}
             >
-              <Input placeholder="Enter Father Occupation"/>
+              <Input placeholder="Nghề nghiệp của bố"/>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Mother Occupation"
+              label="Nghề nghiệp của mẹ"
               name="motherJob"
-              rules={[{required: true, message: 'Please enter Mother Occupation!'}]}
+              rules={[{required: !account?.isAdmin, message: 'require'}]}
               initialValue={profile?.parent?.motherJob}
             >
-              <Input placeholder="Enter Mother Occupation"/>
+              <Input placeholder="Nghề nghiệp của mẹ"/>
             </Form.Item>
           </Col>
         </Row>
@@ -264,42 +300,42 @@ const StudentImformation = ({data}) => {
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
-              label="Phone Number"
+              label="Số điện thoại"
               name="parentPhone"
-              rules={[{required: true, message: 'Please enter Phone Number!'}]}
+              rules={[{required: !account?.isAdmin, message: 'require'}]}
               initialValue={profile?.parent?.parentPhone}
             >
-              <Input placeholder="Enter Phone Number"/>
+              <Input placeholder="Số điện thoại"/>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Nationality"
+              label="Quốc gia"
               name="nation"
-              rules={[{required: true, message: 'Please enter Nationality!'}]}
+              rules={[{required: !account?.isAdmin, message: 'require'}]}
               initialValue={profile?.parent?.nation}
             >
-              <Input placeholder="Enter Nationality"/>
+              <Input placeholder="Quốc gia"/>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Present Address"
+              label="Nơi ở hiện tại"
               name="presentAddress"
-              rules={[{required: true, message: 'Please enter Present Address!'}]}
+              rules={[{required: !account?.isAdmin, message: 'require'}]}
               initialValue={profile?.parent?.presentAddress}
             >
-              <Input placeholder="Enter Present Address"/>
+              <Input placeholder="Địa chỉ thường trú"/>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
-              label="Permanent Address"
+              label="Địa chỉ thường trú"
               name="permanentAddress"
-              rules={[{required: true, message: 'Please enter Permanent Address!'}]}
+              rules={[{required: !account?.isAdmin, message: 'require'}]}
               initialValue={profile?.parent?.permanentAddress}
             >
-              <Input placeholder="Enter Permanent Address"/>
+              <Input placeholder="Địa chỉ thường trú"/>
             </Form.Item>
           </Col>
         </Row>
@@ -317,6 +353,38 @@ const StudentImformation = ({data}) => {
           </Row>
         }
       </Form>
+      <Row justify={"space-between"} className='mb-2'>
+        <Col>
+          <Title level={4}>Cố vấn học tập</Title>
+        </Col>
+        <Col style={{cursor: 'pointer'}} onClick={() => setEditGV(false)}>
+          <FontAwesomeIcon icon={faPenToSquare} size={'lg'}/>
+        </Col>
+      </Row>
+      <Input
+        value={mgv}
+        disabled={editGV}
+        prefix={renderPrefix()}
+        placeholder="Mã giáo viên"
+        onChange={(e) => setMgv(e.target.value)}
+        onPressEnter={handleOnPressEnter}
+      />
+      {error.length > 0 &&
+        <p style={{fontSize: 12}} className='text-danger'>{error}</p>
+      }
+      {
+        !editGV && <Row className='mt-2' justify="start" gutter={16}>
+          <Col>
+            <Button onClick={() => {
+            }} type="primary">Save</Button>
+          </Col>
+          <Col>
+            <Button htmlType="button" onClick={() => {
+              setEditGV(true)
+            }}>Cancel</Button>
+          </Col>
+        </Row>
+      }
     </div>
   );
 }

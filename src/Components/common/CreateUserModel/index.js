@@ -11,7 +11,8 @@ export const CreateUserModel = ({open, show, hide, title}) => {
   const dispatch = useAppDispatch();
   const {message, isLoading} = useAppSelector(state => state.app)
   const [birthday, setBirth] = useState();
-  const [form] = useForm()
+  const [form] = useForm();
+
   const onFinish = async (values) => {
     if(!isFinite(values.phone)) {
       toast.error("Phone must be a number")
@@ -82,7 +83,7 @@ export const CreateUserModel = ({open, show, hide, title}) => {
             <Form.Item
               label="Ngày sinh"
             >
-              <DatePicker onChange={(_, date) => setBirth(date)} />
+              <DatePicker style={{width: '100%'}} onChange={(_, date) => setBirth(date)} />
             </Form.Item>
           </Col>
           <Col span={6}>
