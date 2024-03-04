@@ -16,4 +16,11 @@ export class CourseService extends RequestService {
     })
     return res.data
   }
+
+  static async deleteCourse(id) {
+    const {data} = await this.callApi(`course/delete/${id}`, {
+      method: 'POST'
+    })
+    return data;
+  }
 }

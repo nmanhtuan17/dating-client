@@ -18,7 +18,6 @@ const useStudentListTable = () => {
   };
   const handleDelete = () => {
     dispatch(deleteStudent(studentId)).then(res => {
-      console.log(res)
       if (res.type === "app/delete-student/fulfilled") {
         toast.success(res.payload.message)
       } else {
@@ -42,10 +41,16 @@ const useStudentListTable = () => {
     return (
       <Space size="middle">
         <div className='d-flex gap-2'>
-          <span onClick={() => clickEdit(record)}><FontAwesomeIcon icon={faPenToSquare}
-                                                                   style={{cursor: 'pointer'}}/></span>
-          <span onClick={() => clickDeleteStudent(record)}><FontAwesomeIcon className='text-danger' icon={faTrash}
-                                                                            style={{cursor: 'pointer'}}/></span>
+          <span onClick={() => clickEdit(record)}>
+            <FontAwesomeIcon
+              icon={faPenToSquare}
+              style={{cursor: 'pointer'}}/>
+          </span>
+          <span onClick={() => clickDeleteStudent(record)}>
+            <FontAwesomeIcon
+              className='text-danger' icon={faTrash}
+              style={{cursor: 'pointer'}}/>
+          </span>
         </div>
       </Space>
     )
@@ -63,52 +68,37 @@ const useStudentListTable = () => {
         },
         {
           title: 'Họ Tên',
-          dataIndex:
-            'fullname',
-          key:
-            'name'
+          dataIndex: 'fullname',
+          key: 'name'
         }
         ,
         {
           title: 'Ngày sinh',
-          dataIndex:
-            'dob',
-          key:
-            'dob'
+          dataIndex: 'dob',
+          key: 'dob'
         }
         ,
         {
           title: 'Lớp',
-          dataIndex:
-            'class',
-          key:
-            'class'
+          dataIndex: 'class',
+          key: 'class'
         }
         ,
         {
           title: 'Điện Thoại',
-          dataIndex:
-            'phone',
-          key:
-            'phone'
+          dataIndex: 'phone',
+          key: 'phone'
         }
         ,
         {
           title: 'Email SV',
-          dataIndex:
-            'email',
-          key:
-            'email'
+          dataIndex: 'email',
+          key: 'email'
         }
         ,
         {
-          title: 'Action',
-          dataIndex:
-            'email',
-          key:
-            'email',
-          align:
-            'center',
+          key: 'action',
+          align: 'center',
           render:
           renderAction
         }

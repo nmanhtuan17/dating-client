@@ -1,84 +1,20 @@
-import React, {useMemo, useState} from 'react';
-import {Button, Input, Space, Table, Tag} from 'antd';
+import React, {useState} from 'react';
+import {Button, Input, Modal, Space, Table, Tag} from 'antd';
 import {width, height} from '../../../Constant/Size'
 import {useAppSelector} from "../../../Store/store";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import {CreateUserModel} from "../../../Components/common/CreateUserModel";
 import {CreateCourseModel} from "./components/CreateCourseModel";
+import {useCourseTable} from "../../../Hook/useCourseTable";
 
 const {Search} = Input;
-const columns = [
-  {
-    title: 'Mã môn',
-    dataIndex: 'code',
-    key: 'code',
-    width: 70
-  },
-  {
-    title: 'Tên môn',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Tên lớp',
-    key: 'className',
-    dataIndex: 'className',
-  },
-  {
-    title: 'Thứ',
-    key: 'thu',
-    dataIndex: 'thu',
-    width: 50,
-    render: (text, record) => {
-      return <div>{record.time.jd}</div>
-    }
-  },
-  {
-    title: 'Ca học',
-    key: 'ca',
-    dataIndex: 'ca',
-    width: 60,
-    render: (text, record) => {
-      return <div>{record.time.shift}</div>
-    }
-  },
-  {
-    title: 'Phòng học',
-    key: 'room',
-    dataIndex: 'room',
-    width: 100
-  },
-  {
-    title: 'Tín chỉ',
-    key: 'tc',
-    dataIndex: 'tc',
-    width: 60
-  },
-  {
-    title: 'Giáo viên',
-    key: 'teacher',
-    dataIndex: 'teacher'
-  },
-];
-const data = [
-  {
-    mm: "VC204",
-    name: "Các dân tộc Việt Nam",
-    className: "DANTOCVN.1",
-    thu: 5,
-    ca: "3-5",
-    room: "B403",
-    tc: 3,
-    gv: "Nguyễn Anh Cường(MXV036)"
-  }
-]
 
 const Home = () => {
   const {account} = useAppSelector(state => state.auth)
-  const {courses} = useAppSelector((state) => state.course);
+  const {courses, loading} = useAppSelector((state) => state.course);
   const [searchText, setSearchText] = useState('');
   const [open, setOpen] = useState(false);
+  const {columns, handleDelete, setVisible, visible} = useCourseTable();
   const showModel = () => {
     setOpen(true)
   }
@@ -126,6 +62,26 @@ const Home = () => {
         show={showModel}
         hide={hideModel}
       />
+      <Modal
+        title="Delete"
+        open={visible}
+        onCancel={() => setVisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setVisible(false)}>
+            Cancel
+          </Button>,
+          <Button
+            key='delete'
+            danger
+            loading={loading}
+            onClick={handleDelete}
+          >
+            Delete
+          </Button>
+        ]}
+      >
+        <p>Delete course</p>
+      </Modal>
     </div>
   );
 };
