@@ -5,7 +5,8 @@ const initialState = {
   isLoading: false,
   message: '',
   students: [],
-  teacher: []
+  teacher: [],
+  student: {},
 }
 
 export const appSlice = createSlice({

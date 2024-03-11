@@ -14,21 +14,21 @@ export const CreateUserModel = ({open, show, hide, title}) => {
   const [form] = useForm();
 
   const onFinish = async (values) => {
-    if(!isFinite(values.phone)) {
+    if (!isFinite(values.phone)) {
       toast.error("Phone must be a number")
       return;
     }
-    if(!validateEmail(values.email)) {
+    if (!validateEmail(values.email)) {
       toast.error("Email invalid!!!")
       return;
     }
-    await dispatch(createUser({...values, birthday}))
+    await dispatch(createUser({...values, dob: birthday}))
       .then(res => {
         if (res?.error?.message === "Rejected") {
           toast.error(res.payload.message)
         } else {
           toast.success("Create success")
-          form.resetFields(['msv', 'fullname', 'class', 'year', 'major', 'email', 'phone', 'gvcn']);
+          form.resetFields(['msv', 'fullname', 'className', 'year', 'major', 'email', 'phone', 'gvcn']);
           hide()
         }
       })
@@ -83,13 +83,13 @@ export const CreateUserModel = ({open, show, hide, title}) => {
             <Form.Item
               label="Ngày sinh"
             >
-              <DatePicker style={{width: '100%'}} onChange={(_, date) => setBirth(date)} />
+              <DatePicker format={'DD/MM/YYYY'} style={{width: '100%'}} onChange={(_, date) => setBirth(date)}/>
             </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
               label="Lớp"
-              name="class"
+              name="className"
               rules={[{required: true}]}
             >
               <Input placeholder="Lớp"/>

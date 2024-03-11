@@ -28,12 +28,12 @@ const columns = [
   },
   {
     title: 'Bộ môn',
-    dataIndex: 'bm',
+    dataIndex: 'major',
     key: 'bm'
   },
   {
     title: 'Môn học giảng dạy',
-    dataIndex: 'mh',
+    dataIndex: 'course',
     key: 'mh'
   }
 ]

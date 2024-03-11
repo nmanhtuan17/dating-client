@@ -27,7 +27,7 @@ const StudentList = () => {
       item.fullname.toUpperCase().includes(searchText.toUpperCase()) ||
       item.msv.toUpperCase().includes(searchText.toUpperCase())
     ))
-  }, [searchText])
+  }, [searchText, students])
 
   const handleSearch = (value) => {
     setSearchText(value);
