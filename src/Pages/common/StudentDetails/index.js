@@ -24,7 +24,7 @@ const StudentDetails = () => {
   }
   return (
     <Skeleton loading={loading} avatar paragraph={{rows: 4}}>
-      <TabHeader title={`About ${student?.fullname}`}/>
+      <TabHeader title={`Thông tin của ${student?.fullname}`}/>
       <Divider/>
       <StudentImformation data={student} />
     </Skeleton>
