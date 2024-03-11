@@ -10,14 +10,14 @@ export class ApiService extends RequestService {
   }
 
   static async getAllStudents () {
-    const {data} = await this.callApi("user/getAll", {
+    const {data} = await this.callApi("user/get-all-users", {
       method: 'GET'
     })
     return data
   }
 
   static async getAllTeacher () {
-    const {data} = await this.callApi("teacher/get-all", {
+    const {data} = await this.callApi("teacher/get-all-teachers", {
       method: "GET"
     })
     return data
