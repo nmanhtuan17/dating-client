@@ -46,7 +46,7 @@ const StudentImformation = ({data}) => {
       toast.error("Phone must be a number")
       return;
     }
-    if (!isFinite(values.parentPhone)) {
+    if (values.parentPhone && !isFinite(values.parentPhone)) {
       toast.error("Phone must be a number")
       return;
     }
@@ -64,7 +64,6 @@ const StudentImformation = ({data}) => {
           setDisabled(true);
         } else {
           toast.success("Update success")
-          form.resetFields();
           setDisabled(true);
           if (account.isAdmin) {
             getDetails()
