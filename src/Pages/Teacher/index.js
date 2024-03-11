@@ -1,6 +1,5 @@
-import React, {useMemo, useState} from 'react';
+import React from 'react';
 import {Button, Input, Space, Table, Tag} from 'antd';
-import List from 'rc-virtual-list'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {useAppSelector} from "../../Store/store";
@@ -60,24 +59,10 @@ const columns = [
     dataIndex: 'teacher'
   },
 ];
-const data = [
-  {
-    mm: "VC204",
-    name: "Các dân tộc Việt Nam",
-    className: "DANTOCVN.1",
-    thu: 5,
-    ca: "3-5",
-    room: "B403",
-    tc: 3,
-    gv: "Nguyễn Anh Cường(MXV036)"
-  }
-]
 
 const RoleTeacher = () => {
   const {account} = useAppSelector(state => state.auth)
-  console.log(account)
   const allClass = account?.class.map(item => item.course);
-  console.log(allClass)
   return (
     <div className='d-flex flex-column justify-content-between'>
       <Table

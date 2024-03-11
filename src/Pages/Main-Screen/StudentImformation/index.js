@@ -18,11 +18,9 @@ const {Option} = Select;
 
 const dateFormat = 'MM/DD/YYYY';
 const StudentImformation = ({data}) => {
-
-  const [currentSubject, setCurrentSubject] = useState(null);
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [form] = Form.useForm(); // Sử dụng hook useForm để tạo form
   const {account} = useAppSelector(state => state.auth);
+  const {teacher} = useAppSelector(state => state.app);
   const [disabled, setDisabled] = useState(true);
   const dispatch = useAppDispatch();
   const [_student, setStudent] = useState(data)
@@ -103,6 +101,20 @@ const StudentImformation = ({data}) => {
     }
     setError('')
     setMgv('')
+  }
+  console.log(mgvs)
+
+  const handleUpdateGv = () => {
+    let check = true;
+    mgvs.forEach(item => {
+      const existGv = teacher.find(_teacher => _teacher.mgv === item);
+      if (!existGv) {
+        check = false;
+        toast.error(`Không tồn tại giáo viên ${item}`)
+        return;
+      }
+    })
+    console.log('test')
   }
 
   const renderPrefix = () => {
@@ -360,6 +372,13 @@ const StudentImformation = ({data}) => {
           <FontAwesomeIcon icon={faPenToSquare} size={'lg'}/>
         </Col>
       </Row>
+      <Row>
+        Giáo viên chủ nhiệm: {profile.gvcns && profile?.gvcns.map((item, index) => {
+          return <p key={index} className='ms-2'>
+            {item.fullname}{(index < profile.gvcns.length - 1) && <span>,</span>}
+          </p>
+      })}
+      </Row>
       <Input
         value={mgv}
         disabled={editGV}
@@ -374,8 +393,7 @@ const StudentImformation = ({data}) => {
       {
         !editGV && <Row className='mt-2' justify="start" gutter={16}>
           <Col>
-            <Button onClick={() => {
-            }} type="primary">Save</Button>
+            <Button onClick={handleUpdateGv} type="primary">Save</Button>
           </Col>
           <Col>
             <Button htmlType="button" onClick={() => {
