@@ -12,5 +12,4 @@ export const appSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {}
-
 })

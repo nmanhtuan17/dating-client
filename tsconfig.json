@@ -16,8 +16,7 @@
       "@Store/*": ["./src/Store/*"],
       "@assets/*": ["./src/assets/*"],
       "@services/*": ["./src/services/*"],
-      "@screens/*": ["./src/screens/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@pages/*": ["./src/pages/*"],
       "@utilities": ["./src/utilities"]
     },
     "jsx": "react-jsx",
