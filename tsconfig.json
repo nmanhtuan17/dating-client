@@ -17,7 +17,9 @@
       "@assets/*": ["./src/assets/*"],
       "@services/*": ["./src/services/*"],
       "@pages/*": ["./src/pages/*"],
-      "@utilities": ["./src/utilities"]
+      "@utilities": ["./src/utilities/*"],
+      "@layout": ["./src/layout/*"],
+      "@routes": ["./src/routes/*"]
     },
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true

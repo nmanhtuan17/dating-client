@@ -1,11 +1,10 @@
 import React from 'react';
 import Startup from "@pages/index";
+import {MainRoutes} from "./routes";
 
 function App() {
   return (
-    <div className="App">
-      <Startup />
-    </div>
+    <MainRoutes />
   );
 }
 
