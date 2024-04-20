@@ -1,0 +1,21 @@
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@components": "./src/components",
+        "@configs": "./src/configs",
+        "@navigations": "./src/navigations",
+        "@hooks": "./src/hooks",
+        "@redux": "./src/redux",
+        "@assets": "./src/assets",
+        "@screens": "./src/screens",
+        "@services": "./src/services",
+        "@utilities": "./src/utilities"
+      }
+    }]
+  ]
+}

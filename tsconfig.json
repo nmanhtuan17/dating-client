@@ -7,20 +7,23 @@
       "esnext"
     ],
     "allowJs": true,
+    "isolatedModules": false,
+    "noImplicitAny": false,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@Store/*": ["./src/Store/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@services/*": ["./src/services/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@utilities": ["./src/utilities"]
+    },
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src"
+    "src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts"
   ]
 }
