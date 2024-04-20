@@ -14,6 +14,7 @@
     "@types/node": "^16.18.96",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
+    "antd": "^5.16.2",
     "axios": "^1.6.8",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
@@ -50,6 +51,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.1",
     "react-refresh": "^0.11.0",
+    "react-router-dom": "^6.22.3",
+    "react-toastify": "^10.0.5",
     "redux-persist": "^6.0.0",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
@@ -57,14 +60,14 @@
     "semver": "^7.3.5",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.3.1",
-    "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
-    "workbox-webpack-plugin": "^6.4.1"
+    "workbox-webpack-plugin": "^6.4.1",
+    "yup": "^1.4.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -93,8 +96,9 @@
     "@babel/core": "^7.24.4",
     "@babel/node": "^7.23.9",
     "@babel/preset-env": "^7.24.4",
+    "@babel/preset-react": "^7.24.1",
     "babel-plugin-module-resolver": "^5.0.2",
-    "@babel/preset-react": "^7.24.1"
+    "tailwindcss": "^3.4.3"
   },
   "jest": {
     "roots": [
@@ -151,20 +155,25 @@
       "react-app"
     ],
     "plugins": [
-      ["module-resolver", {
-        "root": ["./src"],
-        "alias": {
-          "@components": "./src/components",
-          "@configs": "./src/configs",
-          "@navigations": "./src/navigations",
-          "@hooks": "./src/hooks",
-          "@Store": "./src/Store",
-          "@assets": "./src/assets",
-          "@pages": "./src/pages",
-          "@services": "./src/services",
-          "@utilities": "./src/utilities"
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ],
+          "alias": {
+            "@components": "./src/components",
+            "@configs": "./src/configs",
+            "@navigations": "./src/navigations",
+            "@hooks": "./src/hooks",
+            "@Store": "./src/Store",
+            "@assets": "./src/assets",
+            "@pages": "./src/pages",
+            "@services": "./src/services",
+            "@utilities": "./src/utilities"
+          }
         }
-      }]
+      ]
     ]
   }
 }
