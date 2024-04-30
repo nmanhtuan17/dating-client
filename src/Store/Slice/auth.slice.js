@@ -50,13 +50,6 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.message = action.payload?.message
       })
-      .addCase(refreshToken.fulfilled, (state, action) => {
-        state.tokens = action.payload?.tokens
-      })
-      .addCase(refreshToken.rejected, (state, action) => {
-        state.tokens.accessToken = ''
-        state.isSignedIn = false
-      })
   }
 
 })

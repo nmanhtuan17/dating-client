@@ -11,12 +11,11 @@ import {useAppSelector} from "../../Store/store";
 
 const MenuNavigation = () => {
   const data = useMenu();
-  const {account} = useAppSelector(state => state.auth)
   return (
     <Sider style={{background: colors.background, paddingTop: '16px'}} width={250}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={!account?.isGV ? ['home'] : ['class']}
+        defaultSelectedKeys={['home']}
         style={{
           height: '100%',
           fontWeight: 'bold'
