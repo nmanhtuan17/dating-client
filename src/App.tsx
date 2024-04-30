@@ -3,6 +3,7 @@ import Startup from "@pages/index";
 import {MainRoutes} from "./routes";
 
 function App() {
+
   return (
     <MainRoutes />
   );

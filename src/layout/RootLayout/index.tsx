@@ -4,6 +4,7 @@ const RootLayout = () => {
   return (
     <div>
       <Startup />
+
     </div>
   )
 }

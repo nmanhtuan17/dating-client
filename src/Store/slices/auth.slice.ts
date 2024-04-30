@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {signIn} from "@Store/actions/auth.action";
 
 
 export interface IAuthState {
@@ -27,7 +28,20 @@ export const AuthSlice = createSlice({
   name: 'auth',
   initialState: initState,
   reducers: {
-
+    setTokens: (state, action) => {
+      state.tokens = action.payload
+    }
   },
-  extraReducers: builder => {}
+  extraReducers: builder => {
+    builder
+      .addCase(signIn.fulfilled, (state, action) => {
+        state.profile = action.payload.data.data
+        state.tokens = action.payload.data.tokens
+      })
+      .addCase(signIn.rejected, (state, action) => {
+
+      })
+  }
 })
+
+export const {setTokens} = AuthSlice.actions

@@ -1,15 +1,14 @@
 import {store} from "@Store/store";
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 
 export class RequestService {
   static axiosInstance = axios.create({});
-
   static async callApi(
     endpoint: string,
-    config: { method: string, headers?: any } = {method: "GET"}
+    config: AxiosRequestConfig = {method: "GET"}
   ) {
     const {tokens} = store.getState()?.auth
-    const BASE_URL = 'https://sm-rd7n.onrender.com/api';
+    const BASE_URL = 'http://localhost:8080/api';
     const requestHeaders: any = {};
     if (tokens && tokens?.accessToken.length > 0) {
       requestHeaders.Authorization = `Bearer ${tokens?.accessToken}`;
