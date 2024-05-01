@@ -1,15 +1,26 @@
-import {UserServices} from "@services/user.services";
-import {useState} from "react";
+import { UserServices } from "@services/user.services";
+import { type } from "os";
+import { useState } from "react";
 
 const Startup = () => {
-  const [image, setImage] = useState<any>();
+  const [images, setImage] = useState<any>(null);
+  
+  // console.log(typeof images)
+
+  const logFormData = (formData) => {
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+  };
   const handleFileUpload = async () => {
     try {
-      console.log('image', image)
-      const uploadData = new FormData();
-      uploadData.append("file", image, "file");
-      const data = await UserServices.uploadAvatar(uploadData);
-      console.log(data)
+      const formData = new FormData();
+      for (const file of images) {
+        formData.append('photos', file);
+      }
+      // console.log(formData)
+      const data = await UserServices.uploadAvatar(formData);
+      // console.log(data)
     } catch (e) {
       console.log(e)
     }
@@ -17,7 +28,8 @@ const Startup = () => {
   return <div>
     <input
       type="file"
-      onChange={(e) => setImage(e.target.files[0])}
+      onChange={(e) => setImage(e.target.files)}
+      multiple
     />
     <button onClick={handleFileUpload}>submit</button>
   </div>
