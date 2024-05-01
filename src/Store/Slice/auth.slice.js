@@ -3,7 +3,7 @@ import {login, refreshToken} from "../Action/auth.action";
 
 
 const initState = {
-  isSignIn: false,
+  isSignedIn: false,
   tokens: {
     accessToken: "",
     refreshToken: ""

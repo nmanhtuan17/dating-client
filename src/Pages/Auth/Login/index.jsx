@@ -14,18 +14,20 @@ import {login, refreshToken} from "../../../Store/Action/auth.action";
 import {Formik} from "formik";
 import {authSchema} from "../../../Helper/FormSchema";
 import {ConfigProvider, Spin} from 'antd';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
-function Login() {
+function Login({navigation}) {
   const dispatch = useAppDispatch();
   const {message, isLoading} = useAppSelector(state => state.auth);
+  const navigate = useNavigate();
   const handleLogin = (value) => {
-    if (value.msv.startsWith("a") || value.msv.startsWith("A")) {
-      dispatch(login(value));
-    } else {
-      dispatch(login({mgv: value.msv, password: value.password}));
-      console.log({mgv: value.msv, password: value.password})
-    }
+    // if (value.msv.startsWith("a") || value.msv.startsWith("A")) {
+    //   dispatch(login(value));
+    // } else {
+    //   dispatch(login({mgv: value.msv, password: value.password}));
+    //   console.log({mgv: value.msv, password: value.password})
+    // }
+    navigate('/home')
   }
 
   return (
@@ -82,7 +84,7 @@ function Login() {
                     <MDBBtn
                       size='lg'
                       onClick={isValid ? handleSubmit : () => {
-                        console.log("invalid")
+                        navigate('/home')
                       }}
                       type={"submit"}
                     >
