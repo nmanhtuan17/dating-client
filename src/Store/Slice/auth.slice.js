@@ -42,7 +42,7 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isSignedIn = true
         state.tokens = action.payload?.tokens
-        state.account = action.payload?.data.user
+        state.account = action.payload?.data
         state.isLoading = false
       })
       .addCase(login.rejected, (state, action ) => {

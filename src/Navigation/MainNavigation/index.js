@@ -6,6 +6,7 @@ import ForgotPassword from "../../Pages/Auth/Forgot";
 import ChangePass from "../../Pages/Auth/ChangePass";
 import Message from "../../Pages/Main-Screen/Message";
 import Search from "../../Pages/Main-Screen/Search";
+import SignUp from "../../Pages/Auth/SignUp";
 
 
 function MainNavigation() {
@@ -19,6 +20,7 @@ function MainNavigation() {
       <Route path='/sign-in' element={<Login />}/>
       <Route path="/quen-mat-khau" element={<ForgotPassword />}/>
       <Route path="/changePassword" element={<ChangePass />}/>
+      <Route path="/sign-up" element={<SignUp />}/>
     </Routes>
   );
 }

@@ -21,7 +21,7 @@ const useMenu = () => {
     key: 'message',
     label: (<Link to='/message'>
       <div>
-        <h4 style={{ display: 'inline', fontSize: 14, margin: '1px 8px' }}>Message</h4>
+        <h4 style={{ display: 'inline', fontSize: 14, margin: '1px 8px' }}>Tin nhắn</h4>
       </div>
     </Link>),
   }

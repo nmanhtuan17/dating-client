@@ -3,40 +3,17 @@ import {RequestService} from "./request.service";
 
 export class AuthService extends RequestService {
   static async login(data) {
-    const res = await this.callApi('auth/login', {
+    const res = await this.callApi('auth/sign-in', {
       method: "POST",
       data: data
     })
     return res.data
   }
-
-  static async refreshToken(refreshToken) {
-    const res = await this.callApi('auth/refresh', {
+  static async register (data) {
+    const res = await this.callApi('auth/rigister', {
       method: "POST",
-      data: {
-        refreshToken
-      }
+      data: data
     })
     return res.data
-  }
-
-  static async changePassword (password, newPass) {
-    const data = await this.callApi('auth/change-password', {
-      method: "POST",
-      data: {
-        password, newPass
-      }
-    })
-    return data;
-  }
-
-  static async resetPassword (msv) {
-    const data = await this.callApi('auth/reset-password', {
-      method: "POST",
-      data: {
-        msv
-      }
-    })
-    return data;
   }
 }

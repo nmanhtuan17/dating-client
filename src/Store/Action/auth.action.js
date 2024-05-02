@@ -7,6 +7,7 @@ import {store} from "../store";
 export const login = createAsyncThunk("auth/login", async (account, thunkAPI) => {
   try {
     const data = await AuthService.login(account)
+    console.log(data);
     return data
   } catch (e) {
     if (!e.response.data) {

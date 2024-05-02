@@ -10,22 +10,20 @@ import {
 }
   from 'mdb-react-ui-kit';
 import { useAppDispatch, useAppSelector } from "../../../Store/store";
-import { login, refreshToken } from "../../../Store/Action/auth.action";
+import { login } from "../../../Store/Action/auth.action";
 import { Formik } from "formik";
-import { authSchema } from "../../../Helper/FormSchema";
+import { authSchema, signUpSchema } from "../../../Helper/FormSchema";
 import { ConfigProvider, Spin } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthService } from '../../../Services/auth.service';
+import {  Link, useNavigate } from 'react-router-dom';
 
-function Login({ navigation }) {
+function SignUp({ navigation }) {
   const dispatch = useAppDispatch();
   const { message, isLoading } = useAppSelector(state => state.auth);
   const navigate = useNavigate();
-  const handleLogin = async (value) => {
-    // dispatch(login(value));
-    const res = await AuthService.login(value);
-    console.log(res);
-    // navigate('/home')
+  const handleLogin = (value) => {
+    dispatch(login({ mgv: value.msv, password: value.password }));
+    console.log({ mgv: value.msv, password: value.password })
+    navigate('/home')
   }
 
   return (
@@ -33,17 +31,17 @@ function Login({ navigation }) {
       <MDBRow className='d-flex justify-content-center align-items-center vh-100'>
         <MDBCol col='12'>
           <MDBCard className='bg-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '500px' }}>
-            <h2 className="fw-bold mb-2 text-center pt-5">Đăng nhập</h2>
+            <h2 className="fw-bold mb-2 text-center pt-5">Đăng ký</h2>
             <Formik
-              initialValues={{ email: '', password: '' }}
-              validationSchema={authSchema}
+              initialValues={{ email: '',fullName: '', password: '' }}
+              validationSchema={signUpSchema}
               onSubmit={(value) => handleLogin(value)}
             >
               {({ values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldTouched }) => (
                 <MDBCardBody className='p-5 w-100 d-flex flex-column'>
                   <div className='mb-4'>
                     <MDBInput
-                      wrapperClass='mb-1 w-100' label='Email' id='msv' type='text' size="lg"
+                      wrapperClass='mb-1 w-100' label='Email' id='email' type='text' size="lg"
                       onFocus={() => {
                         setFieldTouched('email')
                       }}
@@ -53,6 +51,20 @@ function Login({ navigation }) {
                     />
                     {errors.email && <div className='text-danger' style={{ fontSize: 12 }}>
                       {errors.email}
+                    </div>}
+                  </div>
+                  <div className='mb-4'>
+                    <MDBInput
+                      wrapperClass='mb-1 w-100' label='Họ tên' id='email' type='text' size="lg"
+                      onFocus={() => {
+                        setFieldTouched('fullName')
+                      }}
+                      onBlur={() => setFieldTouched('fullName', '')}
+                      value={values.fullName}
+                      onChange={handleChange('fullName')}
+                    />
+                    {errors.fullName && <div className='text-danger' style={{ fontSize: 12 }}>
+                      {errors.fullName}
                     </div>}
                   </div>
                   <div className='mb-4'>
@@ -78,25 +90,19 @@ function Login({ navigation }) {
                       },
                     }}
                   >
-                    <Link to="/quen-mat-khau" className="forgot-password-link mb-2">Quên mật khẩu?</Link>
                     <MDBBtn
-                      size='lg'
-                      onClick={isValid ? handleSubmit : () => { }}
-                      type={"submit"}
-                    >
-                      {!isLoading ? 'Đăng nhập' : <Spin />}
-                    </MDBBtn>
-                    <MDBBtn
-                      color='secondary'
                       className='mt-3'
                       size='lg'
-                      onClick={() => {
-                        navigate('/sign-up')
+                      onClick={isValid ? handleSubmit : () => {
                       }}
                       type={"submit"}
                     >
                       Đăng ký
                     </MDBBtn>
+                    <div className='mt-2'>
+                      You already have account?
+                      <Link to={'/sign-in'}>Đăng nhập</Link>
+                    </div>
                   </ConfigProvider>
                 </MDBCardBody>
               )}
@@ -109,4 +115,4 @@ function Login({ navigation }) {
   );
 }
 
-export default Login;
+export default SignUp;

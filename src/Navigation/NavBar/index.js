@@ -6,9 +6,6 @@ import { useAppSelector } from "../../Store/store";
 
 const NavBar = () => {
   const data = useMenu();
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
   return (
     <div className='flex-grow-1'>
       <Menu
