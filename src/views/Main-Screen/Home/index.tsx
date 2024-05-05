@@ -1,19 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LikeOutlined, MessageOutlined, LikeFilled, UserOutlined } from '@ant-design/icons';
-import { Avatar, Input, List, Space } from 'antd';
-import {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogTrigger,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
-// import { Cross2Icon } from '@/components/ui/dialog';
+import { Avatar, Button, Input, List, Modal, Space, Upload } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { colors } from '@/constant/Colors';
 const data = Array.from({
   length: 23,
 }).map((_, i) => ({
@@ -32,21 +23,39 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 const Home = () => {
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [files, setFiles] = useState<any>([]);
+  const [images, setImages] = useState<any>();
 
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+  };
+  
+  const handleOk = () => {
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
   const renderHeader = () => {
     return (
       <div className='flex flex-row gap-2 p-2'>
-        {/* <Avatar size={36} icon={<UserOutlined />} /> */}
+        <Avatar size={36} icon={<UserOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />} />
         <Input
-          className='rounded-xl'
+          className='rounded-2xl'
           placeholder='Bạn đang nghĩ gì?'
-
+          onClick={() => {
+            setOpen(true)
+          }}
         />
       </div>
     )
   }
-
-
   return (
     <div className='container flex flex-1 justify-center'>
       <List
@@ -81,42 +90,42 @@ const Home = () => {
           </List.Item>
         )}
       />
-      <Dialog>
-        <DialogTrigger asChild>
-          <button className="Button violet">Edit profile</button>
-        </DialogTrigger>
-        <DialogPortal>
-          <DialogOverlay className="DialogOverlay" />
-          <DialogContent className="DialogContent">
-            <DialogTitle className="DialogTitle">Edit profile</DialogTitle>
-            <DialogDescription className="DialogDescription">
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
-            <fieldset className="Fieldset">
-              <label className="Label" htmlFor="name">
-                Name
-              </label>
-              <input className="Input" id="name" defaultValue="Pedro Duarte" />
-            </fieldset>
-            <fieldset className="Fieldset">
-              <label className="Label" htmlFor="username">
-                Username
-              </label>
-              <input className="Input" id="username" defaultValue="@peduarte" />
-            </fieldset>
-            <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
-              <DialogClose asChild>
-                <button className="Button green">Save changes</button>
-              </DialogClose>
+      <Modal
+        title={
+          <div className='flex flex-col items-center'>
+            <div className='text-[18px] font-semibold'>Tạo bài viết</div>
+            {/* <Divider /> */}
+          </div>
+        }
+        centered
+        open={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        confirmLoading={confirmLoading}
+        footer={(_, { OkBtn, CancelBtn }) => (
+          <div className='flex flex-1'>
+            <Button onClick={handleOk} className='flex flex-1 justify-center'>ok</Button>
+          </div>
+        )}
+      >
+        <div className='flex flex-col gap-4 mt-4'>
+          <div className='flex items-center justify-between'>
+            <div className='flex flex-row items-center gap-2'>
+              <Avatar size={36} icon={<UserOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />} />
+              <div className='text-[18px] font-semibold'>Tuấn</div>
             </div>
-            <DialogClose asChild>
-              <button className="IconButton" aria-label="Close">
-                {/* <Cross2Icon /> */}
-              </button>
-            </DialogClose>
-          </DialogContent>
-        </DialogPortal>
-      </Dialog>
+            <Upload
+              onChange={({ file, fileList }) => {
+                setFiles(fileList)
+              }}
+              showUploadList={false}
+              multiple>
+              <FontAwesomeIcon icon={faImage} color={colors.green} size='lg' />
+            </Upload>
+          </div>
+          <TextArea rows={4} placeholder="Bạn đang nghĩ gì thế ?" maxLength={6} />
+        </div>
+      </Modal>
     </div>
   );
 }

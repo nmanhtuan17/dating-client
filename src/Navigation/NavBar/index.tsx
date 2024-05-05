@@ -8,7 +8,7 @@ import { useMenu } from '@/hook/useMenu';
 const NavBar = () => {
   const data = useMenu();
   return (
-    <div className='flex-grow-1'>
+    <div className='flex flex-1'>
       <Menu
         mode="horizontal"
         defaultSelectedKeys={['2']}

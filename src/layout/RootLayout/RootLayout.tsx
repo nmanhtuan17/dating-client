@@ -56,19 +56,19 @@ const RootLayout = () => {
         justifyContent: 'space-between',
         boxShadow: '0px 1px 4px -1px rgba(0, 0, 0, .15)'
       }}>
-        {/* <FontAwesomeIcon icon={faHeart} size='20px' /> */}
+        <FontAwesomeIcon icon={faHeart} size={'lg'} />
         <NavBar />
-        {/* <Dropdown
-          menu={{ items, onClick: handleLogout }}
+        <Dropdown
+          menu={{ items, onClick: handleLogout } as any}
           placement="bottomRight"
           trigger={['click']}
         >
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              <Avatar size={32} icon={<UserOutlined />} />
+              <Avatar size={32} icon={<UserOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />} />
             </Space>
           </a>
-        </Dropdown> */}
+        </Dropdown>
       </Header>
       <Layout className='flex flex-1 flex-col min-h-0 overflow-y-auto my-4'>
         <Outlet />
