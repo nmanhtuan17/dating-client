@@ -9,7 +9,6 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
@@ -29,5 +28,5 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/types/**/*.d.ts"
-, "src/utils/string.helper.ts"  ]
+  ]
 }
