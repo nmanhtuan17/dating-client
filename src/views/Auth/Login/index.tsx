@@ -81,7 +81,9 @@ function Login() {
                     <Link to="/quen-mat-khau" className="forgot-password-link mb-2">Quên mật khẩu?</Link>
                     <MDBBtn
                       size='lg'
-                      // onClick={isValid ? handleSubmit : () => { }}
+                      onClick={() => {
+                        isValid && handleSubmit()
+                      }}
                       type={"submit"}
                     >
                       {!isLoading ? 'Đăng nhập' : <Spin />}
