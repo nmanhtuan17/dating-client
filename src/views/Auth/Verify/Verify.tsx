@@ -17,12 +17,16 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import {verifyCode} from "@/store/Action/auth.action.ts";
 
 function Verify() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {accountId} = useParams();
   const { message, isLoading } = useAppSelector<any>(state => state.auth);
   const handleVerify = async (value) => {
-    dispatch(verifyCode({accountId, value}))
-    console.log(value)
+    dispatch(verifyCode({accountId, value})).then(res => {
+      if(res.type == 'auth/verify/fulfilled') {
+        navigate('boarding')
+      }
+    })
   }
 
   return (
