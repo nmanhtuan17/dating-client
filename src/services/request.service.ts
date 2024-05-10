@@ -1,5 +1,5 @@
 import {store} from "@/store";
-import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 export class RequestService {
   static axiosInstance = axios.create({});
   static async callApi(
@@ -7,8 +7,9 @@ export class RequestService {
     config : AxiosRequestConfig = {method: "GET"}
   ) {
     const {tokens} = store.getState()?.auth
-    const BASE_URL = 'http://localhost:8080';
-    const requestHeaders : any = {};
+    const BASE_URL = 'http://192.168.0.122:8080/api';
+
+      const requestHeaders : any = {};
     if (tokens && tokens?.accessToken.length > 0) {
       requestHeaders.Authorization = `Bearer ${tokens?.accessToken}`;
     }

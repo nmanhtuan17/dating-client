@@ -34,7 +34,6 @@ export const authSlice = createSlice({
         refreshToken: ""
       };
       state.account = null;
-      state.message = ''
     },
     clearAccount: () => {
       return initState;

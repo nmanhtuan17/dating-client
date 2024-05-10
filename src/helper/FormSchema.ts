@@ -9,6 +9,13 @@ export const authSchema = yup.object().shape({
     .required("Nhập mật khẩu")
 });
 
+export const verifySchema = yup.object().shape({
+  code: yup
+    .string()
+    .min(6, "Yêu cầu trên 6 kí tự")
+    .required()
+});
+
 export const signUpSchema = yup.object().shape({
   email: yup
     .string().email().required(),

@@ -10,22 +10,18 @@ import {
 }
   from 'mdb-react-ui-kit';
 import { useAppDispatch, useAppSelector } from "@/store";
-import { login } from "@/store/Action/auth.action.ts";
 import { Formik } from "formik";
 import { authSchema } from "@/helper/FormSchema";
 import { ConfigProvider, Spin } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthService } from '@/services/auth.service';
+import {login} from "@/store/Action/auth.action.ts";
 
 function Login() {
   const dispatch = useAppDispatch();
   const { message, isLoading } = useAppSelector<any>(state => state.auth);
   const navigate = useNavigate();
   const handleLogin = async (value) => {
-    // dispatch(login(value));
-    const res = await AuthService.login(value);
-    console.log(res);
-    // navigate('/home')
+    dispatch(login(value));
   }
 
   return (
@@ -74,7 +70,6 @@ function Login() {
                     theme={{
                       token: {
                         fontSize: 14,
-                        colorPrimary: "#fff"
                       },
                     }}
                   >
@@ -93,7 +88,7 @@ function Login() {
                       className='mt-3'
                       size='lg'
                       onClick={() => {
-                        navigate('/sign-up')
+                        navigate('/auth/sign-up')
                       }}
                       type={"submit"}
                     >
@@ -106,7 +101,6 @@ function Login() {
           </MDBCard>
         </MDBCol>
       </MDBRow>
-
     </MDBContainer>
   );
 }
