@@ -11,7 +11,7 @@ const AuthProvider = () => {
     if (isSignedIn) {
       navigate('/home')
     } else {
-      navigate('/auth/sign-in');
+      navigate('/boarding');
     }
   }, [isSignedIn]);
   return <></>

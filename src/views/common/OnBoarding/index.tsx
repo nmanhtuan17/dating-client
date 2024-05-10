@@ -27,14 +27,14 @@ const OnBoarding = () => {
 
   return (
     <div className='flex flex-1 flex-col text-black h-screen'>
-      <div className='container flex flex-1 flex-col my-[100px] rounded-2xl bg-gray-200 items-center justify-center p-4'>
-        <div className='flex flex-row'>
-          <div className='flex-grow font-bold text-6xl max-w-2xl'>
+      <div className='container flex flex-1 my-[100px] rounded-2xl bg-gray-200 items-center justify-center p-4'>
+        <div className='flex flex-1 justify-between items-start'>
+          <div className='flex-1 font-bold text-6xl text-center'>
             Let's set your imformation
           </div>
-          <div className='flex-grow'>
+          <div className='flex-1'>
             {/*// @ts-ignore*/}
-            <Form {...formItemLayout} variant="filled" style={{ maxWidth: 600 }}>
+            <Form {...formItemLayout} variant="filled" size='large'>
               <Form.Item label="Input" name="Input" rules={[{ required: true, message: 'Please input!' }]}>
                 <Input />
               </Form.Item>
