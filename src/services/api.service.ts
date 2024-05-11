@@ -10,4 +10,11 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async getUsers() {
+    const {data} = await this.callApi('user/users', {
+      method: 'GET'
+    })
+    return data
+  }
 }

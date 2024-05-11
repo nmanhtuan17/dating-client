@@ -39,7 +39,7 @@ function SignUp() {
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
             <h2 className="fw-bold mb-2 text-center pt-5">Đăng ký</h2>
             <Formik
-              initialValues={{email: '', fullName: '', password: '', age: 0}}
+              initialValues={{email: '', fullName: '', password: '', age: 0, address: ''}}
               validationSchema={signUpSchema}
               onSubmit={(value) => handleLogin(value)}
             >
@@ -87,6 +87,20 @@ function SignUp() {
                       {errors.password}
                     </div>}
                   </div>
+                  <div className='mb-4'>
+                    <MDBInput
+                      wrapperClass='mb-1 w-100' label='Địa chỉ' id='address' type='text' size="lg"
+                      onFocus={() => {
+                        setFieldTouched('address')
+                      }}
+                      onBlur={() => setFieldTouched('address')}
+                      value={values.address}
+                      onChange={handleChange('address')}
+                    />
+                    {errors.address && <div className='text-danger' style={{fontSize: 12}}>
+                      {errors.address}
+                    </div>}
+                  </div>
                   <div className='flex flex-row justify-between'>
                     <div>
                       <MDBInput
@@ -124,7 +138,7 @@ function SignUp() {
                       }}
                       type={"submit"}
                     >
-                      {!isLoading ? 'Đăng ký' : <Spin />}
+                      {!isLoading ? 'Đăng ký' : <Spin/>}
                     </MDBBtn>
                     <div className='mt-2'>
                       You already have account?

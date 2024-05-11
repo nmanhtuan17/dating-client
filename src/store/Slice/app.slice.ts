@@ -1,18 +1,24 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {getUsers} from "@/store/Action/app.action.ts";
+
+
 
 export interface IAppState {
+  users?: IUser[]
   firstAppOpen: boolean;
   filter: {
     gender?: 'male' | 'female',
     address?: string,
     age?: number,
   }
+  appLoading: boolean;
 }
-const initialState : IAppState = {
-  firstAppOpen: false,
-  filter: {
 
-  }
+const initialState: IAppState = {
+  users: [],
+  firstAppOpen: true,
+  filter: {},
+  appLoading: false,
 }
 
 export const appSlice = createSlice({
@@ -26,10 +32,22 @@ export const appSlice = createSlice({
       }
     },
     setFirstAppOpen: (state) => {
-      state.firstAppOpen = true
+      state.firstAppOpen = false
     }
   },
-  extraReducers: builder => {}
+  extraReducers: builder => {
+    builder
+      .addCase(getUsers.pending, (state, action) => {
+        state.appLoading = true
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.appLoading = false
+        state.users = action.payload.data
+      })
+      .addCase(getUsers.rejected, (state) => {
+        state.appLoading = false
+      })
+  }
 })
 
 

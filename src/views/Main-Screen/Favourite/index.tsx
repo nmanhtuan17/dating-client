@@ -1,4 +1,4 @@
-const Search = () => {
+const Favourite = () => {
   return (
     <div className="p-4">
       search
@@ -6,4 +6,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default Favourite

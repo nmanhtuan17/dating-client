@@ -16,11 +16,11 @@ const RootLayout = () => {
   const { account } = useAppSelector(state => state.auth)
   const items = [
     {
-      label: <a href="#">
+      label: <Link to="/profile">
         <FontAwesomeIcon icon={faUser} />
         <span style={{ margin: '4px 6px' }}>Thông tin cá nhân
         </span>
-      </a>,
+      </Link>,
       key: '1',
     },
     {
@@ -64,7 +64,7 @@ const RootLayout = () => {
           </a>
         </Dropdown>
       </Header>
-      <Layout className='flex flex-1 flex-col min-h-0 overflow-y-auto my-4'>
+      <Layout className='flex flex-1 flex-col min-h-0 overflow-y-auto'>
         <Outlet />
       </Layout>
     </Layout>

@@ -7,7 +7,7 @@ export interface IAuthState {
     accessToken: string,
     refreshToken: string
   },
-  account: any,
+  account: IUser,
   message: string,
   isLoading: boolean
 }

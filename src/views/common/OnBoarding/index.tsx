@@ -31,6 +31,9 @@ const OnBoarding = () => {
       age: values.age,
       address: values.address,
     }))
+    dispatch(updateProfile({
+      seeking: findGender
+    }))
     dispatch(setFirstAppOpen());
   }
   return (

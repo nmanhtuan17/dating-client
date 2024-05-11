@@ -24,8 +24,7 @@ const UserInfo = () => {
             {/* <Avatar size={64} icon={<UserOutlined/>}/> */}
           </div>
           <div style={{fontWeight: '600'}}>
-            <h4  style={{ fontSize: 16, marginBottom: '4px'}}>{account?.fullname}</h4>
-            <span style={{fontSize: 12}}>{account?.major}</span>
+            <h4  style={{ fontSize: 16, marginBottom: '4px'}}>{account?.fullName}</h4>
           </div>
         </div>
       </Content>

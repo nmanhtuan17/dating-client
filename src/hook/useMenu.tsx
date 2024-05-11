@@ -6,15 +6,15 @@ export const useMenu = () => {
     key: 'home',
     label: (<Link to='/home'>
       <div>
-        <h4 style={{ display: 'inline', fontSize: 14, margin: '1px 8px' }}>Bảng tin</h4>
+        <h4 style={{ display: 'inline', fontSize: 14, margin: '1px 8px' }}>Trang chủ</h4>
       </div>
     </Link>),
   },
   {
     key: 'search',
-    label: (<Link to='/search'>
+    label: (<Link to='/favourite'>
       <div>
-        <h4 style={{ display: 'inline', fontSize: 14, margin: '1px 8px' }}>Tìm kiếm</h4>
+        <h4 style={{ display: 'inline', fontSize: 14, margin: '1px 8px' }}>Yêu thích</h4>
       </div>
     </Link>),
   }, {

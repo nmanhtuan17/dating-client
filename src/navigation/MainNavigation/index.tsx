@@ -5,10 +5,11 @@ import Login from "@/views/Auth/Login";
 import SignUp from "@/views/Auth/SignUp";
 import Home from "@/views/Main-Screen/Home";
 import Message from "@/views/Main-Screen/Message";
-import Search from "@/views/Main-Screen/Search";
+import Favourite from "../../views/Main-Screen/Favourite";
 import {Route, Routes} from "react-router-dom";
 import Verify from "@/views/Auth/Verify/Verify.tsx";
 import OnBoarding from "@/views/common/OnBoarding";
+import Profile from "@/views/common/Profile";
 
 
 function MainNavigation() {
@@ -17,8 +18,9 @@ function MainNavigation() {
       <Route path='/'>
         <Route path={''} element={<RootLayout/>}>
           <Route path='/home' element={<Home/>}/>
-          <Route path='/search' element={<Search/>}/>
+          <Route path='/favourite' element={<Favourite/>}/>
           <Route path='/message' element={<Message/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Route>
         <Route path='auth/'>
           <Route path='sign-in' element={<Login/>}/>

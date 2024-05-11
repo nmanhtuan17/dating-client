@@ -21,6 +21,8 @@ export const signUpSchema = yup.object().shape({
     .string().email().required(),
   fullName: yup
     .string().required(),
+  address: yup
+    .string().required(),
   password: yup
     .string()
     .min(6, "Mật khẩu yêu cầu trên 6 kí tự")

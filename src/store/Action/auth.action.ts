@@ -1,8 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AuthService} from "@/services/auth.service";
-import { clearAccount, logout } from "@/store/Slice/auth.slice";
+import {clearAccount, logout} from "@/store/Slice/auth.slice";
 import {toast} from "react-toastify";
-
 
 
 export const login = createAsyncThunk<
@@ -10,8 +9,7 @@ export const login = createAsyncThunk<
   any
 >("auth/login", async (account, thunkAPI) => {
   try {
-    const data = await AuthService.login(account)
-    return data
+    return await AuthService.login(account)
   } catch (e) {
     if (!e.response.data) {
       throw e
