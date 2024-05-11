@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -13,20 +13,23 @@ import {useAppDispatch, useAppSelector} from "@/store";
 import {register} from "@/store/Action/auth.action.ts";
 import {Formik} from "formik";
 import {authSchema, signUpSchema} from "@/helper/FormSchema";
-import {ConfigProvider, Spin} from 'antd';
+import {ConfigProvider, Radio, Spin} from 'antd';
 import {Link, useNavigate} from 'react-router-dom';
+import {toast} from "react-toastify";
+import onChange = toast.onChange;
+import {set} from "react-hook-form";
 
 function SignUp() {
   const dispatch = useAppDispatch();
   const {message, isLoading} = useAppSelector(state => state.auth);
   const navigate = useNavigate();
+  const [gender, setGender] = useState();
   const handleLogin = (value) => {
-    dispatch(register(value)).then(res => {
+    dispatch(register({...value, gender: gender})).then(res => {
       if(res.type == 'auth/register/fulfilled') {
         navigate(`/auth/verify/${res.payload.data.accountId}`)
       }
     });
-
   }
 
   return (
@@ -36,7 +39,7 @@ function SignUp() {
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
             <h2 className="fw-bold mb-2 text-center pt-5">Đăng ký</h2>
             <Formik
-              initialValues={{email: '', fullName: '', password: ''}}
+              initialValues={{email: '', fullName: '', password: '', age: 0}}
               validationSchema={signUpSchema}
               onSubmit={(value) => handleLogin(value)}
             >
@@ -84,7 +87,27 @@ function SignUp() {
                       {errors.password}
                     </div>}
                   </div>
-                  {message && <div className='pb-2 text-sm' style={{color: 'red'}}> *{message} </div>}
+                  <div className='flex flex-row justify-between'>
+                    <div>
+                      <MDBInput
+                        wrapperClass='mb-1' label='Tuổi' id='age' type='number' size="lg"
+                        onFocus={() => {
+                          setFieldTouched('age')
+                        }}
+                        onBlur={() => setFieldTouched('age')}
+                        value={values.age}
+                        onChange={handleChange('age')}
+                      />
+                      {errors.age && <div className='text-danger' style={{fontSize: 12}}>
+                        {errors.age}
+                      </div>}
+                    </div>
+                    <Radio.Group className={'p-[12px]'} onChange={(e) => setGender(e.target.value)} value={gender}>
+                      <Radio value={'male'}>Nam</Radio>
+                      <Radio value={'female'}>Nữ</Radio>
+                    </Radio.Group>
+                  </div>
+                  {message && <div className='pb-1 text-sm' style={{color: 'red'}}> *{message} </div>}
                   <ConfigProvider
                     theme={{
                       token: {
@@ -101,7 +124,7 @@ function SignUp() {
                       }}
                       type={"submit"}
                     >
-                      Đăng ký
+                      {!isLoading ? 'Đăng ký' : <Spin />}
                     </MDBBtn>
                     <div className='mt-2'>
                       You already have account?

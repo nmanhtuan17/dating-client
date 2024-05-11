@@ -6,7 +6,7 @@ export const authSchema = yup.object().shape({
   password: yup
     .string()
     .min(5, "Mật khẩu yêu cầu trên 6 kí tự")
-    .required("Nhập mật khẩu")
+    .required()
 });
 
 export const verifySchema = yup.object().shape({
@@ -23,8 +23,11 @@ export const signUpSchema = yup.object().shape({
     .string().required(),
   password: yup
     .string()
-    .min(5, "Mật khẩu yêu cầu trên 6 kí tự")
-    .required("Nhập mật khẩu")
+    .min(6, "Mật khẩu yêu cầu trên 6 kí tự")
+    .required(),
+  age: yup
+    .number()
+    .required()
 })
 
 export const changePasswordSchema = yup.object().shape({

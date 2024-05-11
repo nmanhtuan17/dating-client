@@ -20,7 +20,7 @@ function Login() {
   const dispatch = useAppDispatch();
   const { message, isLoading } = useAppSelector<any>(state => state.auth);
   const navigate = useNavigate();
-  const handleLogin = async (value) => {
+  const handleLogin = (value) => {
     dispatch(login(value));
   }
 

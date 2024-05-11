@@ -24,7 +24,7 @@ function Verify() {
   const handleVerify = async (value) => {
     dispatch(verifyCode({accountId, value})).then(res => {
       if(res.type == 'auth/verify/fulfilled') {
-        navigate('boarding')
+        navigate('/auth/sign-in')
       }
     })
   }

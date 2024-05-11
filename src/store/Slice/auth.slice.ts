@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { login } from "@/store/Action/auth.action";
+import {login, register} from "@/store/Action/auth.action";
 
 export interface IAuthState {
   isSignedIn: boolean,
@@ -58,6 +58,15 @@ export const authSlice = createSlice({
         state.isSignedIn = false
         state.isLoading = false
         // state.message = action.payload?.message
+      })
+      .addCase(register.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false
+      })
+      .addCase(register.rejected, (state, action ) => {
+        state.isLoading = false
       })
   }
 

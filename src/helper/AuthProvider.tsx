@@ -4,16 +4,21 @@ import { useAppSelector, useAppDispatch } from "@/store";
 
 const AuthProvider = () => {
   const {isSignedIn, account} = useAppSelector(state => state.auth)
+  const {firstAppOpen} = useAppSelector(state => state.app)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isSignedIn) {
-      navigate('/home')
-    } else {
-      navigate('/boarding');
+    if (isSignedIn && !firstAppOpen) {
+      navigate('/boarding')
     }
-  }, [isSignedIn]);
+    else if(isSignedIn && firstAppOpen) {
+      navigate('/home')
+    }
+    else {
+      navigate('/auth/sign-in');
+    }
+  }, [isSignedIn, firstAppOpen]);
   return <></>
 }
 

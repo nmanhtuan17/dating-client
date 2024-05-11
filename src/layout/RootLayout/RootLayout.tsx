@@ -18,16 +18,10 @@ const RootLayout = () => {
     {
       label: <a href="#">
         <FontAwesomeIcon icon={faUser} />
-        <span style={{ margin: '4px 6px' }}>{account?.fullname}</span>
+        <span style={{ margin: '4px 6px' }}>Thông tin cá nhân
+        </span>
       </a>,
       key: '1',
-    },
-    {
-      label: <Link to="/changePassword">
-        <FontAwesomeIcon icon={faArrowsRotate} />
-        <span style={{ margin: '4px 6px' }}>Đổi mật khẩu</span>
-      </Link>,
-      key: 'changePassword',
     },
     {
       type: 'divider',
@@ -56,7 +50,7 @@ const RootLayout = () => {
         justifyContent: 'space-between',
         boxShadow: '0px 1px 4px -1px rgba(0, 0, 0, .15)'
       }}>
-        <FontAwesomeIcon icon={faHeart} size={'lg'} />
+        <div></div>
         <NavBar />
         <Dropdown
           menu={{ items, onClick: handleLogout } as any}

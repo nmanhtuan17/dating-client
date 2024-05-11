@@ -7,7 +7,7 @@ export class RequestService {
     config : AxiosRequestConfig = {method: "GET"}
   ) {
     const {tokens} = store.getState()?.auth
-    const BASE_URL = 'http://192.168.0.122:8080/api';
+    const BASE_URL = 'http://localhost:8080/api';
 
       const requestHeaders : any = {};
     if (tokens && tokens?.accessToken.length > 0) {
