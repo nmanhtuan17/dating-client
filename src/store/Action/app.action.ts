@@ -18,6 +18,21 @@ export const updateProfile = createAsyncThunk<
   }
 })
 
+export const uploadAvatar = createAsyncThunk<
+  any,
+  any
+>("user/upload-avatar", async (formData, thunkAPI) => {
+  try {
+    return await ApiService.uploadAvatar(formData);
+  } catch (e) {
+    if (!e.response.data) {
+      throw e
+    }
+    toast.error(e.response.data.message)
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
+
 export const getUsers = createAsyncThunk<
   any
 >("user/get-all", async (_, thunkAPI) => {

@@ -44,7 +44,6 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export function ProfileForm() {
   const {account} = useAppSelector(state => state.auth)
-  console.log(account )
   const defaultValues: Partial<ProfileFormValues> = {
     address: account?.address,
     fullName: account?.fullName,

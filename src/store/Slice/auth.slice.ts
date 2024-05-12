@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {login, register} from "@/store/Action/auth.action";
+import {uploadAvatar} from "@/store/Action/app.action.ts";
 
 export interface IAuthState {
   isSignedIn: boolean,
@@ -67,6 +68,12 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, (state, action ) => {
         state.isLoading = false
+      })
+      .addCase(uploadAvatar.fulfilled, (state, action) => {
+        state.account = {
+          ...state.account,
+          avatar: action.payload.data.avatar
+        }
       })
   }
 

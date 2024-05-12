@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getUsers} from "@/store/Action/app.action.ts";
+import {getUsers, uploadAvatar} from "@/store/Action/app.action.ts";
 
 
 
@@ -45,6 +45,15 @@ export const appSlice = createSlice({
         state.users = action.payload.data
       })
       .addCase(getUsers.rejected, (state) => {
+        state.appLoading = false
+      })
+      .addCase(uploadAvatar.pending, (state, action) => {
+        state.appLoading = true
+      })
+      .addCase(uploadAvatar.fulfilled, (state, action) => {
+        state.appLoading = false
+      })
+      .addCase(uploadAvatar.rejected, (state, action ) => {
         state.appLoading = false
       })
   }

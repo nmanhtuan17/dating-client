@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import { Avatar, Dropdown, Layout, Space } from "antd";
+import {Dropdown, Layout, Space, Spin} from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import { colors } from "@/constant/Colors";
 import { Content, Header } from "antd/es/layout/layout";
@@ -10,6 +10,8 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { store, useAppDispatch, useAppSelector } from "@/store";
 import { logout } from "@/store/Slice/auth.slice";
 import NavBar from "@/navigation/NavBar";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
+import {UserIcon} from "lucide-react";
 
 const RootLayout = () => {
   const dispatch = useAppDispatch();
@@ -58,8 +60,13 @@ const RootLayout = () => {
           trigger={['click']}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <Avatar size={32} icon={<UserOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />} />
+            <Space className={'flex items-center'}>
+              <Avatar className="items-center">
+                <AvatarImage src={account?.avatar} alt="@shadcn"/>
+                <AvatarFallback>
+                  <UserIcon/>
+                </AvatarFallback>
+              </Avatar>
             </Space>
           </a>
         </Dropdown>

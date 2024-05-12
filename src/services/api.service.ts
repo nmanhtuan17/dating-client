@@ -11,6 +11,14 @@ export class ApiService extends RequestService {
     return data
   }
 
+  static async uploadAvatar(formData) {
+    const {data} = await this.callApi('user/update-avatar', {
+      method: 'POST',
+      data: formData
+    })
+    return data
+  }
+
   static async getUsers() {
     const {data} = await this.callApi('user/users', {
       method: 'GET'
