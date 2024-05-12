@@ -9,13 +9,11 @@ import {useState} from "react";
 import {useAppDispatch} from "@/store";
 import {updateProfile} from "@/store/Action/app.action.ts";
 import {filter, setFirstAppOpen} from "@/store/Slice/app.slice.ts";
-import {useNavigate} from "react-router-dom";
 import {MDBCard} from "mdb-react-ui-kit";
 
 const {useForm} = Form
 
 const OnBoarding = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [gender, setGender] = useState();
   const [findGender, setFindGender] = useState();

@@ -12,6 +12,7 @@ export interface IAppState {
     age?: number,
   }
   appLoading: boolean;
+
 }
 
 const initialState: IAppState = {
@@ -33,6 +34,9 @@ export const appSlice = createSlice({
     },
     setFirstAppOpen: (state) => {
       state.firstAppOpen = false
+    },
+    clearFilter: (state) => {
+      state.filter = {}
     }
   },
   extraReducers: builder => {
@@ -62,5 +66,6 @@ export const appSlice = createSlice({
 
 export const {
   filter,
-  setFirstAppOpen
+  setFirstAppOpen,
+  clearFilter
 } = appSlice.actions;

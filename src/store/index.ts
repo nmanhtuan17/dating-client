@@ -16,7 +16,7 @@ const persistConfig = {
   key: 'root',
   storage: storage,
   timeout: 100000,
-
+  blacklist: ['filter']
 }
 const persistedReducer = persistReducer(persistConfig, reducers)
 

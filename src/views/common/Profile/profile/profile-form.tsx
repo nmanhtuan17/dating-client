@@ -17,7 +17,9 @@ import {
 import {Input} from "@/components/ui/input.tsx"
 import {Textarea} from "@/components/ui/textarea.tsx"
 import React from "react";
-import {useAppSelector} from "@/store";
+import {useAppDispatch, useAppSelector} from "@/store";
+import {updateProfile} from "@/store/Action/app.action.ts";
+import {InputNumber} from "antd";
 
 const profileFormSchema = z.object({
   fullName: z
@@ -43,6 +45,7 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export function ProfileForm() {
+  const dispatch = useAppDispatch();
   const {account} = useAppSelector(state => state.auth)
   const defaultValues: Partial<ProfileFormValues> = {
     address: account?.address,
@@ -58,7 +61,7 @@ export function ProfileForm() {
 
 
   function onSubmit(data: ProfileFormValues) {
-    console.log(data)
+    dispatch(updateProfile(data));
   }
 
   return (
@@ -69,7 +72,7 @@ export function ProfileForm() {
           name="fullName"
           render={({field}) => (
             <FormItem>
-              <FormLabel>You name</FormLabel>
+              <FormLabel>Họ tên</FormLabel>
               <FormControl>
                 <Input placeholder="fullname" {...field} />
               </FormControl>
@@ -82,9 +85,9 @@ export function ProfileForm() {
           name="age"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Age</FormLabel>
+              <FormLabel className={'me-2'}> Tuổi: </FormLabel>
               <FormControl>
-                <Input placeholder="age" {...field} />
+                <InputNumber placeholder="age" {...field} />
               </FormControl>
               <FormMessage/>
             </FormItem>
@@ -110,7 +113,7 @@ export function ProfileForm() {
           name="address"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Address</FormLabel>
+              <FormLabel> Địa chỉ </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="You current address"
@@ -122,7 +125,7 @@ export function ProfileForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Update profile</Button>
+        <Button type="submit">Cập nhật</Button>
       </form>
     </Form>
   )

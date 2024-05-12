@@ -1,7 +1,8 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import {AuthService} from "@/services/auth.service";
 import {clearAccount, logout} from "@/store/Slice/auth.slice";
 import {toast} from "react-toastify";
+import {clearFilter} from "@/store/Slice/app.slice.ts";
 
 
 export const login = createAsyncThunk<
@@ -57,6 +58,7 @@ export const loadAccount = createAsyncThunk("auth/load-account", async (_, thunk
 export const setLogoutAndClearData = createAsyncThunk("auth/log_out", async (_, thunkAPI) => {
   thunkAPI.dispatch(logout());
   thunkAPI.dispatch(clearAccount());
+  thunkAPI.dispatch(clearFilter());
   return true;
 });
 

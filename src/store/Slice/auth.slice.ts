@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {login, register} from "@/store/Action/auth.action";
-import {uploadAvatar} from "@/store/Action/app.action.ts";
+import {asyncLikes, updateProfile, uploadAvatar} from "@/store/Action/app.action.ts";
 
 export interface IAuthState {
   isSignedIn: boolean,
@@ -41,6 +41,9 @@ export const authSlice = createSlice({
     },
     setProfile: (state, action) => {
       state.account = action.payload
+    },
+    setAccount: (state, action) => {
+      state.account.likes.push(action.payload)
     }
   },
   extraReducers: builder => {
@@ -75,8 +78,20 @@ export const authSlice = createSlice({
           avatar: action.payload.data.avatar
         }
       })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.account = {
+          ...state.account,
+          ...action.payload.data
+        }
+      })
+      .addCase(asyncLikes.fulfilled, (state, action) => {
+        state.account = {
+          ...state.account,
+          ...action.payload.data
+        }
+      })
   }
 
 })
 
-export const {logout, clearAccount, setProfile} = authSlice.actions
+export const {logout, clearAccount, setProfile, setAccount} = authSlice.actions

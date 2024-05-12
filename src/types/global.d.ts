@@ -1,5 +1,6 @@
 
 interface IUser {
+  _id: string,
   email: string;
   fullName: string;
   age: number;
@@ -7,4 +8,5 @@ interface IUser {
   address: string;
   seeking: 'male' | 'female';
   avatar: string;
+  likes: IUser[];
 }

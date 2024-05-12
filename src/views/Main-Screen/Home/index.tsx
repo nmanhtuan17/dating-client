@@ -1,45 +1,41 @@
-import React, {useMemo, useState} from 'react';
+import React, {useLayoutEffect, useMemo, useState} from 'react';
 import {HomeHeader} from "@/views/Main-Screen/Home/components/HomeHeader.tsx";
-import {useAppSelector} from "@/store";
-import {Avatar, Card, Image, Skeleton} from "antd";
-import {
-  LikeOutlined,
-  MessageOutlined,
-} from "@ant-design/icons";
+import {useAppDispatch, useAppSelector} from "@/store";
+import {setAccount} from "@/store/Slice/auth.slice.ts";
+import {UserItem} from "@/views/Main-Screen/Home/components/UserItem.tsx";
+import {asyncLikes} from "@/store/Action/app.action.ts";
 
 const Home = () => {
   const {users, appLoading, filter} = useAppSelector(state => state.app);
+  const {account} = useAppSelector(state => state.auth);
+  const dispatch = useAppDispatch();
+  const [likes, setLikes] = useState(new Set());
+  useLayoutEffect(() => {
+    const listId = account?.likes.map(item => item._id);
+    setLikes(new Set(listId))
+  }, [account]);
+
   const usersFiltered = useMemo(() =>
     users.filter(user => (
       (filter.age === undefined || filter.age === null || filter.age === user.age) &&
-      (filter.gender === undefined || filter.gender === user.gender) &&
-      (filter.address === undefined || filter.address === '' || (user.address && user.address.indexOf(filter.address)) !== -1)
-    )), [filter])
+      (filter.gender === undefined || filter.gender === user.gender)
+    )), [filter, users])
+
+  const handleClickLike = ({_id}: IUser) => {
+    const newLikedItems = new Set(likes);
+    if (newLikedItems.has(_id)) {
+      newLikedItems.delete(_id);
+    } else {
+      newLikedItems.add(_id);
+    }
+    setLikes(newLikedItems);
+    setTimeout(() => {
+      dispatch(asyncLikes(Array.from(newLikedItems)))
+    }, 500)
+  };
   const renderItem = (item: IUser) => {
     return (
-      <Card
-        style={{width: 240, marginTop: 16}}
-        cover={<Image preview={false}
-                      height={240}
-                      className='h-[240px] object-contain'
-                      src={item?.avatar}
-                      fallback="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"/>}
-
-        actions={[
-          <LikeOutlined key="setting" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>,
-          <MessageOutlined key="edit" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>
-        ]}
-      >
-        <div className={'flex flex-col flex-1 gap-2 h-[100px]'}>
-          <Card.Meta
-            title={item.fullName}
-            description={`${item?.age} tuổi - ${item?.address}`}
-          />
-          <Card.Meta
-            description={`Seeking: ${item?.seeking}`}
-          />
-        </div>
-      </Card>
+      <UserItem handleLike={handleClickLike} user={item} liked={likes.has(item._id)}/>
     )
   }
   return (
