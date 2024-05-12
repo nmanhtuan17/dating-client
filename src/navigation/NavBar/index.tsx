@@ -11,7 +11,7 @@ const NavBar = () => {
     <div className='flex flex-1'>
       <Menu
         mode="horizontal"
-        defaultSelectedKeys={['2']}
+        defaultSelectedKeys={['1']}
         items={data}
         style={{
           flex: 1,

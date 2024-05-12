@@ -6,7 +6,18 @@ import {
   LikeOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog.tsx";
+import {Input} from "@/components/ui/input.tsx";
+import {Button} from "@/components/ui/button.tsx";
+import {Label} from "@/components/ui/label.tsx";
 const Home = () => {
   const {users, appLoading, filter} = useAppSelector(state => state.app);
 
@@ -17,7 +28,6 @@ const Home = () => {
       (filter.address === undefined || filter.address === '' || (user.address && user.address.indexOf(filter.address)) !== -1)
     )), [filter])
 
-  console.log(filter)
   const renderItem = (item: IUser) => {
     return (
       <Card
@@ -43,7 +53,7 @@ const Home = () => {
     )
   }
   return (
-    <div className='px-[100px] flex flex-col flex-1 min-h-0 overflow-y-auto '>
+    <div className='px-[100px] h-screen flex flex-col flex-1 min-h-0 overflow-y-auto '>
       <HomeHeader/>
       <div className='flex flex-wrap gap-2'>
         {usersFiltered.map(renderItem)}

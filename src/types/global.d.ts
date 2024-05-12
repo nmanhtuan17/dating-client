@@ -6,4 +6,5 @@ interface IUser {
   gender: 'male' | 'female';
   address: string;
   seeking: 'male' | 'female';
+  avatar: string;
 }

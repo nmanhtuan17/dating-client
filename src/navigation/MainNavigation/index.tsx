@@ -9,7 +9,9 @@ import Favourite from "../../views/Main-Screen/Favourite";
 import {Route, Routes} from "react-router-dom";
 import Verify from "@/views/Auth/Verify/Verify.tsx";
 import OnBoarding from "@/views/common/OnBoarding";
-import Profile from "@/views/common/Profile";
+import SettingsProfilePage from "@/views/common/Profile/profile/page.tsx";
+import SettingsLayout from "@/views/common/Profile/layout.tsx";
+import SettingsAccountPage from "@/views/common/Profile/account/page.tsx";
 
 
 function MainNavigation() {
@@ -20,7 +22,10 @@ function MainNavigation() {
           <Route path='/home' element={<Home/>}/>
           <Route path='/favourite' element={<Favourite/>}/>
           <Route path='/message' element={<Message/>}/>
-          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/settings/' element={<SettingsLayout />}>
+            <Route path='profile' element={<SettingsProfilePage />} />
+            <Route path='account' element={<SettingsAccountPage />} />
+          </Route>
         </Route>
         <Route path='auth/'>
           <Route path='sign-in' element={<Login/>}/>

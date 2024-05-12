@@ -16,7 +16,7 @@ const RootLayout = () => {
   const { account } = useAppSelector(state => state.auth)
   const items = [
     {
-      label: <Link to="/profile">
+      label: <Link to="/settings/profile">
         <FontAwesomeIcon icon={faUser} />
         <span style={{ margin: '4px 6px' }}>Thông tin cá nhân
         </span>
@@ -41,7 +41,7 @@ const RootLayout = () => {
 
 
   return (
-    <Layout className='flex flex-col h-screen'>
+    <div className='flex flex-col h-full'>
       <Header style={{
         display: 'flex',
         alignItems: 'center',
@@ -64,10 +64,10 @@ const RootLayout = () => {
           </a>
         </Dropdown>
       </Header>
-      <Layout className='flex flex-1 flex-col min-h-0 overflow-y-auto'>
+      <div className='flex flex-1 flex-col flex-grow min-h-0 overflow-y-auto'>
         <Outlet />
-      </Layout>
-    </Layout>
+      </div>
+    </div>
   )
 }
 
