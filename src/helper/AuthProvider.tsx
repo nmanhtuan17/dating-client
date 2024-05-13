@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import { useAppSelector, useAppDispatch } from "@/store";
+import {useAppSelector, useAppDispatch} from "@/store";
 
 const AuthProvider = () => {
   const {isSignedIn} = useAppSelector(state => state.auth)
@@ -10,11 +10,9 @@ const AuthProvider = () => {
   useEffect(() => {
     if (isSignedIn && firstAppOpen) {
       navigate('/boarding')
-    }
-    else if(isSignedIn && !firstAppOpen) {
+    } else if (isSignedIn && !firstAppOpen) {
       navigate('/home')
-    }
-    else {
+    } else {
       navigate('/auth/sign-in');
     }
   }, [isSignedIn, firstAppOpen]);

@@ -38,7 +38,7 @@ export const getUsers = createAsyncThunk<
   any
 >("user/get-all", async (_, thunkAPI) => {
   try {
-    return await ApiService.getUsers()
+    return await ApiService.getUsers();
   } catch (e) {
     if (!e.response.data) {
       throw e

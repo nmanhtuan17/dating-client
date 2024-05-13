@@ -17,8 +17,8 @@ const Home = () => {
 
   const usersFiltered = useMemo(() =>
     users.filter(user => (
-      (filter.age === undefined || filter.age === null || filter.age === user.age) &&
-      (filter.gender === undefined || filter.gender === user.gender)
+      (filter?.age === undefined || filter?.age === null || filter?.age === user.age) &&
+      (filter?.gender === undefined || filter?.gender === user.gender)
     )), [filter, users])
 
   const handleClickLike = ({_id}: IUser) => {
