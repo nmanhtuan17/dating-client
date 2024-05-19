@@ -36,7 +36,9 @@ export function MessagesList() {
                     {item.fullName
                       .split(" ")
                       .map((chunk) => chunk[0])
-                      .join("")}
+                      .join("")
+                      .toUpperCase()
+                    }
                   </AvatarFallback>
                 </Avatar>
                 <div className="font-semibold">{item.fullName}</div>

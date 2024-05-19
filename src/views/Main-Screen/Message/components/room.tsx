@@ -72,7 +72,9 @@ export function Room({
                     {user.fullName
                       .split(" ")
                       .map((chunk) => chunk[0])
-                      .join("")}
+                      .join("")
+                      .toUpperCase()
+                    }
                   </AvatarFallback>
                 </Avatar>
               </ChatAvatar>
