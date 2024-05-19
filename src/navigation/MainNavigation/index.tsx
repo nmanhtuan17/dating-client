@@ -21,10 +21,12 @@ function MainNavigation() {
         <Route path={''} element={<RootLayout/>}>
           <Route path='/home' element={<Home/>}/>
           <Route path='/favourite' element={<Favourite/>}/>
-          <Route path='/message' element={<MailPage/>}/>
-          <Route path='/settings/' element={<SettingsLayout />}>
-            <Route path='profile' element={<SettingsProfilePage />} />
-            <Route path='account' element={<SettingsAccountPage />} />
+          <Route path='/message/' element={<MailPage/>}>
+            <Route path=':userId' element={<MailPage/>}/>
+          </Route>
+          <Route path='/settings/' element={<SettingsLayout/>}>
+            <Route path='profile' element={<SettingsProfilePage/>}/>
+            <Route path='account' element={<SettingsAccountPage/>}/>
           </Route>
         </Route>
         <Route path='auth/'>

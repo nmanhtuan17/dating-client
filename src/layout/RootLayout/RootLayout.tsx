@@ -1,11 +1,11 @@
 import React from "react";
 import {Outlet, Link} from "react-router-dom";
-import {Dropdown, Layout, Space, Spin} from "antd";
+import {Badge, Dropdown, Layout, Space, Spin} from "antd";
 import {colors} from "@/constant/Colors";
 import {Content, Header} from "antd/es/layout/layout";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons";
-import {faUser} from "@fortawesome/free-regular-svg-icons";
+import {faArrowRightFromBracket, } from "@fortawesome/free-solid-svg-icons";
+import {faUser, faBell} from "@fortawesome/free-regular-svg-icons";
 import {store, useAppDispatch, useAppSelector} from "@/store";
 import NavBar from "@/navigation/NavBar";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
@@ -53,22 +53,31 @@ const RootLayout = () => {
       }}>
         <div></div>
         <NavBar/>
-        <Dropdown
-          menu={{items, onClick: handleLogout} as any}
-          placement="bottomRight"
-          trigger={['click']}
-        >
-          <a onClick={(e) => e.preventDefault()}>
-            <Space className={'flex items-center'}>
-              <Avatar className="items-center">
-                <AvatarImage src={account?.avatar} alt="@shadcn"/>
-                <AvatarFallback>
-                  <UserIcon/>
-                </AvatarFallback>
-              </Avatar>
-            </Space>
-          </a>
-        </Dropdown>
+        <div className={
+          'flex items-center gap-3'
+        } >
+          <Badge count={5} className={'cursor-pointer'}>
+            <div className={'p-2'}>
+              <FontAwesomeIcon icon={faBell} />
+            </div>
+          </Badge>
+          <Dropdown
+            menu={{items, onClick: handleLogout} as any}
+            placement="bottomRight"
+            trigger={['click']}
+          >
+            <a onClick={(e) => e.preventDefault()}>
+              <Space className={'flex items-center'}>
+                <Avatar className="items-center">
+                  <AvatarImage src={account?.avatar} alt="@shadcn"/>
+                  <AvatarFallback>
+                    <UserIcon/>
+                  </AvatarFallback>
+                </Avatar>
+              </Space>
+            </a>
+          </Dropdown>
+        </div>
       </Header>
       <div className='flex flex-1 flex-col flex-grow min-h-0 overflow-y-auto'>
         <Outlet/>
