@@ -1,6 +1,7 @@
 import {Card, Image} from "antd";
 import {LikeFilled, LikeOutlined, MessageOutlined} from "@ant-design/icons";
 import React from "react";
+import {ApiService} from "@/services/api.service.ts";
 
 interface Props {
   user: IUser,
@@ -20,11 +21,24 @@ export const UserItem = ({user, handleLike, liked}: Props) => {
 
       actions={[
         !liked ?
-          <LikeOutlined key="like" onClick={() => handleLike && handleLike(user)}
-                        onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/> :
-          <LikeFilled key="like" onClick={() => handleLike && handleLike(user)} onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}/>,
-        <MessageOutlined key="message" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>
+          <LikeOutlined
+            key="like"
+            onClick={() => handleLike && handleLike(user)}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}/>
+          :
+          <LikeFilled
+            key="like"
+            onClick={() => handleLike && handleLike(user)}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}/>,
+        <MessageOutlined
+          key="message"
+          onClick={async () => {
+            await ApiService.createConversation(user._id);
+          }}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}/>
       ]}
     >
       <div className={'flex flex-col flex-1 gap-2 h-[100px]'}>

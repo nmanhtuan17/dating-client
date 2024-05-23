@@ -25,4 +25,18 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async getAllConversation (){
+    const {data} = await this.callApi('conversations/getAll', {
+      method: 'GET'
+    })
+    return data
+  }
+
+  static async createConversation (receiverId){
+    const {data} = await this.callApi(`conversation/create/${receiverId}`, {
+      method: 'POST'
+    })
+    return data
+  }
 }

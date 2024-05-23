@@ -7,7 +7,7 @@ export interface IAppState {
   users?: IUser[]
   firstAppOpen: boolean;
   filter: {
-    gender?: 'male' | 'female',
+    gender?: 'male' | 'female' | null,
     address?: string,
     age?: number,
   }

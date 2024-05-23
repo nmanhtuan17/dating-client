@@ -12,6 +12,7 @@ import AuthProvider from "./helper/AuthProvider";
 import {ConfigProvider} from "antd";
 import {ToastContainer} from "react-toastify";
 import {antdConfigTheme} from "./config/antdConfigTheme";
+import SocketProvider from "@/helper/SocketProvider.tsx";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,7 +23,9 @@ root.render(
           theme={antdConfigTheme}
         >
           <AuthProvider />
-          <App/>
+          <SocketProvider>
+            <App/>
+          </SocketProvider>
           <ToastContainer
             position="top-right"
             autoClose={2500}

@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import {
   Search,
@@ -13,7 +11,6 @@ import {
 } from "@/components/ui/resizable"
 import {Separator} from "@/components/ui/separator"
 import {MessagesList} from "@/views/Main-Screen/Message/components/MessagesList.tsx";
-import {type Mail} from "@/views/Main-Screen/Message/data"
 import {
   Avatar as ChatAvatar,
   ChatContainer,
@@ -24,9 +21,10 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {useParams} from "react-router-dom";
-import {useMemo} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import {useAppSelector} from "@/store";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
+import {SocketContext} from "@/helper/SocketProvider.tsx";
 
 interface MailProps {
   defaultLayout?: number[] | undefined
@@ -35,10 +33,19 @@ interface MailProps {
 export function Room({
                        defaultLayout = [265, 440, 655],
                      }: MailProps) {
-
+  const {socket} = useContext(SocketContext)
   const {userId} = useParams();
   const {users} = useAppSelector(state => state.app);
+  const {account} = useAppSelector(state => state.auth)
   const user: IUser = useMemo(() => users.find(item => item._id === userId), [userId]);
+
+  const handleSendMessage = (msg) => {
+    socket.emit('chat', msg)
+  }
+
+  useEffect(() => {
+    socket.emit('setup', account)
+  }, [account]);
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -102,7 +109,7 @@ export function Room({
                 }}/>
             </MessageList>
             <MessageInput placeholder="Type message here" onSend={(innerText) => {
-              console.log(innerText)
+              handleSendMessage(innerText)
             }}/>
           </ChatContainer>
           :

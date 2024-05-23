@@ -5,6 +5,9 @@ import {Mail} from "@/views/Main-Screen/Message/data.tsx";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppSelector} from "@/store";
+import {useEffect} from "react";
+import {RequestService} from "@/services/request.service.ts";
+import {ApiService} from "@/services/api.service.ts";
 
 interface MailListProps {
   items: Mail[]
@@ -14,6 +17,14 @@ export function MessagesList() {
   const navigate = useNavigate();
   const {users} = useAppSelector(state => state.app)
   const {userId} = useParams();
+
+  useEffect(() => {
+    getConv();
+  }, []);
+  const getConv = async () => {
+    const data = await ApiService.getAllConversation();
+    console.log('-----', data);
+  }
   return (
     <div className="flex flex-col gap-2 p-4 pt-0 w-full">
       {users.map((item) => (
