@@ -3,7 +3,7 @@ import {HomeHeader} from "@/views/Main-Screen/Home/components/HomeHeader.tsx";
 import {useAppDispatch, useAppSelector} from "@/store";
 import {setAccount} from "@/store/Slice/auth.slice.ts";
 import {UserItem} from "@/views/Main-Screen/Home/components/UserItem.tsx";
-import {asyncLikes} from "@/store/Action/app.action.ts";
+import {asyncLikes, createConversation} from "@/store/Action/app.action.ts";
 
 const Home = () => {
   const {users, appLoading, filter} = useAppSelector(state => state.app);
@@ -33,9 +33,17 @@ const Home = () => {
       dispatch(asyncLikes(Array.from(newLikedItems)))
     }, 500)
   };
+
+  const handleSendMessage = (id) => {
+    dispatch(createConversation(id));
+  }
   const renderItem = (item: IUser) => {
     return (
-      <UserItem handleLike={handleClickLike} user={item} liked={likes.has(item._id)}/>
+      <UserItem
+        handleLike={handleClickLike}
+        handleSendMessage={handleSendMessage}
+        user={item}
+        liked={likes.has(item._id)}/>
     )
   }
   return (

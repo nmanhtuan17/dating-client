@@ -34,18 +34,13 @@ export function Room({
                        defaultLayout = [265, 440, 655],
                      }: MailProps) {
   const {socket} = useContext(SocketContext)
-  const {userId} = useParams();
-  const {users} = useAppSelector(state => state.app);
-  const {account} = useAppSelector(state => state.auth)
-  const user: IUser = useMemo(() => users.find(item => item._id === userId), [userId]);
-
+  const {conversationId} = useParams();
+  const {conversations} = useAppSelector(state => state.message)
+  const conversation: IConversation = useMemo(() => conversations.find(item => item._id === conversationId), [conversationId]);
   const handleSendMessage = (msg) => {
     socket.emit('chat', msg)
   }
 
-  useEffect(() => {
-    socket.emit('setup', account)
-  }, [account]);
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -70,13 +65,13 @@ export function Room({
       </ResizablePanel>
       <ResizableHandle withHandle/>
       <ResizablePanel defaultSize={defaultLayout[2]}>
-        {userId ? <ChatContainer>
+        {conversationId ? <ChatContainer>
             <ConversationHeader>
               <ChatAvatar>
                 <Avatar >
-                  <AvatarImage src={user?.avatar}/>
+                  <AvatarImage src={conversation?.participants?.receiver?.avatar}/>
                   <AvatarFallback>
-                    {user.fullName
+                    {conversation?.participants?.receiver.fullName
                       .split(" ")
                       .map((chunk) => chunk[0])
                       .join("")
@@ -87,7 +82,7 @@ export function Room({
               </ChatAvatar>
               <ConversationHeader.Content
                 info="Active 10 mins ago"
-                userName={user.fullName}
+                userName={conversation?.participants?.receiver.fullName}
               />
             </ConversationHeader>
             <MessageList>

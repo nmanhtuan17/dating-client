@@ -10,3 +10,19 @@ interface IUser {
   avatar: string;
   likes: IUser[];
 }
+
+interface IMessage {
+  senderId: string;
+  receiverId: string;
+  message: string;
+  timestamps: any;
+}
+
+interface IConversation {
+  _id: string;
+  participants: {
+    sender: IUser,
+    receiver: IUser
+  },
+  message: IMessage
+}

@@ -6,10 +6,12 @@ import { appSlice } from "@/store/Slice/app.slice";
 import storage from 'redux-persist/lib/storage';
 import { authSlice } from "@/store/Slice/auth.slice";
 import { appMiddleware } from "@/store/middleware/app.middleware";
+import {messageSlice} from "@/store/Slice/message.slice.ts";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
-  auth: authSlice.reducer
+  auth: authSlice.reducer,
+  message: messageSlice.reducer
 })
 
 const persistConfig = {

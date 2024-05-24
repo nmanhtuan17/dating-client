@@ -63,3 +63,32 @@ export const asyncLikes = createAsyncThunk<
     return thunkAPI.rejectWithValue(e.response.data)
   }
 })
+
+export const getAllConversation = createAsyncThunk('conversation/get-all', async (_, thunkAPI) => {
+  try {
+    return await ApiService.getAllConversation();
+  } catch (e) {
+    if (!e.response.data) {
+      throw e
+    }
+    toast.error(e.response.data.message)
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
+
+export const createConversation = createAsyncThunk<
+  any,
+  string,
+  {state: RootState}
+>('conversation/create', async (receiverId, thunkAPI) => {
+  try {
+    return await ApiService.createConversation(receiverId);
+  } catch (e) {
+    if (!e.response.data) {
+      throw e
+    }
+    toast.error(e.response.data.message)
+    return thunkAPI.rejectWithValue(e.response.data)
+  }
+})
+

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getUsers, uploadAvatar} from "@/store/Action/app.action.ts";
+import {getAllConversation, getUsers, uploadAvatar} from "@/store/Action/app.action.ts";
 
 
 
@@ -12,7 +12,6 @@ export interface IAppState {
     age?: number,
   }
   appLoading: boolean;
-
 }
 
 const initialState: IAppState = {
@@ -59,6 +58,15 @@ export const appSlice = createSlice({
       })
       .addCase(uploadAvatar.rejected, (state, action ) => {
         state.appLoading = false
+      })
+      .addCase(getAllConversation.pending, (state) => {
+        state.appLoading = true;
+      })
+      .addCase(getAllConversation.fulfilled, (state, action) => {
+        state.appLoading = false;
+      })
+      .addCase(getAllConversation.rejected, (state, action) => {
+        state.appLoading = false;
       })
   }
 })

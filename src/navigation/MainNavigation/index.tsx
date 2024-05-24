@@ -22,7 +22,7 @@ function MainNavigation() {
           <Route path='/home' element={<Home/>}/>
           <Route path='/favourite' element={<Favourite/>}/>
           <Route path='/message/' element={<MailPage/>}>
-            <Route path=':userId' element={<MailPage/>}/>
+            <Route path=':conversationId' element={<MailPage/>}/>
           </Route>
           <Route path='/settings/' element={<SettingsLayout/>}>
             <Route path='profile' element={<SettingsProfilePage/>}/>

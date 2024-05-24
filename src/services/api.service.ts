@@ -27,7 +27,7 @@ export class ApiService extends RequestService {
   }
 
   static async getAllConversation (){
-    const {data} = await this.callApi('conversations/getAll', {
+    const {data} = await this.callApi('conversation/getAll', {
       method: 'GET'
     })
     return data

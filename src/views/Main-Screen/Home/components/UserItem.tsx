@@ -7,9 +7,10 @@ interface Props {
   user: IUser,
   handleLike: (val: any) => void;
   liked: boolean;
+  handleSendMessage: (id: string) => void;
 }
 
-export const UserItem = ({user, handleLike, liked}: Props) => {
+export const UserItem = ({user, handleLike, liked, handleSendMessage}: Props) => {
   return (
     <Card
       style={{width: 240, marginTop: 16}}
@@ -34,11 +35,10 @@ export const UserItem = ({user, handleLike, liked}: Props) => {
             onPointerLeaveCapture={undefined}/>,
         <MessageOutlined
           key="message"
-          onClick={async () => {
-            await ApiService.createConversation(user._id);
-          }}
+          onClick={() => handleSendMessage(user._id)}
           onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}/>
+          onPointerLeaveCapture={undefined}
+        />
       ]}
     >
       <div className={'flex flex-col flex-1 gap-2 h-[100px]'}>
