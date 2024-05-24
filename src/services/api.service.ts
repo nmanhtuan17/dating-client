@@ -39,4 +39,12 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async sendMessage ({receiverId, msg}) {
+    const {data} = await this.callApi(`messages/send/${receiverId}`, {
+      method: 'POST',
+      data: msg
+    })
+    return data;
+  }
 }

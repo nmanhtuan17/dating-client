@@ -38,9 +38,24 @@ export function Room({
   const {conversations} = useAppSelector(state => state.message)
   const conversation: IConversation = useMemo(() => conversations.find(item => item._id === conversationId), [conversationId]);
   const handleSendMessage = (msg) => {
-    socket.emit('chat', msg)
+
+    socket.emit('send', {
+      room: conversationId,
+      msg: msg
+    })
   }
 
+  useEffect(() => {
+    if (conversationId) {
+      socket.emit('join room', conversationId);
+    }
+  }, [conversationId]);
+
+  useEffect(() => {
+    socket.on('receive', (data) => {
+      console.log(data)
+    })
+  }, []);
   return (
     <ResizablePanelGroup
       direction="horizontal"

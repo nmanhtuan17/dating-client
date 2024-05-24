@@ -8,7 +8,7 @@ const SocketProvider = ({children}) => {
   const {account, isSignedIn} = useAppSelector(state => state.auth)
   useEffect(() => {
     if(isSignedIn) {
-      const socket = connect('http://localhost:8080')
+      const socket = connect('http://localhost:8080');
       setSocket(socket);
       return () => {
         socket.close();
