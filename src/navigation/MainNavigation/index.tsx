@@ -12,6 +12,7 @@ import SettingsProfilePage from "@/views/common/Profile/profile/page.tsx";
 import SettingsLayout from "@/views/common/Profile/layout.tsx";
 import SettingsAccountPage from "@/views/common/Profile/account/page.tsx";
 import MailPage from "@/views/Main-Screen/Message/page.tsx";
+import {ChatBox} from "@/views/Main-Screen/Message/components/ChatBox.tsx";
 
 
 function MainNavigation() {
@@ -22,7 +23,7 @@ function MainNavigation() {
           <Route path='/home' element={<Home/>}/>
           <Route path='/favourite' element={<Favourite/>}/>
           <Route path='/message/' element={<MailPage/>}>
-            <Route path=':conversationId' element={<MailPage/>}/>
+            <Route path=':conversationId' element={<ChatBox/>}/>
           </Route>
           <Route path='/settings/' element={<SettingsLayout/>}>
             <Route path='profile' element={<SettingsProfilePage/>}/>

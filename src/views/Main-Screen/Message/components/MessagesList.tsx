@@ -1,7 +1,4 @@
-
 import {cn} from "@/lib/utils"
-import {useMail} from "@/views/Main-Screen/Message/use-mail.ts";
-import {Mail} from "@/views/Main-Screen/Message/data.tsx";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "@/store";
@@ -9,16 +6,15 @@ import {useEffect} from "react";
 import {RequestService} from "@/services/request.service.ts";
 import {ApiService} from "@/services/api.service.ts";
 import {getAllConversation} from "@/store/Action/app.action.ts";
+import {getReceiver} from "@/utils/getReceiver.ts";
 
-interface MailListProps {
-  items: Mail[]
-}
 
 export function MessagesList() {
   const navigate = useNavigate();
   const {conversationId} = useParams();
   const {conversations} = useAppSelector(state => state.message);
   const dispatch = useAppDispatch();
+  const {account} = useAppSelector(state => state.auth);
   useEffect(() => {
     dispatch(getAllConversation())
   }, []);
@@ -39,9 +35,9 @@ export function MessagesList() {
             <div className="flex items-center">
               <div className="flex items-center gap-2">
                 <Avatar className={'w-[32px] h-[32px]'}>
-                  <AvatarImage src={item?.participants?.receiver.avatar}/>
+                  <AvatarImage src={getReceiver(item.participants, account._id).avatar}/>
                   <AvatarFallback>
-                    {item?.participants?.receiver.fullName
+                    {getReceiver(item.participants, account._id).fullName
                       .split(" ")
                       .map((chunk) => chunk[0])
                       .join("")
@@ -49,7 +45,7 @@ export function MessagesList() {
                     }
                   </AvatarFallback>
                 </Avatar>
-                <div className="font-semibold">{item?.participants?.receiver.fullName}</div>
+                <div className="font-semibold">{getReceiver(item.participants, account._id).fullName}</div>
               </div>
             </div>
           </div>

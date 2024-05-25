@@ -5,8 +5,7 @@ import {useAppSelector} from "@/store";
 export const SocketContext = createContext(null);
 const SocketProvider = ({children}) => {
   const [socket, setSocket] = useState(null);
-  const {account, isSignedIn} = useAppSelector(state => state.auth)
-  console.log(account)
+  const {account, isSignedIn} = useAppSelector(state => state.auth);
   useEffect(() => {
     if(isSignedIn) {
       const socket = connect('http://localhost:8080');

@@ -11,22 +11,8 @@ import {
 } from "@/components/ui/resizable"
 import {Separator} from "@/components/ui/separator"
 import {MessagesList} from "@/views/Main-Screen/Message/components/MessagesList.tsx";
-import {
-  Avatar as ChatAvatar,
-  ChatContainer,
-  Message,
-  MessageInput,
-  MessageList,
-  ConversationHeader
-} from "@chatscope/chat-ui-kit-react";
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import {useParams} from "react-router-dom";
-import {useContext, useEffect, useLayoutEffect, useMemo, useState} from "react";
-import {useAppSelector} from "@/store";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
-import {SocketContext} from "@/helper/SocketProvider.tsx";
-import {ApiService} from "@/services/api.service.ts";
-import {toast} from "react-toastify";
+import {Outlet} from "react-router-dom";
 
 interface MailProps {
   defaultLayout?: number[] | undefined
@@ -35,45 +21,7 @@ interface MailProps {
 export function Room({
                        defaultLayout = [265, 440, 655],
                      }: MailProps) {
-  const {socket} = useContext(SocketContext)
-  const {conversationId} = useParams();
-  const {conversations} = useAppSelector(state => state.message)
-  const {account} = useAppSelector(state => state.auth);
-  const conversation: IConversation = useMemo(() => conversations.find(item => item._id === conversationId), [conversationId]);
-  const [messages, setMessages] = useState<IMessage[]>([]);
-  const handleSendMessage = async (msg) => {
-    const message = await ApiService.sendMessage({receiverId: conversation.participants.receiver._id, message: msg});
-    socket.emit('send', {
-      ...message,
-      room: conversationId
-    })
-  }
 
-  const getMessages = async () => {
-    try {
-      if (conversationId) {
-        const res = await ApiService.getMessages(conversationId);
-        setMessages(res);
-        socket.emit('join room', conversationId);
-      }
-    } catch (e) {
-      toast.error('Get message fail')
-    }
-  }
-
-  useEffect(() => {
-    getMessages();
-  }, [conversationId]);
-
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('receive', (data) => {
-        console.log(data)
-        setMessages(prevState => [...prevState, data])
-      })
-    }
-  });
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -98,46 +46,7 @@ export function Room({
       </ResizablePanel>
       <ResizableHandle withHandle/>
       <ResizablePanel defaultSize={defaultLayout[2]}>
-        {conversationId ? <ChatContainer>
-            <ConversationHeader>
-              <ChatAvatar>
-                <Avatar>
-                  <AvatarImage src={conversation?.participants?.receiver?.avatar}/>
-                  <AvatarFallback>
-                    {conversation?.participants?.receiver.fullName
-                      .split(" ")
-                      .map((chunk) => chunk[0])
-                      .join("")
-                      .toUpperCase()
-                    }
-                  </AvatarFallback>
-                </Avatar>
-              </ChatAvatar>
-              <ConversationHeader.Content
-                info="Active 10 mins ago"
-                userName={conversation?.participants?.receiver.fullName}
-              />
-            </ConversationHeader>
-            <MessageList>
-              {messages.map(message => {
-                return <Message
-                  // @ts-ignore
-                  model={{
-                    direction: message.senderId !== account._id ? 'incoming' : 'outgoing',
-                    message: message.message,
-                    sentTime: "just now",
-                    sender: "Joe"
-                  }}/>
-              })}
-            </MessageList>
-            <MessageInput placeholder="Type message here" onSend={(innerText) => {
-              handleSendMessage(innerText)
-            }}/>
-          </ChatContainer>
-          :
-          <div></div>
-        }
-
+        <Outlet/>
       </ResizablePanel>
     </ResizablePanelGroup>
   )
