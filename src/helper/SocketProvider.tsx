@@ -6,6 +6,7 @@ export const SocketContext = createContext(null);
 const SocketProvider = ({children}) => {
   const [socket, setSocket] = useState(null);
   const {account, isSignedIn} = useAppSelector(state => state.auth)
+  console.log(account)
   useEffect(() => {
     if(isSignedIn) {
       const socket = connect('http://localhost:8080');
@@ -15,6 +16,7 @@ const SocketProvider = ({children}) => {
       };
     }
   }, [isSignedIn]);
+
   return <SocketContext.Provider value={{socket}}>
     {children}
   </SocketContext.Provider>

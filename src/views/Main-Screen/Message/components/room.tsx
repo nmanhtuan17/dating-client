@@ -21,10 +21,12 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {useParams} from "react-router-dom";
-import {useContext, useEffect, useMemo} from "react";
+import {useContext, useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {useAppSelector} from "@/store";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {SocketContext} from "@/helper/SocketProvider.tsx";
+import {ApiService} from "@/services/api.service.ts";
+import {toast} from "react-toastify";
 
 interface MailProps {
   defaultLayout?: number[] | undefined
@@ -36,26 +38,42 @@ export function Room({
   const {socket} = useContext(SocketContext)
   const {conversationId} = useParams();
   const {conversations} = useAppSelector(state => state.message)
+  const {account} = useAppSelector(state => state.auth);
   const conversation: IConversation = useMemo(() => conversations.find(item => item._id === conversationId), [conversationId]);
-  const handleSendMessage = (msg) => {
-
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const handleSendMessage = async (msg) => {
+    const message = await ApiService.sendMessage({receiverId: conversation.participants.receiver._id, message: msg});
     socket.emit('send', {
-      room: conversationId,
-      msg: msg
+      ...message,
+      room: conversationId
     })
   }
 
-  useEffect(() => {
-    if (conversationId) {
-      socket.emit('join room', conversationId);
+  const getMessages = async () => {
+    try {
+      if (conversationId) {
+        const res = await ApiService.getMessages(conversationId);
+        setMessages(res);
+        socket.emit('join room', conversationId);
+      }
+    } catch (e) {
+      toast.error('Get message fail')
     }
-  }, [conversationId]);
+  }
 
   useEffect(() => {
-    socket.on('receive', (data) => {
-      console.log(data)
-    })
-  }, []);
+    getMessages();
+  }, [conversationId]);
+
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('receive', (data) => {
+        console.log(data)
+        setMessages(prevState => [...prevState, data])
+      })
+    }
+  });
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -83,7 +101,7 @@ export function Room({
         {conversationId ? <ChatContainer>
             <ConversationHeader>
               <ChatAvatar>
-                <Avatar >
+                <Avatar>
                   <AvatarImage src={conversation?.participants?.receiver?.avatar}/>
                   <AvatarFallback>
                     {conversation?.participants?.receiver.fullName
@@ -101,22 +119,16 @@ export function Room({
               />
             </ConversationHeader>
             <MessageList>
-              <Message
-                // @ts-ignore
-                model={{
-                  direction: 'incoming',
-                  message: "Hello my friend",
-                  sentTime: "just now",
-                  sender: "Joe"
-                }}/>
-              <Message
-                // @ts-ignore
-                model={{
-                  direction: 'outgoing',
-                  message: "Hello my friend",
-                  sentTime: "just now",
-                  sender: "Joe"
-                }}/>
+              {messages.map(message => {
+                return <Message
+                  // @ts-ignore
+                  model={{
+                    direction: message.senderId !== account._id ? 'incoming' : 'outgoing',
+                    message: message.message,
+                    sentTime: "just now",
+                    sender: "Joe"
+                  }}/>
+              })}
             </MessageList>
             <MessageInput placeholder="Type message here" onSend={(innerText) => {
               handleSendMessage(innerText)
