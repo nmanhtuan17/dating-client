@@ -36,8 +36,10 @@ interface INotification {
 interface IPost {
   _id: string;
   owner: IUser;
-  avatar: string;
+  images: string[];
   timestamp: string;
   content: string;
   comments: any[];
+  createdAt: string;
+  updatedAt: string;
 }

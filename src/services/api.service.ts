@@ -69,4 +69,11 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async getPosts() {
+    const {data} = await this.callApi('post/getAll', {
+      method: 'GET'
+    })
+    return data
+  }
 }

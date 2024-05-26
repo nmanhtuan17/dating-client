@@ -92,3 +92,11 @@ export const createConversation = createAsyncThunk<
   }
 })
 
+export const getPosts = createAsyncThunk('post/get-all', async (_, thunkAPI) => {
+  try {
+    return await ApiService.getPosts();
+  } catch (e) {
+    toast.error(e.response.data.message)
+  }
+})
+

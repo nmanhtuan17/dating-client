@@ -1,5 +1,5 @@
 import {createListenerMiddleware} from "@reduxjs/toolkit";
-import {getAllConversation, getUsers} from "@/store/Action/app.action.ts";
+import {getAllConversation, getPosts, getUsers} from "@/store/Action/app.action.ts";
 
 
 export const appMiddleware = createListenerMiddleware();
@@ -13,6 +13,7 @@ appMiddleware.startListening({
       case 'auth/login/fulfilled':
         listenerApi.dispatch(getUsers());
         listenerApi.dispatch(getAllConversation());
+        listenerApi.dispatch(getPosts());
         break;
       case 'user/upload-avatar/fulfilled':
         listenerApi.dispatch(getUsers());
