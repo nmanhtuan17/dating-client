@@ -54,4 +54,19 @@ export class ApiService extends RequestService {
     return data
   }
 
+  static async uploadPost(arg) {
+    const {data} = await this.callApi('post/upload', {
+      method: 'POST',
+      data: arg
+    })
+    return data;
+  }
+
+  static async uploadImages(formdata) {
+    const {data} = await this.callApi('post/uploadImage', {
+      method: 'POST',
+      data: formdata
+    })
+    return data
+  }
 }

@@ -1,4 +1,3 @@
-
 interface IUser {
   _id: string,
   email: string;
@@ -32,4 +31,13 @@ interface INotification {
   text: string;
   room: string;
   senderId: string;
+}
+
+interface IPost {
+  _id: string;
+  owner: IUser;
+  avatar: string;
+  timestamp: string;
+  content: string;
+  comments: any[];
 }

@@ -13,6 +13,7 @@ import SettingsLayout from "@/views/common/Profile/layout.tsx";
 import SettingsAccountPage from "@/views/common/Profile/account/page.tsx";
 import MailPage from "@/views/Main-Screen/Message/page.tsx";
 import {ChatBox} from "@/views/Main-Screen/Message/components/ChatBox.tsx";
+import Newsfeeds from "@/views/Main-Screen/Newsfeeds";
 
 
 function MainNavigation() {
@@ -20,6 +21,7 @@ function MainNavigation() {
     <Routes>
       <Route path='/'>
         <Route path={''} element={<RootLayout/>}>
+          <Route path='/' element={<Newsfeeds/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/favourite' element={<Favourite/>}/>
           <Route path='/message/' element={<MailPage/>}>

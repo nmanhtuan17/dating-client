@@ -8,7 +8,7 @@ const AuthProvider = () => {
 
   useEffect(() => {
     if (isSignedIn) {
-      navigate('/home')
+      navigate('/')
     } else {
       navigate('/auth/sign-in');
     }
