@@ -26,3 +26,10 @@ interface IConversation {
   },
   message: IMessage
 }
+
+interface INotification {
+  type: 'newMessage' | 'other';
+  text: string;
+  room: string;
+  senderId: string;
+}

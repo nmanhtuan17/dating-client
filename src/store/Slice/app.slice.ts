@@ -18,7 +18,7 @@ const initialState: IAppState = {
   users: [],
   firstAppOpen: true,
   filter: {},
-  appLoading: false,
+  appLoading: false
 }
 
 export const appSlice = createSlice({

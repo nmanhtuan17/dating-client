@@ -7,11 +7,13 @@ import storage from 'redux-persist/lib/storage';
 import { authSlice } from "@/store/Slice/auth.slice";
 import { appMiddleware } from "@/store/middleware/app.middleware";
 import {messageSlice} from "@/store/Slice/message.slice.ts";
+import {notificationSlice} from "@/store/Slice/notification.silce.ts";
 
 export const reducers = combineReducers({
   app: appSlice.reducer,
   auth: authSlice.reducer,
-  message: messageSlice.reducer
+  message: messageSlice.reducer,
+  notification: notificationSlice.reducer
 })
 
 const persistConfig = {
