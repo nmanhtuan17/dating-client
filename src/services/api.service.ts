@@ -62,7 +62,7 @@ export class ApiService extends RequestService {
     return data;
   }
 
-  static async uploadImages(formdata) {
+  static async uploadImages (formdata) {
     const {data} = await this.callApi('post/uploadImage', {
       method: 'POST',
       data: formdata
@@ -70,9 +70,31 @@ export class ApiService extends RequestService {
     return data
   }
 
-  static async getPosts() {
+  static async getPosts () {
     const {data} = await this.callApi('post/getAll', {
       method: 'GET'
+    })
+    return data
+  }
+
+  static async getPost (postId) {
+    const {data} = await this.callApi(`post/${postId}`, {
+      method: 'GET'
+    })
+    return data
+  }
+
+  static async likePost (postId) {
+    const {data} = await this.callApi(`post/like/${postId}`, {
+      method: 'POST',
+    })
+    return data
+  }
+
+  static async commentPost (text, postId) {
+    const {data} = await this.callApi(`post/comment/${postId}`, {
+      method: 'POST',
+      data: text
     })
     return data
   }

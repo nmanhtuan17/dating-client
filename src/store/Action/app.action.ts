@@ -1,5 +1,4 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {AuthService} from "@/services/auth.service.ts";
 import {toast} from "react-toastify";
 import {ApiService} from "@/services/api.service.ts";
 import {RootState} from "@/store";
@@ -79,7 +78,7 @@ export const getAllConversation = createAsyncThunk('conversation/get-all', async
 export const createConversation = createAsyncThunk<
   any,
   string,
-  {state: RootState}
+  { state: RootState }
 >('conversation/create', async (receiverId, thunkAPI) => {
   try {
     return await ApiService.createConversation(receiverId);
@@ -97,6 +96,18 @@ export const getPosts = createAsyncThunk('post/get-all', async (_, thunkAPI) => 
     return await ApiService.getPosts();
   } catch (e) {
     toast.error(e.response.data.message)
+  }
+})
+
+export const likePost = createAsyncThunk<
+  any,
+  string,
+  { state: RootState }
+>('post/like', async (postId, thunkAPI) => {
+  try {
+    return await ApiService.likePost(postId);
+  } catch (e) {
+    toast.error('error')
   }
 })
 

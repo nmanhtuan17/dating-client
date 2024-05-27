@@ -42,4 +42,15 @@ interface IPost {
   comments: any[];
   createdAt: string;
   updatedAt: string;
+  likes: string[];
+}
+
+interface IComment {
+  _id: string;
+  owner: IUser;
+  text: string;
+  replies: IComment[];
+  hasReply: boolean;
+  createdAt: string;
+  updatedAt: string;
 }

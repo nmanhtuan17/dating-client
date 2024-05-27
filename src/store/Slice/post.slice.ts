@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getPosts} from "@/store/Action/app.action.ts";
+import {getPosts, likePost} from "@/store/Action/app.action.ts";
 
 
 export interface IPostState {
@@ -18,6 +18,11 @@ export const postSlice = createSlice({
     builder
       .addCase(getPosts.fulfilled, (state, action) => {
         state.posts = action.payload
+      })
+      .addCase(likePost.fulfilled, (state, action) => {
+        state.posts = state.posts.map(post => {
+          return post._id === action.payload._id ? action.payload : post;
+        })
       })
   }
 })

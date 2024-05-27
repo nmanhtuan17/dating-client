@@ -43,7 +43,8 @@ const Home = () => {
         handleLike={handleClickLike}
         handleSendMessage={handleSendMessage}
         user={item}
-        liked={likes.has(item._id)}/>
+        liked={likes.has(item._id)}
+      />
     )
   }
   return (

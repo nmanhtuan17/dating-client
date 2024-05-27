@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getAllConversation, getUsers, uploadAvatar} from "@/store/Action/app.action.ts";
+import {getAllConversation, getUsers, likePost, uploadAvatar} from "@/store/Action/app.action.ts";
 
 
 
@@ -68,6 +68,7 @@ export const appSlice = createSlice({
       .addCase(getAllConversation.rejected, (state, action) => {
         state.appLoading = false;
       })
+
   }
 })
 

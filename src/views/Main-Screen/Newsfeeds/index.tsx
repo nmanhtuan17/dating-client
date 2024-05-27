@@ -10,8 +10,10 @@ import {UserIcon} from "lucide-react";
 import {useAppDispatch, useAppSelector} from "@/store";
 import {ApiService} from "@/services/api.service.ts";
 import {toast} from "react-toastify";
-import {getPosts} from "@/store/Action/app.action.ts";
+import {getPosts, likePost} from "@/store/Action/app.action.ts";
 import {Separator} from "@/components/ui/separator.tsx";
+import {ListItem} from "@/views/Main-Screen/Newsfeeds/components/ListItem.tsx";
+import {PostModal} from "@/views/Main-Screen/Newsfeeds/components/PostModal.tsx";
 
 const Newsfeeds = () => {
   const fileInputRef = useRef(null);
@@ -23,10 +25,11 @@ const Newsfeeds = () => {
   const [active, setActive] = useState(false);
   const {posts} = useAppSelector(state => state.post);
   const dispatch = useAppDispatch();
-
+  const [visible, setVisible] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<IPost>();
 
   const handleCancel = () => {
-    setOpen(false);
+    setVisible(false);
   };
 
   const handleOk = async () => {
@@ -83,6 +86,16 @@ const Newsfeeds = () => {
       </div>
     )
   }
+
+  const handleLike = (post: IPost) => {
+    dispatch(likePost(post._id));
+  }
+
+
+  const handleComment = (post: IPost) => {
+    setSelectedPost(post);
+    setVisible(true);
+  }
   return (
     <div className={'bg-gray-100'}>
       <div className='container flex flex-1 items-center justify-center mb-4'>
@@ -92,59 +105,12 @@ const Newsfeeds = () => {
           dataSource={posts}
           header={renderHeader()}
           renderItem={(item) => (
-            <List.Item
-              className='w-[700px] mt-3 bg-white rounded-2xl'
-              key={item._id}
-              actions={[
-                <div className={'flex gap-2 items-center'}>
-                  <LikeOutlined
-                    className={'cursor-pointer text-lg'}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}/>
-                  <div>1000</div>
-                </div>,
-                <div className={'flex gap-2 items-center'}>
-                  <MessageOutlined
-                    className={'cursor-pointer text-lg'}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}/>
-                  <div>1000</div>
-                </div>
-              ]}
-            >
-              <div className={'flex items-center gap-3 flex-grow mb-4'}>
-                <Avatar className="items-center">
-                  <AvatarImage src={item.owner.avatar} alt="@shadcn"/>
-                  <AvatarFallback>
-                    <UserIcon/>
-                  </AvatarFallback>
-                </Avatar>
-                <div className={'flex flex-col gap-1'}>
-                  <div className={'text-[16px] fw-bold'}>{item.owner.fullName}</div>
-                  <div className={'text-xs text-gray-400'}>
-                    {item.createdAt}
-                  </div>
-                </div>
-              </div>
-              <div className='flex flex-col justify-center'>
-                <div className={'text-xl'}>
-                  {item.content}
-                </div>
-                <div className='flex flex-wrap flex-grow items-center justify-center mt-4 gap-2'>
-                  {item.images.map((image, index) => {
-                    return (
-                      <img
-                        key={index}
-                        width={250}
-                        alt="logo"
-                        src={image}
-                      />
-                    )
-                  })}
-                </div>
-                <Separator className={'items-center mt-[20px]'}/>
-              </div>
-            </List.Item>
+            <ListItem
+              post={item}
+              account={account}
+              handleLike={handleLike}
+              handleComment={handleComment}
+            />
           )}
         />
         <Modal
@@ -156,9 +122,9 @@ const Newsfeeds = () => {
           centered
           open={open}
           onOk={handleOk}
-          onCancel={handleCancel}
+          onCancel={() => setOpen(false)}
           confirmLoading={confirmLoading}
-          footer={(_, {OkBtn, CancelBtn}) => (
+          footer={() => (
             <div className='flex flex-1'>
               <Button onClick={handleOk} className='flex flex-1 justify-center'>ok</Button>
             </div>
@@ -211,6 +177,7 @@ const Newsfeeds = () => {
               placeholder="Bạn đang nghĩ gì thế ?"/>
           </div>
         </Modal>
+        <PostModal post={selectedPost} visible={visible} handleCancel={handleCancel} handleLike={handleLike}/>
       </div>
     </div>
   );
