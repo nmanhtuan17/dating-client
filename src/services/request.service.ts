@@ -7,7 +7,7 @@ export class RequestService {
     config : AxiosRequestConfig = {method: "GET"}
   ) {
     const {tokens} = store.getState()?.auth
-    const BASE_URL = 'http://localhost:8080/api';
+    const BASE_URL = 'https://dating-server-k99d.onrender.com/api';
 
       const requestHeaders : any = {};
     if (tokens && tokens?.accessToken.length > 0) {
