@@ -35,7 +35,7 @@ export function MessagesList() {
             <div className="flex items-center">
               <div className="flex items-center gap-2">
                 <Avatar className={'w-[32px] h-[32px]'}>
-                  <AvatarImage src={getReceiver(item.participants, account._id).avatar}/>
+                  <AvatarImage src={getReceiver(item.participants, account?._id)?.avatar}/>
                   <AvatarFallback>
                     {getReceiver(item.participants, account._id).fullName
                       .split(" ")

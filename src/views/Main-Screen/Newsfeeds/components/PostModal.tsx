@@ -29,7 +29,8 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
   }
 
   const handleComment = () => {
-
+    console.log('post', post)
+    console.log(text)
   }
 
   useEffect(() => {
@@ -47,7 +48,7 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
       footer={() => (
         <div className='flex flex-1 flex-grow items-center gap-3'>
           <Avatar className="items-center">
-            <AvatarImage src={account.avatar} alt="@shadcn"/>
+            <AvatarImage src={account?.avatar} alt="@shadcn"/>
             <AvatarFallback>
               <UserIcon/>
             </AvatarFallback>
@@ -57,7 +58,9 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
             onChange={(e) => setText(e.target.value)}
             ref={commentInputRef}
             placeholder="Viết bình luận"/>
-          <div className={'cursor-pointer'}>
+          <div
+            onClick={handleComment}
+            className={'cursor-pointer'}>
             <FontAwesomeIcon className={text.length > 0 ? 'text-blue-600' : 'text-gray-500'} icon={faPaperPlane}/>
           </div>
         </div>
@@ -103,7 +106,7 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
                 <div
                   onClick={() => handleLike(post)}
                   className={'flex gap-2 items-center hover:bg-gray-200 px-2 py-1 cursor-pointer rounded transition'}>
-                  {post.likes && post.likes.includes(account._id) ? <LikeFilled
+                  {post.likes && post.likes.includes(account?._id) ? <LikeFilled
                       className={'cursor-pointer text-lg text-blue-600'}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
