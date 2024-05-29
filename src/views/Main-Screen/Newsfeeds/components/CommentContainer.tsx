@@ -4,7 +4,12 @@ import {
 import 'semantic-ui-css/semantic.min.css'
 import {useState} from "react";
 import {CommentItem} from "@/views/Main-Screen/Newsfeeds/components/CommentItem.tsx";
-export const CommentContainer = () => {
+
+interface Props {
+  comments: IComment[],
+
+}
+export const CommentContainer = ({comments}: Props) => {
   const [replyTo, setReplyTo] = useState();
 
   return (

@@ -51,6 +51,7 @@ interface IComment {
   text: string;
   replies: IComment[];
   hasReply: boolean;
+  replyTo: IUser;
   createdAt: string;
   updatedAt: string;
 }

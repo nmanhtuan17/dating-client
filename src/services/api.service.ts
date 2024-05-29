@@ -91,10 +91,17 @@ export class ApiService extends RequestService {
     return data
   }
 
-  static async commentPost (text, postId) {
+  static async commentPost (payload: any, postId) {
     const {data} = await this.callApi(`post/comment/${postId}`, {
       method: 'POST',
-      data: text
+      data: payload
+    })
+    return data
+  }
+
+  static async getComments(postId) {
+    const {data} = await this.callApi(`post/comment/${postId}`, {
+      method: 'GET',
     })
     return data
   }

@@ -1,6 +1,6 @@
 import {Button, Image, Input, List, Modal, Skeleton} from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {ListItem} from "@/views/Main-Screen/Newsfeeds/components/ListItem.tsx";
 import {useAppSelector} from "@/store";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
@@ -12,6 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
 import {CommentContainer} from "@/views/Main-Screen/Newsfeeds/components/CommentContainer.tsx";
 import {formatTime} from "@/utils/formatTime.ts";
+import {ApiService} from "@/services/api.service.ts";
 
 interface Props {
   post: IPost;
@@ -24,18 +25,29 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
   const {account} = useAppSelector(state => state.auth);
   const commentInputRef = useRef<any>(null);
   const [text, setText] = useState('');
+  const [comments, setComments] = useState<IComment[]>();
   const focusInput = () => {
     commentInputRef.current.focus();
   }
 
-  const handleComment = () => {
-    console.log('post', post)
-    console.log(text)
+  const handleComment = async () => {
+    const result = await ApiService.commentPost({text}, post._id);
+    console.log(result);
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    getComments();
+  }, [post])
 
-  }, []);
+  const getComments = async () => {
+    try {
+      const data = await ApiService.getComments(post._id);
+      setComments(data);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   if (!post) {
     return null;
   }
@@ -135,7 +147,7 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
               </div>
               <Separator className={'items-center mt-[16px]'}/>
               <div className={'mt-3'}>
-                <CommentContainer/>
+                <CommentContainer comments={comments}/>
               </div>
             </div>
           </div>

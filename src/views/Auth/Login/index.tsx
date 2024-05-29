@@ -21,7 +21,11 @@ function Login() {
   const { message, isLoading } = useAppSelector<any>(state => state.auth);
   const navigate = useNavigate();
   const handleLogin = (value) => {
-    dispatch(login(value));
+    dispatch(login(value)).then(res => {
+      if (res.type === 'auth/login/fulfilled') {
+        navigate('/')
+      }
+    });
   }
 
   return (

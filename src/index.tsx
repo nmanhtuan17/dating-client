@@ -8,7 +8,6 @@ import {Provider} from "react-redux";
 import {persistor, store} from "./store"
 import {PersistGate} from "redux-persist/integration/react";
 import {BrowserRouter} from "react-router-dom";
-import AuthProvider from "./helper/AuthProvider";
 import {ConfigProvider} from "antd";
 import {ToastContainer} from "react-toastify";
 import {antdConfigTheme} from "./config/antdConfigTheme";
@@ -22,7 +21,6 @@ root.render(
         <ConfigProvider
           theme={antdConfigTheme}
         >
-          <AuthProvider />
           <SocketProvider>
             <App/>
           </SocketProvider>
@@ -38,7 +36,7 @@ root.render(
             pauseOnHover
             theme="light"
           />
-          <ToastContainer />
+          <ToastContainer/>
         </ConfigProvider>
       </PersistGate>
     </Provider>
