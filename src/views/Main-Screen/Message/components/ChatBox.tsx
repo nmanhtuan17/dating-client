@@ -27,6 +27,7 @@ export const ChatBox = () => {
   const receiver: IUser = useMemo(() => getReceiver(conversation.participants, account?._id), [account, conversation])
   const [messages, setMessages] = useState<IMessage[]>([]);
   const dispatch = useAppDispatch();
+
   const handleSendMessage = async (msg) => {
     const message = await ApiService.sendMessage({receiverId: receiver?._id, message: msg});
     socket.emit('send', {

@@ -40,6 +40,7 @@ const profileFormSchema = z.object({
     })
     .email(),
   address: z.string().max(160).min(4),
+  favorite: z.string()
 })
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
@@ -51,7 +52,8 @@ export function ProfileForm() {
     address: account?.address,
     fullName: account?.fullName,
     email: account?.email,
-    age: account?.age
+    age: account?.age,
+    favorite: account?.favorite
   }
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -116,7 +118,25 @@ export function ProfileForm() {
               <FormLabel> Địa chỉ </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="You current address"
+                  placeholder="Địa chỉ hiện tại"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage/>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="favorite"
+          render={({field}) => (
+            <FormItem>
+              <FormLabel> Sở thích </FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Sở thích của bạn"
                   className="resize-none"
                   {...field}
                 />

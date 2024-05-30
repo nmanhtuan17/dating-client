@@ -95,7 +95,7 @@ const RootLayout = () => {
                       <>
                         <DropdownMenuItem onClick={() => {
                           item.type === 'newMessage' &&
-                          navigate(`/message/${item.room}`)
+                            navigate(`/message/${item.room}`)
                         }}>
                           {item.type === 'newMessage' ?
                             <div className={'flex flex-col'}>

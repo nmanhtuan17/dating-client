@@ -8,9 +8,10 @@ export interface IAppState {
   users?: IUser[]
   firstAppOpen: boolean;
   filter: {
-    gender?: 'male' | 'female' | null,
+    gender?: 'male' | 'female' | 'all' | null,
     address?: string,
     age?: number,
+    favorite?: string
   }
   appLoading: boolean;
 }
@@ -18,7 +19,8 @@ export interface IAppState {
 const initialState: IAppState = {
   users: [],
   firstAppOpen: true,
-  filter: {},
+  filter: {
+  },
   appLoading: false
 }
 

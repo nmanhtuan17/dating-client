@@ -35,6 +35,13 @@ const SocketProvider = ({children}) => {
           }));
         }
       })
+      socket.on('notification', (data) => {
+        dispatch(setNotifications({
+          type: 'other',
+          text: data.text,
+          conversation: data.conversation
+        }));
+      })
     }
   });
 

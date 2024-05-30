@@ -8,6 +8,7 @@ interface IUser {
   seeking: 'male' | 'female';
   avatar: string;
   likes: IUser[];
+  favorite?: string;
 }
 
 interface IMessage {
@@ -31,6 +32,7 @@ interface INotification {
   text: string;
   room: string;
   senderId: string;
+  conversation: IConversation;
 }
 
 interface IPost {

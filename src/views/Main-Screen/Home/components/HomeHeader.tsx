@@ -20,8 +20,9 @@ export const HomeHeader = () => {
             defaultValue="null"
             style={{width: 120}}
             options={[
-              {value: 'male', label: 'Male'},
-              {value: 'female', label: 'Female'}
+              {value: 'all', label: 'All'},
+              {value: 'male', label: 'Nam'},
+              {value: 'female', label: 'Nữ'}
             ]}
           />
         </Form.Item>
@@ -30,6 +31,10 @@ export const HomeHeader = () => {
         </Form.Item>
 
         <Form.Item label='Địa chỉ' name={'address'}>
+          <Input style={{width: '100%'}}/>
+        </Form.Item>
+
+        <Form.Item label='Sở thích' name={'favorite'}>
           <Input style={{width: '100%'}}/>
         </Form.Item>
 

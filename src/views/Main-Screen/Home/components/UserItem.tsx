@@ -18,7 +18,7 @@ export const UserItem = ({user, handleLike, liked, handleSendMessage}: Props) =>
                     height={240}
                     className='h-[240px] object-contain'
                     src={user?.avatar}
-                    fallback="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"/>}
+                    fallback="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"/>}
 
       actions={[
         !liked ?
@@ -47,7 +47,7 @@ export const UserItem = ({user, handleLike, liked, handleSendMessage}: Props) =>
           description={`${user?.age} tuổi - ${user?.address}`}
         />
         <Card.Meta
-          description={`Seeking: ${user?.seeking}`}
+          description={`Sở thích: ${user?.favorite}`}
         />
       </div>
     </Card>
