@@ -45,7 +45,6 @@ const Home = () => {
 
   const handleSendMessage = (id) => {
     dispatch(createConversation(id));
-    navigate('/message')
   }
   const renderItem = (item: IUser) => {
     return (
