@@ -2,7 +2,7 @@ import {Button, Image, Input, List, Modal, Skeleton} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {ListItem} from "@/views/Main-Screen/Newsfeeds/components/ListItem.tsx";
-import {useAppSelector} from "@/store";
+import {useAppDispatch, useAppSelector} from "@/store";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {LikeFilled, LikeOutlined, MessageOutlined} from "@ant-design/icons";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
@@ -12,43 +12,33 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
 import {CommentContainer} from "@/views/Main-Screen/Newsfeeds/components/CommentContainer.tsx";
 import {formatTime} from "@/utils/formatTime.ts";
-import {ApiService} from "@/services/api.service.ts";
+import {postComment} from "@/store/Action/post.action.ts";
 
 interface Props {
-  post: IPost;
   visible: boolean;
   handleCancel: () => void;
   handleLike: (post: IPost) => void;
 }
 
-export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
+export const PostModal = ({visible, handleCancel, handleLike}: Props) => {
+  const dispatch = useAppDispatch();
+  const {selectedPost, comments} = useAppSelector(state => state.post);
   const {account} = useAppSelector(state => state.auth);
   const commentInputRef = useRef<any>(null);
-  const [text, setText] = useState('');
-  const [comments, setComments] = useState<IComment[]>();
+  const [text, setText] = useState<string>('');
+
   const focusInput = () => {
     commentInputRef.current.focus();
   }
 
-  const handleComment = async () => {
-    const result = await ApiService.commentPost({text}, post._id);
-    console.log(result);
-  }
-
-  useLayoutEffect(() => {
-    getComments();
-  }, [post])
-
-  const getComments = async () => {
-    try {
-      const data = await ApiService.getComments(post._id);
-      setComments(data);
-    } catch (e) {
-      console.log(e)
+  const handleComment = () => {
+    if (text.length > 0 && selectedPost) {
+      dispatch(postComment({postId: selectedPost._id, text: text }))
+      setText('');
     }
   }
 
-  if (!post) {
+  if (!selectedPost) {
     return null;
   }
   return (
@@ -85,24 +75,24 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
           >
             <div className={'flex items-center gap-3 flex-grow mb-4'}>
               <Avatar className="items-center">
-                <AvatarImage src={post.owner.avatar} alt="@shadcn"/>
+                <AvatarImage src={selectedPost.owner.avatar} alt="@shadcn"/>
                 <AvatarFallback>
                   <UserIcon/>
                 </AvatarFallback>
               </Avatar>
               <div className={'flex flex-col gap-1'}>
-                <div className={'text-[16px] fw-bold'}>{post.owner.fullName}</div>
+                <div className={'text-[16px] fw-bold'}>{selectedPost.owner.fullName}</div>
                 <div className={'text-xs text-gray-400'}>
-                  {formatTime(post.createdAt)}
+                  {formatTime(selectedPost.createdAt)}
                 </div>
               </div>
             </div>
             <div className='flex flex-col justify-center'>
               <div className={'text-xl'}>
-                {post.content}
+                {selectedPost.content}
               </div>
               <div className='flex flex-wrap flex-grow items-center justify-center mt-4 gap-2'>
-                {post.images.map((image, index) => {
+                {selectedPost.images.map((image, index) => {
                   return (
                     <img
                       key={index}
@@ -116,9 +106,9 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
               <Separator className={'items-center mt-[20px]'}/>
               <div className={'flex flex-grow gap-3 mt-3'}>
                 <div
-                  onClick={() => handleLike(post)}
+                  onClick={() => handleLike(selectedPost)}
                   className={'flex gap-2 items-center hover:bg-gray-200 px-2 py-1 cursor-pointer rounded transition'}>
-                  {post.likes && post.likes.includes(account?._id) ? <LikeFilled
+                  {selectedPost.likes && selectedPost.likes.includes(account?._id) ? <LikeFilled
                       className={'cursor-pointer text-lg text-blue-600'}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
@@ -131,7 +121,7 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
                     />
                   }
                   <div
-                    className={post.likes && post.likes.includes(account._id) && 'text-blue-600'}>{post.likes && post.likes.length} lượt
+                    className={selectedPost.likes && selectedPost.likes.includes(account._id) && 'text-blue-600'}>{selectedPost.likes && selectedPost.likes.length} lượt
                     thích
                   </div>
                 </div>
@@ -142,12 +132,12 @@ export const PostModal = ({post, visible, handleCancel, handleLike}: Props) => {
                     className={'text-lg text-gray-500'}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}/>
-                  <div>1000</div>
+                  <div>{comments && comments.length} bình luận</div>
                 </div>
               </div>
               <Separator className={'items-center mt-[16px]'}/>
               <div className={'mt-3'}>
-                <CommentContainer comments={comments}/>
+                <CommentContainer/>
               </div>
             </div>
           </div>

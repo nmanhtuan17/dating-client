@@ -34,7 +34,6 @@ const SocketProvider = ({children}) => {
             room: data.room
           }));
         }
-        console.log(data)
       })
     }
   });

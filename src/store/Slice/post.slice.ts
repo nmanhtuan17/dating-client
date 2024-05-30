@@ -1,19 +1,30 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getPosts, likePost} from "@/store/Action/app.action.ts";
+import {getComments} from "@/store/Action/post.action.ts";
 
 
 export interface IPostState {
-  posts: IPost[]
+  posts: IPost[];
+  selectedPost?: IPost;
+  comments?: IComment[];
 }
 
 const initialState: IPostState = {
-  posts: []
+  posts: [],
+  selectedPost: undefined
 }
 
 export const postSlice = createSlice({
   name: 'post',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    selectPost: (state, action: PayloadAction<IPost>) => {
+      state.selectedPost = action.payload;
+    },
+    setComments: (state, action) => {
+      state.comments = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getPosts.fulfilled, (state, action) => {
@@ -24,8 +35,14 @@ export const postSlice = createSlice({
           return post._id === action.payload._id ? action.payload : post;
         })
       })
+      .addCase(getComments.fulfilled, (state, action) => {
+        state.comments = action.payload;
+      })
   }
 })
 
 
-export const {} = postSlice.actions;
+export const {
+  selectPost,
+  setComments
+} = postSlice.actions;

@@ -3,8 +3,9 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {UserIcon} from "lucide-react";
 import {Separator} from "@/components/ui/separator.tsx";
 import {List} from "antd";
-import React from "react";
+import React, {useMemo} from "react";
 import {formatTime} from "@/utils/formatTime.ts";
+import {useAppSelector} from "@/store";
 
 interface Props {
   post: IPost;
@@ -15,6 +16,7 @@ interface Props {
 
 export const ListItem = ({post, account, handleLike, handleComment}: Props) => {
 
+  const liked = () => post.likes.find(item => item == account._id)
   return (
     <List.Item
       className='mt-3 bg-white rounded-2xl'
@@ -23,7 +25,7 @@ export const ListItem = ({post, account, handleLike, handleComment}: Props) => {
         <div
           onClick={() => handleLike(post)}
           className={'flex gap-2 items-center hover:bg-gray-200 px-2 py-1 cursor-pointer rounded transition'}>
-          {post.likes && post.likes.includes(account?._id) ? <LikeFilled
+          {liked() ? <LikeFilled
               className={'cursor-pointer text-lg text-blue-600'}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
@@ -35,7 +37,7 @@ export const ListItem = ({post, account, handleLike, handleComment}: Props) => {
               onPointerLeaveCapture={undefined}
             />
           }
-          <div className={post.likes && post.likes.includes(account?._id) && 'text-blue-600'}>{post.likes && post.likes.length} lượt thích</div>
+          <div className={liked() && 'text-blue-600'}>{post.likes && post.likes.length} lượt thích</div>
         </div>,
         <div
           onClick={() => handleComment(post)}

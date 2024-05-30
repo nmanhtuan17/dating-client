@@ -8,42 +8,54 @@ import {
   CommentMetadata,
   CommentText
 } from "semantic-ui-react";
+import {formatTime} from "@/utils/formatTime.ts";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
+import {UserIcon} from "lucide-react";
+import React from "react";
 
 
 interface Props {
-  comment?: IComment;
+  comment: IComment;
 }
+
 export const CommentItem = ({comment}: Props) => {
   return (
-    <Comment>
-      <CommentAvatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+    <Comment className={'flex flex-grow gap-3'}>
+      <Avatar className="items-center">
+        <AvatarImage src={comment.owner.avatar} alt="@shadcn"/>
+        <AvatarFallback>
+          <UserIcon/>
+        </AvatarFallback>
+      </Avatar>
       <CommentContent>
-        <CommentAuthor as='a'>Elliot Fu</CommentAuthor>
+        <CommentAuthor as='a'>{comment.owner.fullName}</CommentAuthor>
         <CommentMetadata>
-          <div>Yesterday at 12:30AM</div>
+          <div>{formatTime(comment.createdAt)}</div>
         </CommentMetadata>
         <CommentText>
-          <p>This has been very useful for my research. Thanks as well!</p>
+          <p>{comment.text}</p>
         </CommentText>
         <CommentActions>
-          <CommentAction>Reply</CommentAction>
+          <CommentAction>{comment.hasReply && 'Reply'}</CommentAction>
         </CommentActions>
       </CommentContent>
       <CommentGroup>
-        {/*{comment.replies.map((item, index) => (<Comment>*/}
-        {/*  <CommentAvatar src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />*/}
-        {/*  <CommentContent>*/}
-        {/*    <CommentAuthor as='a'>Jenny Hess</CommentAuthor>*/}
-        {/*    <CommentMetadata>*/}
-        {/*      <div>Just now</div>*/}
-        {/*    </CommentMetadata>*/}
-        {/*    <CommentText>Elliot you are always so right :)</CommentText>*/}
-        {/*    <CommentActions>*/}
-        {/*      <CommentAction>Reply</CommentAction>*/}
-        {/*    </CommentActions>*/}
-        {/*  </CommentContent>*/}
-        {/*</Comment>))*/}
-        {/*}*/}
+        {comment.replies.map((item, index) => (<Comment className={'flex flex-grow'}>
+          <Avatar className="items-center">
+            <AvatarImage src={comment.owner.avatar} alt="@shadcn"/>
+            <AvatarFallback>
+              <UserIcon/>
+            </AvatarFallback>
+          </Avatar>
+          <CommentContent>
+            <CommentAuthor as='a'>{item.owner.fullName}</CommentAuthor>
+            <CommentMetadata>
+              <div>{formatTime(comment.createdAt)}</div>
+            </CommentMetadata>
+            <CommentText>{item.text}</CommentText>
+          </CommentContent>
+        </Comment>))
+        }
       </CommentGroup>
     </Comment>
   )

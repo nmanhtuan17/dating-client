@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import {LikeOutlined, MessageOutlined, LikeFilled, UserOutlined} from '@ant-design/icons';
 import {Button, Input, List, Modal, Image, Skeleton} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -11,9 +10,10 @@ import {useAppDispatch, useAppSelector} from "@/store";
 import {ApiService} from "@/services/api.service.ts";
 import {toast} from "react-toastify";
 import {getPosts, likePost} from "@/store/Action/app.action.ts";
-import {Separator} from "@/components/ui/separator.tsx";
 import {ListItem} from "@/views/Main-Screen/Newsfeeds/components/ListItem.tsx";
 import {PostModal} from "@/views/Main-Screen/Newsfeeds/components/PostModal.tsx";
+import {selectPost} from "@/store/Slice/post.slice.ts";
+import {getComments} from "@/store/Action/post.action.ts";
 
 const Newsfeeds = () => {
   const fileInputRef = useRef(null);
@@ -26,10 +26,10 @@ const Newsfeeds = () => {
   const {posts} = useAppSelector(state => state.post);
   const dispatch = useAppDispatch();
   const [visible, setVisible] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<IPost>();
 
   const handleCancel = () => {
     setVisible(false);
+    dispatch(getPosts());
   };
 
   const handleOk = async () => {
@@ -38,7 +38,6 @@ const Newsfeeds = () => {
       const data = await ApiService.uploadPost({
         content, images
       })
-      console.log(data);
       dispatch(getPosts());
     } catch (e) {
       console.log(e)
@@ -92,10 +91,13 @@ const Newsfeeds = () => {
   }
 
 
-  const handleComment = (post: IPost) => {
-    setSelectedPost(post);
+  const handleComment =  (post: IPost) => {
+    dispatch(selectPost(post));
+    dispatch(getComments(post._id))
     setVisible(true);
   }
+
+
   return (
     <div className={'bg-gray-100'}>
       <div className='container flex flex-1 items-center justify-center mb-4'>
@@ -177,7 +179,7 @@ const Newsfeeds = () => {
               placeholder="Bạn đang nghĩ gì thế ?"/>
           </div>
         </Modal>
-        <PostModal post={selectedPost} visible={visible} handleCancel={handleCancel} handleLike={handleLike}/>
+        <PostModal visible={visible} handleCancel={handleCancel} handleLike={handleLike}/>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {getAllConversation, getUsers, likePost, uploadAvatar} from "@/store/Action/app.action.ts";
+import {getComments} from "@/store/Action/post.action.ts";
 
 
 
@@ -66,6 +67,15 @@ export const appSlice = createSlice({
         state.appLoading = false;
       })
       .addCase(getAllConversation.rejected, (state, action) => {
+        state.appLoading = false;
+      })
+      .addCase(getComments.pending, (state, action) => {
+        state.appLoading = true;
+      })
+      .addCase(getComments.fulfilled, (state, action) => {
+        state.appLoading = false;
+      })
+      .addCase(getComments.rejected, (state, action) => {
         state.appLoading = false;
       })
 

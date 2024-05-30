@@ -6,7 +6,10 @@ export const appMiddleware = createListenerMiddleware();
 
 appMiddleware.startListening({
   predicate: (action) => {
-    return action.type?.startsWith("auth/login") || action.type?.startsWith("user/upload-avatar") || action.type?.startsWith("conversation/create")
+    return action.type?.startsWith("auth/login")
+      || action.type?.startsWith("user/upload-avatar")
+      || action.type?.startsWith("conversation/create") ||
+      action.type?.startsWith("post/get-comments")
   },
   effect: async (action, listenerApi) => {
     switch (action.type) {
