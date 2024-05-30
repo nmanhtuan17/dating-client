@@ -37,7 +37,7 @@ export function MessagesList() {
                 <Avatar className={'w-[32px] h-[32px]'}>
                   <AvatarImage src={getReceiver(item.participants, account?._id)?.avatar}/>
                   <AvatarFallback>
-                    {getReceiver(item.participants, account._id).fullName
+                    {getReceiver(item.participants, account._id)?.fullName
                       .split(" ")
                       .map((chunk) => chunk[0])
                       .join("")
@@ -45,7 +45,7 @@ export function MessagesList() {
                     }
                   </AvatarFallback>
                 </Avatar>
-                <div className="font-semibold">{getReceiver(item.participants, account._id).fullName}</div>
+                <div className="font-semibold">{getReceiver(item.participants, account._id)?.fullName}</div>
               </div>
             </div>
           </div>
