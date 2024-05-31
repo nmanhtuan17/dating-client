@@ -11,11 +11,21 @@ import * as React from "react";
 import {useAppDispatch, useAppSelector} from "@/store";
 import {useContext, useEffect, useMemo, useState} from "react";
 import {SocketContext} from "@/helper/SocketProvider.tsx";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {ApiService} from "@/services/api.service.ts";
 import {toast} from "react-toastify";
 import {getReceiver} from "@/utils/getReceiver.ts";
 import {setConversation} from "@/store/Slice/notification.silce.ts";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEllipsis} from "@fortawesome/free-solid-svg-icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup, DropdownMenuItem, DropdownMenuShortcut,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu.tsx";
+import {Delete, User} from "lucide-react";
+import {getAllConversation} from "@/store/Action/app.action.ts";
 
 
 export const ChatBox = () => {
@@ -27,6 +37,7 @@ export const ChatBox = () => {
   const receiver: IUser = useMemo(() => getReceiver(conversation.participants, account?._id), [account, conversation])
   const [messages, setMessages] = useState<IMessage[]>([]);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleSendMessage = async (msg) => {
     const message = await ApiService.sendMessage({receiverId: receiver?._id, message: msg});
@@ -65,6 +76,12 @@ export const ChatBox = () => {
       })
     }
   }, []);
+
+  const handleRemove = async () => {
+    await ApiService.deleteConversation(conversation._id);
+    navigate('/message');
+    dispatch(getAllConversation());
+  }
   return (
     <>
       {conversationId ? <ChatContainer>
@@ -86,6 +103,23 @@ export const ChatBox = () => {
               info="Active 10 mins ago"
               userName={receiver?.fullName}
             />
+            <ConversationHeader.Actions>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div>
+                    <FontAwesomeIcon icon={faEllipsis} color={'#000'}/>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={handleRemove}>
+                      <Delete size={20} strokeWidth={1} />
+                      <span className={'ml-2'}>Xóa cuộc trò chuyện</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </ConversationHeader.Actions>
           </ConversationHeader>
           <MessageList>
             {messages.map(message => {

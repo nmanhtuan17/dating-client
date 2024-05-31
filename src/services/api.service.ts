@@ -112,4 +112,11 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async deleteConversation(id) {
+    const {data} = await this.callApi(`conversation/delete/${id}`, {
+      method: 'POST'
+    })
+    return data
+  }
 }
