@@ -1,11 +1,12 @@
-import React, {useContext, useLayoutEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useMemo, useState} from 'react';
 import {HomeHeader} from "@/views/Main-Screen/Home/components/HomeHeader.tsx";
 import {useAppDispatch, useAppSelector} from "@/store";
 import {setAccount} from "@/store/Slice/auth.slice.ts";
 import {UserItem} from "@/views/Main-Screen/Home/components/UserItem.tsx";
-import {asyncLikes, createConversation} from "@/store/Action/app.action.ts";
+import {asyncLikes, createConversation, getUsers} from "@/store/Action/app.action.ts";
 import {SocketContext} from "@/helper/SocketProvider.tsx";
 import {useNavigate} from "react-router-dom";
+import {removeSpecialCharacters} from "@/utils";
 
 const Home = () => {
   const {users, appLoading, filter} = useAppSelector(state => state.app);
@@ -13,6 +14,10 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const [likes, setLikes] = useState(new Set());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   useLayoutEffect(() => {
     const listId = account?.likes.map(item => item._id);
@@ -22,10 +27,10 @@ const Home = () => {
   const usersFiltered = useMemo(() => {
       const data = users
         .filter(user => (
-          (!filter.age || filter?.age === user.age) &&
-          (!filter.gender || filter.gender === 'all' || filter?.gender === user.gender) &&
-          (!filter.address || user.address.includes(filter.address)) &&
-          (!filter.favorite || (user.favorite && user.favorite.includes(filter.favorite)))
+          (!filter?.age || filter?.age === user.age) &&
+          (!filter?.gender || filter?.gender === 'all' || filter?.gender === user.gender) &&
+          (!filter?.address || removeSpecialCharacters(user.address).includes(removeSpecialCharacters(filter?.address))) &&
+          (!filter?.favorite || (user.favorite && removeSpecialCharacters(user.favorite).includes(removeSpecialCharacters(filter?.favorite))))
         ))
       return data
     },[filter, users])

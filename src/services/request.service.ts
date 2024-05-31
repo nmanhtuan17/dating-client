@@ -1,7 +1,20 @@
 import {store} from "@/store";
 import axios, { AxiosRequestConfig } from "axios";
+import {jwtDecode} from "jwt-decode";
 export class RequestService {
   static axiosInstance = axios.create({});
+
+  static boot() {
+    const {tokens} = store.getState()?.auth
+    if (tokens.accessToken) {
+      let tokenData = jwtDecode(tokens.accessToken);
+      console.log(tokenData.exp)
+      // if (tokenData.exp! <= ~~(new Date().getTime() / 1000)) {
+      //
+      // }
+    }
+  }
+
   static async callApi(
     endpoint : string,
     config : AxiosRequestConfig = {method: "GET"}

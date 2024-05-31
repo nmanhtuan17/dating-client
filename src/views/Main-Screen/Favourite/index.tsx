@@ -17,7 +17,7 @@ const Favourite = () => {
       <List
         className="demo-loadmore-list px-[100px]"
         itemLayout="horizontal"
-        dataSource={account.likes}
+        dataSource={account.likes as IUser[]}
         renderItem={(item) => (
           <List.Item
             actions={[<MessageOutlined className={'cursor-pointer'} key="messge" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>]}

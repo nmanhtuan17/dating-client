@@ -12,6 +12,8 @@ import {ConfigProvider} from "antd";
 import {ToastContainer} from "react-toastify";
 import {antdConfigTheme} from "./config/antdConfigTheme";
 import SocketProvider from "@/helper/SocketProvider.tsx";
+import {AuthHelper} from "@/helper/AuthHelper.tsx";
+import {NotificationHelper} from "@/helper/NotificationHelper.tsx";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +24,8 @@ root.render(
           theme={antdConfigTheme}
         >
           <SocketProvider>
+            <AuthHelper />
+            <NotificationHelper />
             <App/>
           </SocketProvider>
           <ToastContainer

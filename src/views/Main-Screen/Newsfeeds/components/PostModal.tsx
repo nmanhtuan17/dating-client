@@ -1,6 +1,6 @@
 import {Button, Image, Input, List, Modal, Skeleton} from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {ListItem} from "@/views/Main-Screen/Newsfeeds/components/ListItem.tsx";
 import {useAppDispatch, useAppSelector} from "@/store";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
@@ -13,6 +13,7 @@ import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
 import {CommentContainer} from "@/views/Main-Screen/Newsfeeds/components/CommentContainer.tsx";
 import {formatTime} from "@/utils/formatTime.ts";
 import {postComment} from "@/store/Action/post.action.ts";
+import {SocketContext} from "@/helper/SocketProvider.tsx";
 
 interface Props {
   visible: boolean;
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export const PostModal = ({visible, handleCancel, handleLike}: Props) => {
+  const {socket } = useContext(SocketContext);
   const dispatch = useAppDispatch();
   const {selectedPost, comments} = useAppSelector(state => state.post);
   const {account} = useAppSelector(state => state.auth);
@@ -34,6 +36,11 @@ export const PostModal = ({visible, handleCancel, handleLike}: Props) => {
   const handleComment = () => {
     if (text.length > 0 && selectedPost) {
       dispatch(postComment({postId: selectedPost._id, text: text }))
+      socket.emit('getNotification', {
+        text: `${selectedPost.owner.fullName} đã bình luận bài viết của bạn`,
+        receiverId: selectedPost.owner._id,
+        type: 'other'
+      })
       setText('');
     }
   }

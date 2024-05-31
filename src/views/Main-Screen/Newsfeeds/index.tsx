@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {Button, Input, List, Modal, Image, Skeleton} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -14,8 +14,10 @@ import {ListItem} from "@/views/Main-Screen/Newsfeeds/components/ListItem.tsx";
 import {PostModal} from "@/views/Main-Screen/Newsfeeds/components/PostModal.tsx";
 import {selectPost} from "@/store/Slice/post.slice.ts";
 import {getComments} from "@/store/Action/post.action.ts";
+import {SocketContext} from "@/helper/SocketProvider.tsx";
 
 const Newsfeeds = () => {
+  const {socket } = useContext(SocketContext);
   const fileInputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -88,6 +90,11 @@ const Newsfeeds = () => {
 
   const handleLike = (post: IPost) => {
     dispatch(likePost(post._id));
+    socket.emit('getNotification', {
+      text: `${post.owner.fullName} đã thích bài viết của bạn`,
+      receiverId: post.owner._id,
+      type: 'other'
+    })
   }
 
 
@@ -104,7 +111,7 @@ const Newsfeeds = () => {
         <List
           itemLayout="vertical"
           size="large"
-          dataSource={posts}
+          dataSource={posts as IPost[]}
           header={renderHeader()}
           renderItem={(item) => (
             <ListItem

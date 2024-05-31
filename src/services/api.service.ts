@@ -105,4 +105,11 @@ export class ApiService extends RequestService {
     })
     return data
   }
+
+  static async getNotifications() {
+    const {data} = await this.callApi('notification/get-all', {
+      method: 'GET'
+    })
+    return data
+  }
 }
