@@ -106,7 +106,7 @@ const Newsfeeds = () => {
 
 
   return (
-    <div className={'bg-gray-100'}>
+    <div className={'bg-pink-100'}>
       <div className='container flex flex-1 items-center justify-center mb-4'>
         <List
           itemLayout="vertical"

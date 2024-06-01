@@ -6,6 +6,7 @@ import {
   MessageInput,
   MessageList
 } from "@chatscope/chat-ui-kit-react";
+import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import * as React from "react";
 import {useAppDispatch, useAppSelector} from "@/store";
@@ -26,6 +27,7 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import {Delete, User} from "lucide-react";
 import {getAllConversation} from "@/store/Action/app.action.ts";
+import {colors} from "@/constant/Colors.ts";
 
 
 export const ChatBox = () => {
@@ -56,7 +58,8 @@ export const ChatBox = () => {
         socket.emit('join room', conversationId);
       }
     } catch (e) {
-      toast.error('Get message fail')
+      // toast.error('Get message fail')
+      console.log(e)
     }
   }
 
@@ -84,8 +87,10 @@ export const ChatBox = () => {
   }
   return (
     <>
-      {conversationId ? <ChatContainer>
-          <ConversationHeader>
+      {conversationId ? <ChatContainer style={{
+          backgroundColor: colors.primary
+        }}>
+          <ConversationHeader className={'bg-pink-100'}>
             <ChatAvatar>
               <Avatar>
                 <AvatarImage src={receiver?.avatar}/>
@@ -113,7 +118,7 @@ export const ChatBox = () => {
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuGroup>
                     <DropdownMenuItem onClick={handleRemove}>
-                      <Delete size={20} strokeWidth={1} />
+                      <Delete size={20} strokeWidth={1}/>
                       <span className={'ml-2'}>Xóa cuộc trò chuyện</span>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
@@ -124,6 +129,7 @@ export const ChatBox = () => {
           <MessageList>
             {messages.map(message => {
               return <Message
+                className={'bg-pink-200'}
                 // @ts-ignore
                 model={{
                   direction: message.senderId === account._id ? 'outgoing' : 'incoming',

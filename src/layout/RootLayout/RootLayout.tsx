@@ -14,15 +14,8 @@ import {setLogoutAndClearData} from "@/store/Action/auth.action.ts";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -137,7 +130,7 @@ const RootLayout = () => {
           </Dropdown>
         </div>
       </Header>
-      <div className='flex flex-1 flex-col flex-grow min-h-0 overflow-y-auto'>
+      <div className='bg-pink-100 flex flex-1 flex-col flex-grow min-h-0 overflow-y-auto'>
         <Outlet/>
       </div>
     </div>

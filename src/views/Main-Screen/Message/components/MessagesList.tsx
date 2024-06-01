@@ -19,13 +19,13 @@ export function MessagesList() {
     dispatch(getAllConversation())
   }, []);
   return (
-    <div className="flex flex-col gap-2 p-4 pt-0 w-full">
+    <div className="flex flex-col gap-2 p-4 pt-0 w-full mt-3">
       {conversations.map((item) => (
         <button
           key={item._id}
           className={cn(
-            "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
-            (conversationId && conversationId === item._id) && "bg-muted"
+            "flex flex-col items-start bg-white gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-pink-400",
+            (conversationId && conversationId === item._id) && "bg-pink-400"
           )}
           onClick={() => {
             navigate(`/message/${item._id}`)

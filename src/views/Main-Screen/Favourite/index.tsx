@@ -20,7 +20,7 @@ const Favourite = () => {
         dataSource={account.likes as IUser[]}
         renderItem={(item) => (
           <List.Item
-            actions={[<MessageOutlined className={'cursor-pointer'} key="messge" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}/>]}
+            className={'bg-white px-3 rounded'}
           >
             <List.Item.Meta
               avatar={
