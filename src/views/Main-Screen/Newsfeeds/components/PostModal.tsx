@@ -37,7 +37,7 @@ export const PostModal = ({visible, handleCancel, handleLike}: Props) => {
     if (text.length > 0 && selectedPost) {
       dispatch(postComment({postId: selectedPost._id, text: text }))
       socket.emit('getNotification', {
-        text: `${selectedPost.owner.fullName} đã bình luận bài viết của bạn`,
+        text: `${account?.fullName} đã bình luận bài viết của bạn`,
         receiverId: selectedPost.owner._id,
         type: 'other'
       })
