@@ -16,10 +16,10 @@ interface Props {
 
 export const ListItem = ({post, account, handleLike, handleComment}: Props) => {
 
-  const liked = () => post.likes.find(item => item === account?._id)
+  const liked = () => post?.likes?.find(item => item === account?._id)
   return (
     <List.Item
-      className='mt-3 bg-white rounded-2xl'
+      className='mt-3 bg-pink-200 rounded-2xl'
       key={post._id}
       actions={[
         <div

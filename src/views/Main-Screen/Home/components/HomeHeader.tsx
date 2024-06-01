@@ -9,7 +9,7 @@ export const HomeHeader = () => {
     dispatch(filter(values))
   }
   return (
-    <div className='py-3 mt-2 bg-white rounded'>
+    <div className='py-3 mt-2 bg-pink-200 rounded'>
       <Form
         onFinish={handleSearch}
         form={form}

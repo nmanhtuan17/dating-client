@@ -7,6 +7,7 @@ import {
   MessageList
 } from "@chatscope/chat-ui-kit-react";
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import '@/views/Main-Screen/Message/components/styles.css';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import * as React from "react";
 import {useAppDispatch, useAppSelector} from "@/store";
@@ -14,7 +15,6 @@ import {useContext, useEffect, useMemo, useState} from "react";
 import {SocketContext} from "@/helper/SocketProvider.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {ApiService} from "@/services/api.service.ts";
-import {toast} from "react-toastify";
 import {getReceiver} from "@/utils/getReceiver.ts";
 import {setConversation} from "@/store/Slice/notification.silce.ts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -87,10 +87,8 @@ export const ChatBox = () => {
   }
   return (
     <>
-      {conversationId ? <ChatContainer style={{
-          backgroundColor: colors.primary
-        }}>
-          <ConversationHeader className={'bg-pink-100'}>
+      {conversationId ? <ChatContainer className={'my-chat-container'}>
+          <ConversationHeader>
             <ChatAvatar>
               <Avatar>
                 <AvatarImage src={receiver?.avatar}/>
@@ -126,10 +124,10 @@ export const ChatBox = () => {
               </DropdownMenu>
             </ConversationHeader.Actions>
           </ConversationHeader>
-          <MessageList>
+          <MessageList className={'my-chat-container'}>
             {messages.map(message => {
               return <Message
-                className={'bg-pink-200'}
+                className={'my-chat-container'}
                 // @ts-ignore
                 model={{
                   direction: message.senderId === account._id ? 'outgoing' : 'incoming',

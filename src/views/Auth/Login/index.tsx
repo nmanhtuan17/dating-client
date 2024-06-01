@@ -35,7 +35,7 @@ function Login() {
       <MDBContainer fluid>
         <MDBRow className='d-flex justify-content-center align-items-center vh-100'>
           <MDBCol col='12'>
-            <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
+            <MDBCard className='bg-white opacity-90 my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
               <h2 className="fw-bold mb-2 text-center pt-5">Đăng nhập</h2>
               <Formik
                 initialValues={{email: '', password: ''}}

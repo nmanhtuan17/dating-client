@@ -27,7 +27,7 @@ export function Room({
       direction="horizontal"
       className="h-full"
     >
-      <ResizablePanel defaultSize={20} minSize={15} maxSize={20}>
+      <ResizablePanel defaultSize={20} minSize={20} maxSize={20}>
         <div className="flex items-center px-4 py-2">
           <h1 className="text-xl font-bold">Inbox</h1>
         </div>

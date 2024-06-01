@@ -59,10 +59,10 @@ const RootLayout = () => {
 
   return (
     <div className='flex flex-col h-screen'>
-      <Header style={{
+      <Header className={'bg-pink-100'} style={{
         display: 'flex',
         alignItems: 'center',
-        background: colors.background,
+        // background: colors.background,
         padding: '0 26px',
         justifyContent: 'space-between',
         boxShadow: '0px 1px 4px -1px rgba(0, 0, 0, .15)'
@@ -80,7 +80,7 @@ const RootLayout = () => {
                 </div>
               </Badge>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className={'bg-pink-100'}>
               <ScrollArea className={'h-[300px] w-[300px]'}>
                 {notifications &&
                   notifications.map(item => {

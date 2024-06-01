@@ -20,7 +20,7 @@ const Favourite = () => {
         dataSource={account.likes as IUser[]}
         renderItem={(item) => (
           <List.Item
-            className={'bg-white px-3 rounded'}
+            className={'bg-pink-200 px-3 mt-3 rounded'}
           >
             <List.Item.Meta
               avatar={

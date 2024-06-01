@@ -4,6 +4,8 @@ export const antdConfigTheme = {
     colorPrimary: "#d1869b"
   },
   components: {
-
+    Card: {
+      actionsBg: '#fbcfe8',
+    }
   },
 }

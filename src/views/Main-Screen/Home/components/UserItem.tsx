@@ -13,12 +13,16 @@ interface Props {
 export const UserItem = ({user, handleLike, liked, handleSendMessage}: Props) => {
   return (
     <Card
+      className={'bg-pink-200'}
       style={{width: 240, marginTop: 16}}
-      cover={<Image preview={false}
-                    height={240}
-                    className='h-[240px] object-contain'
-                    src={user?.avatar}
-                    fallback="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"/>}
+      cover={
+        <Image
+          preview={false}
+          height={240}
+          className='h-[240px] object-contain'
+          src={user?.avatar}
+          fallback="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"/>
+      }
 
       actions={[
         !liked ?

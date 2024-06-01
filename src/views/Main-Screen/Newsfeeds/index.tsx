@@ -23,7 +23,7 @@ const Newsfeeds = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [images, setImages] = useState<any>();
   const {account} = useAppSelector(state => state.auth);
-  const [content, setContent] = useState<string>();
+  const [content, setContent] = useState<string>('');
   const [active, setActive] = useState(false);
   const {posts} = useAppSelector(state => state.post);
   const dispatch = useAppDispatch();
@@ -36,6 +36,10 @@ const Newsfeeds = () => {
 
   const handleOk = async () => {
     setConfirmLoading(true);
+    if (content.length === 0) {
+      setConfirmLoading(false);
+      return;
+    }
     try {
       const data = await ApiService.uploadPost({
         content, images
@@ -123,6 +127,7 @@ const Newsfeeds = () => {
           )}
         />
         <Modal
+          className='bg-pink-100'
           title={
             <div className='flex flex-col items-center'>
               <div className='text-[18px] font-semibold'>Tạo bài viết</div>

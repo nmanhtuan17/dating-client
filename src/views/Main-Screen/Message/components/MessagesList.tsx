@@ -24,7 +24,7 @@ export function MessagesList() {
         <button
           key={item._id}
           className={cn(
-            "flex flex-col items-start bg-white gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-pink-400",
+            "flex flex-col items-start bg-pink-200 gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-pink-400",
             (conversationId && conversationId === item._id) && "bg-pink-400"
           )}
           onClick={() => {
