@@ -5,14 +5,7 @@ export class RequestService {
   static axiosInstance = axios.create({});
 
   static boot() {
-    const {tokens} = store.getState()?.auth
-    if (tokens.accessToken) {
-      let tokenData = jwtDecode(tokens.accessToken);
-      console.log(tokenData.exp)
-      // if (tokenData.exp! <= ~~(new Date().getTime() / 1000)) {
-      //
-      // }
-    }
+
   }
 
   static async callApi(

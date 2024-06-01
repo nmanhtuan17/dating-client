@@ -51,7 +51,6 @@ const RootLayout = () => {
   const handleLogout = (e) => {
     if (e.key === 'logout') {
       dispatch(setLogoutAndClearData());
-      navigate('/auth/sign-in')
     }
 
   }
