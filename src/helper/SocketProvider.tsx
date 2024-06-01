@@ -11,16 +11,16 @@ const SocketProvider = ({children}) => {
   const {account, isSignedIn} = useAppSelector(state => state.auth);
   const {currentConversation} = useAppSelector(state => state.notification)
   const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   if (isSignedIn) {
-  //     const socket = connect('http://localhost:8080');
-  //     socket.emit('setup', account?._id);
-  //     setSocket(socket);
-  //     return () => {
-  //       socket.close();
-  //     };
-  //   }
-  // }, [isSignedIn]);
+  useEffect(() => {
+    if (isSignedIn) {
+      const socket = connect('http://localhost:8080');
+      socket.emit('setup', account?._id);
+      setSocket(socket);
+      return () => {
+        socket.close();
+      };
+    }
+  }, [isSignedIn]);
 
   useEffect(() => {
     if (!socket && isSignedIn) {
@@ -28,7 +28,7 @@ const SocketProvider = ({children}) => {
       socket.emit('setup', account?._id);
       setSocket(socket);
     }
-  }, []);
+  });
 
   useEffect(() => {
     if (socket) {
